@@ -30,41 +30,26 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  // int _counter = 0;
+  List<ColorObj> ColorObjList = [
+    ColorObj(Colors.red, 'Color 1 Hex Code'),
+    ColorObj(Colors.green, 'Color 2 Hex Code'),
+    ColorObj(Colors.blue, 'Color 3 Hex Code'),
+    ColorObj(Colors.yellow, 'Color 4 Hex Code'),
+    ColorObj(Colors.purple, 'Color 5 Hex Code'),
+  ];
 
-  // void _incrementCounter() {
-  //   setState(() {
-  //     _counter++;
-  //   });
-  // }
+  void _generateColor() {
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: Column(
-          children: [
-            ColorRow(
-              color: Colors.red,
-              colorCode: 'This is some color code',
-            ),
-            ColorRow(
-              color: Colors.green,
-              colorCode: 'This is some color code',
-            ),
-            ColorRow(
-              color: Colors.blue,
-              colorCode: 'This is some color code',
-            ),
-            ColorRow(
-              color: Colors.brown,
-              colorCode: 'This is some color code',
-            ),
-            ColorRow(
-              color: Colors.yellow,
-              colorCode: 'This is some color code',
-            ),
-          ],
+          children: ColorObjList.map(
+                  (e) => new ColorRow(color: e.color, colorCode: e.colorCode))
+              .toList(),
         ),
         bottomNavigationBar:
             BottomNavigationBar(items: const <BottomNavigationBarItem>[
@@ -113,4 +98,11 @@ class ColorRow extends StatelessWidget {
       ),
     );
   }
+}
+
+class ColorObj {
+  ColorObj(this.color, this.colorCode);
+
+  Color color;
+  String colorCode;
 }
