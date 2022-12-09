@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:random_color/random_color.dart';
+import 'package:shake/shake.dart';
 
 void main() {
   runApp(const MyApp());
@@ -40,7 +41,6 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   void _generateColor() {
-    print('Generating Color');
     RandomColor randomColor = RandomColor();
     ColorObjList.asMap().forEach((key, value) {
       var newColor = randomColor.randomColor();
@@ -49,6 +49,22 @@ class _MyHomePageState extends State<MyHomePage> {
         ColorObjList[key].colorCode = newColor.hashCode.toString();
       });
     });
+  }
+
+  void initState() {
+    super.initState();
+    ShakeDetector detector = ShakeDetector.autoStart(
+      onPhoneShake: () {
+        _generateColor();
+      },
+      minimumShakeCount: 1,
+      // shakeSlopTimeMS: 500,
+      // shakeCountResetTime: 1000,
+      shakeThresholdGravity: 1.5,
+    );
+
+    // To close: detector.stopListening();
+    // ShakeDetector.waitForStart() waits for user to call detector.startListening();
   }
 
   @override
