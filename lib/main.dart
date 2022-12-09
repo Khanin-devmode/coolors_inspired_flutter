@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:random_color/random_color.dart';
 
 void main() {
   runApp(const MyApp());
@@ -39,34 +40,32 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   void _generateColor() {
-    setState(() {});
+    print('Generating Color');
+    RandomColor randomColor = RandomColor();
+    ColorObjList.asMap().forEach((key, value) {
+      var newColor = randomColor.randomColor();
+      setState(() {
+        ColorObjList[key].color = newColor;
+        ColorObjList[key].colorCode = newColor.hashCode.toString();
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Column(
-          children: ColorObjList.map(
-                  (e) => new ColorRow(color: e.color, colorCode: e.colorCode))
-              .toList(),
-        ),
-        bottomNavigationBar:
-            BottomNavigationBar(items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+          body: Column(
+            children: ColorObjList.map(
+                    (e) => new ColorRow(color: e.color, colorCode: e.colorCode))
+                .toList(),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Business',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'School',
-          ),
-        ]),
-      ),
+          bottomNavigationBar: Container(
+            height: 80,
+            alignment: Alignment.center,
+            child: GestureDetector(
+                onTap: () => _generateColor(), child: Text('Generate')),
+          )),
     );
   }
 }
