@@ -38,8 +38,8 @@ class _MyHomePageState extends State<MyHomePage> {
     ColorObj(Colors.red, 'Color 1 Hex Code', false),
     ColorObj(Colors.green, 'Color 2 Hex Code', false),
     ColorObj(Colors.blue, 'Color 3 Hex Code', false),
-    ColorObj(Colors.yellow, 'Color 4 Hex Code', false),
-    ColorObj(Colors.purple, 'Color 5 Hex Code', false),
+    ColorObj(Colors.yellow, 'Color 4 Hex Code', true),
+    ColorObj(Colors.purple, 'Color 5 Hex Code', true),
   ];
 
   void _generateColor() {
@@ -50,6 +50,13 @@ class _MyHomePageState extends State<MyHomePage> {
         ColorObjList[key].color = newColor;
         ColorObjList[key].colorCode = newColor.hashCode.toString();
       });
+    });
+  }
+
+  void _toggleLock(ColorObj colorObj) {
+    int index = ColorObjList.indexOf(colorObj);
+    setState(() {
+      ColorObjList[index].isLocked = !ColorObjList[index].isLocked;
     });
   }
 
@@ -74,7 +81,10 @@ class _MyHomePageState extends State<MyHomePage> {
     return SafeArea(
       child: Scaffold(
           body: Column(
-            children: ColorObjList.map((e) => ColorRow(colorObj: e)).toList(),
+            children: ColorObjList.map((obj) => ColorRow(
+                  colorObj: obj,
+                  toggleLock: _toggleLock,
+                )).toList(),
           ),
           bottomNavigationBar: Container(
             height: 80,
@@ -87,12 +97,11 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class ColorRow extends StatelessWidget {
-  ColorRow({
-    Key? key,
-    required this.colorObj,
-  }) : super(key: key);
+  ColorRow({Key? key, required this.colorObj, required this.toggleLock})
+      : super(key: key);
 
-  ColorObj colorObj;
+  final ColorObj colorObj;
+  final Function toggleLock;
 
   @override
   Widget build(BuildContext context) {
@@ -106,10 +115,18 @@ class ColorRow extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Text(colorObj.colorCode),
           ),
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Icon(Icons.lock),
-          )
+          Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                onTap: (() {
+                  toggleLock(colorObj);
+                }),
+                child: Container(
+                  child: colorObj.isLocked
+                      ? const Icon(Icons.lock_outline)
+                      : const Icon(Icons.lock_open),
+                ),
+              ))
         ]),
       ),
     );
