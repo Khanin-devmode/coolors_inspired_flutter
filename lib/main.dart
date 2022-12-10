@@ -38,18 +38,20 @@ class _MyHomePageState extends State<MyHomePage> {
     ColorObj(Colors.red, 'Color 1 Hex Code', false),
     ColorObj(Colors.green, 'Color 2 Hex Code', false),
     ColorObj(Colors.blue, 'Color 3 Hex Code', false),
-    ColorObj(Colors.yellow, 'Color 4 Hex Code', true),
-    ColorObj(Colors.purple, 'Color 5 Hex Code', true),
+    ColorObj(Colors.yellow, 'Color 4 Hex Code', false),
+    ColorObj(Colors.purple, 'Color 5 Hex Code', false),
   ];
 
   void _generateColor() {
     RandomColor randomColor = RandomColor();
     ColorObjList.asMap().forEach((key, value) {
-      var newColor = randomColor.randomColor();
-      setState(() {
-        ColorObjList[key].color = newColor;
-        ColorObjList[key].colorCode = newColor.hashCode.toString();
-      });
+      if (!value.isLocked) {
+        var newColor = randomColor.randomColor();
+        setState(() {
+          ColorObjList[key].color = newColor;
+          ColorObjList[key].colorCode = newColor.hashCode.toString();
+        });
+      }
     });
   }
 
