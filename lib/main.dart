@@ -1,8 +1,7 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:random_color/random_color.dart';
 import 'package:shake/shake.dart';
+import 'package:tinycolor2/tinycolor2.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,11 +34,15 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<ColorObj> ColorObjList = [
-    ColorObj(Colors.red, 'Color 1 Hex Code', false),
-    ColorObj(Colors.green, 'Color 2 Hex Code', false),
-    ColorObj(Colors.blue, 'Color 3 Hex Code', false),
-    ColorObj(Colors.yellow, 'Color 4 Hex Code', false),
-    ColorObj(Colors.purple, 'Color 5 Hex Code', false),
+    ColorObj(Colors.red, Colors.red.toHex8().toUpperCase().substring(2), false),
+    ColorObj(
+        Colors.green, Colors.green.toHex8().toUpperCase().substring(2), false),
+    ColorObj(
+        Colors.blue, Colors.blue.toHex8().toUpperCase().substring(2), false),
+    ColorObj(Colors.yellow, Colors.yellow.toHex8().toUpperCase().substring(2),
+        false),
+    ColorObj(Colors.purple, Colors.purple.toHex8().toUpperCase().substring(2),
+        false),
   ];
 
   void _generateColor() {
@@ -90,10 +93,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 )).toList(),
           ),
           bottomNavigationBar: Container(
-            height: 80,
+            height: 60,
             alignment: Alignment.center,
             child: GestureDetector(
-                onTap: () => _generateColor(), child: Text('Generate')),
+                onTap: () => _generateColor(),
+                child: Container(
+                    alignment: Alignment.center,
+                    width: 100,
+                    height: 50,
+                    color: Colors.grey,
+                    child: Text('Generate'))),
           )),
     );
   }
