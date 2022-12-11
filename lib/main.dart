@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:random_color/random_color.dart';
 import 'package:shake/shake.dart';
-import 'package:tinycolor2/tinycolor2.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,15 +33,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<ColorObj> ColorObjList = [
-    ColorObj(Colors.red, Colors.red.toHex8().toUpperCase().substring(2), false),
-    ColorObj(
-        Colors.green, Colors.green.toHex8().toUpperCase().substring(2), false),
-    ColorObj(
-        Colors.blue, Colors.blue.toHex8().toUpperCase().substring(2), false),
-    ColorObj(Colors.yellow, Colors.yellow.toHex8().toUpperCase().substring(2),
-        false),
-    ColorObj(Colors.purple, Colors.purple.toHex8().toUpperCase().substring(2),
-        false),
+    ColorObj(Colors.red, getHexCode(Colors.red), false),
+    ColorObj(Colors.green, getHexCode(Colors.green), false),
+    ColorObj(Colors.blue, getHexCode(Colors.blue), false),
+    ColorObj(Colors.yellow, getHexCode(Colors.yellow), false),
+    ColorObj(Colors.purple, getHexCode(Colors.purple), false),
   ];
 
   void _generateColor() {
@@ -52,8 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
         var newColor = randomColor.randomColor();
         setState(() {
           ColorObjList[key].color = newColor;
-          ColorObjList[key].colorCode =
-              newColor.hashCode.toRadixString(16).substring(2).toUpperCase();
+          ColorObjList[key].colorCode = getHexCode(newColor);
         });
       }
     });
@@ -151,4 +145,8 @@ class ColorObj {
   Color color;
   String colorCode;
   bool isLocked;
+}
+
+String getHexCode(Color color) {
+  return color.hashCode.toRadixString(16).substring(2).toUpperCase();
 }
