@@ -49,7 +49,8 @@ class _MyHomePageState extends State<MyHomePage> {
         var newColor = randomColor.randomColor();
         setState(() {
           ColorObjList[key].color = newColor;
-          ColorObjList[key].colorCode = newColor.hashCode.toString();
+          ColorObjList[key].colorCode =
+              newColor.hashCode.toRadixString(16).substring(2).toUpperCase();
         });
       }
     });
