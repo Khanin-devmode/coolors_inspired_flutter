@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:random_color/random_color.dart';
 import 'package:shake/shake.dart';
+import 'dart:math';
 
 void main() {
   runApp(const MyApp());
@@ -78,14 +79,63 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var rng = Random();
+
     return SafeArea(
       child: Scaffold(
-          body: Column(
-            children: ColorObjList.map((obj) => ColorRow(
-                  colorObj: obj,
+          // body: Column(
+          //   children: ColorObjList.map((obj) => ColorRow(
+          //         colorObj: obj,
+          //         toggleLock: _toggleLock,
+          //       )).toList(),
+          // ),
+          // body: ListView.builder(
+          //   physics: NeverScrollableScrollPhysics(),
+          //   itemCount: ColorObjList.length,
+          //   itemBuilder: (BuildContext context, int index) {
+          //     return Container(
+          //         height: rng.nextDouble() * 150,
+          //         color: ColorObjList[index].color,
+          //         child: Text(ColorObjList[index].colorCode));
+          //   },
+          // ),
+          body: ReorderableListView.builder(
+            onReorder: (oldIndex, newIndex) {
+              setState(() {
+                if (oldIndex < newIndex) {
+                  newIndex -= 1;
+                }
+                final ColorObj item = ColorObjList.removeAt(oldIndex);
+                ColorObjList.insert(newIndex, item);
+              });
+            },
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: ColorObjList.length,
+            itemBuilder: (BuildContext context, int index) {
+              return ColorRow(
+                  colorObj: ColorObjList[index],
                   toggleLock: _toggleLock,
-                )).toList(),
+                  key: Key('$index'));
+            },
           ),
+
+          // body: ReorderableListView(
+          //   children: <Widget>[
+          //     for (int i = 0; i < ColorObjList.length; i += 1)
+          //       ColorRow(
+          //           key: Key('$i'),
+          //           colorObj: ColorObjList[i],
+          //           toggleLock: _toggleLock)
+          //   ],
+          //   onReorder: ((oldIndex, newIndex) {}),
+          // ),
+          // body: GridView.count(
+          //   crossAxisCount: 2,
+          //   children: ColorObjList.map((obj) => ColorRow(
+          //         colorObj: obj,
+          //         toggleLock: _toggleLock,
+          //       )).toList(),
+          // ),
           bottomNavigationBar: Container(
             height: 60,
             alignment: Alignment.center,
@@ -102,6 +152,43 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
+// class ColorRow extends StatelessWidget {
+//   ColorRow({Key? key, required this.colorObj, required this.toggleLock})
+//       : super(key: key);
+
+//   final ColorObj colorObj;
+//   final Function toggleLock;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Flexible(
+//       child: Container(
+//         constraints: const BoxConstraints.expand(),
+//         color: colorObj.color,
+//         child:
+//             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+//           Padding(
+//             padding: const EdgeInsets.all(8.0),
+//             child: Text(colorObj.colorCode),
+//           ),
+//           Padding(
+//               padding: const EdgeInsets.all(8.0),
+//               child: GestureDetector(
+//                 onTap: (() {
+//                   toggleLock(colorObj);
+//                 }),
+//                 child: Container(
+//                   child: colorObj.isLocked
+//                       ? const Icon(Icons.lock_outline)
+//                       : const Icon(Icons.lock_open),
+//                 ),
+//               ))
+//         ]),
+//       ),
+//     );
+//   }
+// }
+
 class ColorRow extends StatelessWidget {
   ColorRow({Key? key, required this.colorObj, required this.toggleLock})
       : super(key: key);
@@ -111,30 +198,27 @@ class ColorRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: Container(
-        constraints: const BoxConstraints.expand(),
-        color: colorObj.color,
-        child:
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Padding(
+    return Container(
+      height: 150,
+      color: colorObj.color,
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(colorObj.colorCode),
+        ),
+        Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(colorObj.colorCode),
-          ),
-          Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: GestureDetector(
-                onTap: (() {
-                  toggleLock(colorObj);
-                }),
-                child: Container(
-                  child: colorObj.isLocked
-                      ? const Icon(Icons.lock_outline)
-                      : const Icon(Icons.lock_open),
-                ),
-              ))
-        ]),
-      ),
+            child: GestureDetector(
+              onTap: (() {
+                toggleLock(colorObj);
+              }),
+              child: Container(
+                child: colorObj.isLocked
+                    ? const Icon(Icons.lock_outline)
+                    : const Icon(Icons.lock_open),
+              ),
+            ))
+      ]),
     );
   }
 }
