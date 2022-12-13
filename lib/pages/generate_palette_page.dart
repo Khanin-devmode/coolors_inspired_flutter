@@ -9,19 +9,6 @@ import 'package:coolors_inspired_flutter/app_logic.dart';
 class GeneratePalettePage extends ConsumerWidget {
   GeneratePalettePage({super.key});
 
-  // void _generateColor() {
-  //   RandomColor randomColor = RandomColor();
-  //   ColorObjList.asMap().forEach((key, value) {
-  //     if (!value.isLocked) {
-  //       var newColor = randomColor.randomColor();
-  //       // setState(() {
-  //       //   ColorObjList[key].color = newColor;
-  //       //   ColorObjList[key].colorCode = getHexCode(newColor);
-  //       // });
-  //     }
-  //   });
-  // }
-
   void _toggleLock(ColorObj colorObj) {
     // int index = ColorObjList.indexOf(colorObj);
     // setState(() {
@@ -65,13 +52,7 @@ class GeneratePalettePage extends ConsumerWidget {
           // ),
           body: ReorderableListView.builder(
             onReorder: (oldIndex, newIndex) {
-              // setState(() {
-              //   if (oldIndex < newIndex) {
-              //     newIndex -= 1;
-              //   }
-              //   final ColorObj item = ColorObjList.removeAt(oldIndex);
-              //   ColorObjList.insert(newIndex, item);
-              // });
+              ref.read(colorObjProvider.notifier).reorder(oldIndex, newIndex);
             },
             physics: NeverScrollableScrollPhysics(),
             itemCount: colorObj.length,
@@ -82,24 +63,6 @@ class GeneratePalettePage extends ConsumerWidget {
                   key: Key('$index'));
             },
           ),
-
-          // body: ReorderableListView(
-          //   children: <Widget>[
-          //     for (int i = 0; i < ColorObjList.length; i += 1)
-          //       ColorRow(
-          //           key: Key('$i'),
-          //           colorObj: ColorObjList[i],
-          //           toggleLock: _toggleLock)
-          //   ],
-          //   onReorder: ((oldIndex, newIndex) {}),
-          // ),
-          // body: GridView.count(
-          //   crossAxisCount: 2,
-          //   children: ColorObjList.map((obj) => ColorRow(
-          //         colorObj: obj,
-          //         toggleLock: _toggleLock,
-          //       )).toList(),
-          // ),
           bottomNavigationBar: Container(
             height: 60,
             alignment: Alignment.center,

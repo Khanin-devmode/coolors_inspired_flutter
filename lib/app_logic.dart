@@ -31,6 +31,20 @@ class ColorObjNotifier extends StateNotifier<List<ColorObj>> {
   }
 
   void toggleLock() {}
+
+  void reorder(oldIndex, newIndex) {
+    if (oldIndex < newIndex) {
+      newIndex -= 1;
+    }
+
+    var colorObjList = state;
+    final ColorObj item = colorObjList.removeAt(oldIndex);
+    colorObjList.insert(newIndex, item);
+
+    state = colorObjList;
+    // final ColorObj item = ColorObjList.removeAt(oldIndex);
+    // ColorObjList.insert(newIndex, item);
+  }
 }
 
 final colorObjProvider =
