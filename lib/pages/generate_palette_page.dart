@@ -4,14 +4,7 @@ import 'package:coolors_inspired_flutter/models.dart';
 import 'package:coolors_inspired_flutter/app_logic.dart';
 
 class GeneratePalettePage extends ConsumerWidget {
-  GeneratePalettePage({super.key});
-
-  void _toggleLock(ColorObj colorObj) {
-    // int index = ColorObjList.indexOf(colorObj);
-    // setState(() {
-    //   ColorObjList[index].isLocked = !ColorObjList[index].isLocked;
-    // });
-  }
+  const GeneratePalettePage({super.key});
 
   // void initState() {
   //   super.initState();
@@ -31,22 +24,6 @@ class GeneratePalettePage extends ConsumerWidget {
 
     return SafeArea(
       child: Scaffold(
-          // body: Column(
-          //   children: ColorObjList.map((obj) => ColorRow(
-          //         colorObj: obj,
-          //         toggleLock: _toggleLock,
-          //       )).toList(),
-          // ),
-          // body: ListView.builder(
-          //   physics: NeverScrollableScrollPhysics(),
-          //   itemCount: ColorObjList.length,
-          //   itemBuilder: (BuildContext context, int index) {
-          //     return Container(
-          //         height: rng.nextDouble() * 150,
-          //         color: ColorObjList[index].color,
-          //         child: Text(ColorObjList[index].colorCode));
-          //   },
-          // ),
           body: ReorderableListView.builder(
             onReorder: (oldIndex, newIndex) {
               ref.read(colorObjProvider.notifier).reorder(oldIndex, newIndex);
@@ -59,7 +36,6 @@ class GeneratePalettePage extends ConsumerWidget {
                   toggleLock: () => ref
                       .read(colorObjProvider.notifier)
                       .toggleLock(colorObj[index]),
-                  // toggleLock: () => print('this is from list'),
                   key: Key('$index'));
             },
           ),
@@ -81,7 +57,7 @@ class GeneratePalettePage extends ConsumerWidget {
 }
 
 class ColorRow extends StatelessWidget {
-  ColorRow({Key? key, required this.colorObj, required this.toggleLock})
+  const ColorRow({Key? key, required this.colorObj, required this.toggleLock})
       : super(key: key);
 
   final ColorObj colorObj;

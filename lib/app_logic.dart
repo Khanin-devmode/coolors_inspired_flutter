@@ -39,9 +39,6 @@ class ColorObjNotifier extends StateNotifier<List<ColorObj>> {
         .toList();
 
     state = newList;
-    print('this is from app logic.');
-
-    //state = [state..., ]
   }
 
   void reorder(oldIndex, newIndex) {
@@ -54,8 +51,6 @@ class ColorObjNotifier extends StateNotifier<List<ColorObj>> {
     colorObjList.insert(newIndex, item);
 
     state = colorObjList;
-    // final ColorObj item = ColorObjList.removeAt(oldIndex);
-    // ColorObjList.insert(newIndex, item);
   }
 }
 
