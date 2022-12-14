@@ -30,7 +30,19 @@ class ColorObjNotifier extends StateNotifier<List<ColorObj>> {
     state = newColorList;
   }
 
-  void toggleLock() {}
+  void toggleLock(ColorObj colorObj) {
+    // state[i].isLocked = !state[i].isLocked;
+    List<ColorObj> newList = state
+        .map((stateObj) => stateObj == colorObj
+            ? ColorObj(stateObj.color, stateObj.colorCode, !stateObj.isLocked)
+            : stateObj)
+        .toList();
+
+    state = newList;
+    print('this is from app logic.');
+
+    //state = [state..., ]
+  }
 
   void reorder(oldIndex, newIndex) {
     if (oldIndex < newIndex) {

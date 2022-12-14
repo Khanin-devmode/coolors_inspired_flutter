@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:random_color/random_color.dart';
-import 'package:shake/shake.dart';
-import 'dart:math';
 import 'package:coolors_inspired_flutter/models.dart';
 import 'package:coolors_inspired_flutter/app_logic.dart';
 
@@ -59,7 +56,10 @@ class GeneratePalettePage extends ConsumerWidget {
             itemBuilder: (BuildContext context, int index) {
               return ColorRow(
                   colorObj: colorObj[index],
-                  toggleLock: _toggleLock,
+                  toggleLock: () => ref
+                      .read(colorObjProvider.notifier)
+                      .toggleLock(colorObj[index]),
+                  // toggleLock: () => print('this is from list'),
                   key: Key('$index'));
             },
           ),
@@ -98,17 +98,16 @@ class ColorRow extends StatelessWidget {
           child: Text(colorObj.colorCode),
         ),
         Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: GestureDetector(
-              onTap: (() {
-                toggleLock(colorObj);
-              }),
-              child: Container(
-                child: colorObj.isLocked
-                    ? const Icon(Icons.lock_outline)
-                    : const Icon(Icons.lock_open),
-              ),
-            ))
+          padding: const EdgeInsets.all(8.0),
+          child: GestureDetector(
+            onTap: () => toggleLock(),
+            child: Container(
+              child: colorObj.isLocked
+                  ? const Icon(Icons.lock_outline)
+                  : const Icon(Icons.lock_open),
+            ),
+          ),
+        ),
       ]),
     );
   }
