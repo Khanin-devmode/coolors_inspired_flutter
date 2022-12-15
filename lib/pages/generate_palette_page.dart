@@ -42,15 +42,39 @@ class GeneratePalettePage extends ConsumerWidget {
           bottomNavigationBar: Container(
             height: 60,
             alignment: Alignment.center,
-            child: GestureDetector(
-                onTap: (() =>
-                    ref.read(colorObjProvider.notifier).generateColor()),
-                child: Container(
-                    alignment: Alignment.center,
-                    width: 100,
-                    height: 50,
-                    color: Colors.grey,
-                    child: Text('Generate'))),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    child: Row(
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.arrow_back),
+                          onPressed: () =>
+                              ref.read(colorObjProvider.notifier).undo(),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.arrow_forward),
+                          onPressed: () =>
+                              ref.read(colorObjProvider.notifier).redo(),
+                        ),
+                      ],
+                    ),
+                  ),
+                  GestureDetector(
+                      onTap: (() =>
+                          ref.read(colorObjProvider.notifier).generateColor()),
+                      child: Container(
+                          alignment: Alignment.center,
+                          width: 100,
+                          height: 50,
+                          color: Colors.grey,
+                          child: Text('Generate'))),
+                ],
+              ),
+            ),
           )),
     );
   }

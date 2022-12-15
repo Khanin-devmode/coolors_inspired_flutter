@@ -3,7 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'models.dart';
 import 'package:random_color/random_color.dart';
 
-class ColorObjNotifier extends StateNotifier<List<ColorObj>> {
+class ColorObjNotifier extends StateNotifier<List<ColorObj>>
+    with HistoryMixin<List<ColorObj>> {
   ColorObjNotifier()
       : super([
           ColorObj(Colors.red, getHexCode(Colors.red), false),
@@ -52,8 +53,6 @@ class ColorObjNotifier extends StateNotifier<List<ColorObj>> {
 
     state = colorObjList;
   }
-
-  void undo(int index) {}
 }
 
 final colorObjProvider =
@@ -65,17 +64,61 @@ final colorObjProvider =
 
 // final historyProvider = Provider<List<List<ColorObj>>>((ref) => [[]]);
 
-class HistoryNotifier extends StateNotifier<List<List<ColorObj>>> {
-  HistoryNotifier() : super([[]]);
+// class HistoryNotifier extends StateNotifier<List<List<ColorObj>>> {
+//   HistoryNotifier() : super([[]]);
 
-  void addHistory(List<ColorObj> colorList) {
-    state = [...state, colorList];
+//   void addHistory(List<ColorObj> colorList) {
+//     state = [...state, colorList];
+//   }
+// }
+
+// final historyProvider =
+//     StateNotifierProvider<HistoryNotifier, List<List<ColorObj>>>(
+//   (ref) {
+//     return HistoryNotifier();
+//   },
+// );
+
+mixin HistoryMixin<T> on StateNotifier<T> {
+  List<T> _history = [];
+
+  int _undoIndex = 0;
+
+  bool get _canUndo => _undoIndex + 1 < _history.length;
+
+  bool get _canRedo => _undoIndex > 0;
+
+  @override
+  set state(T value) {
+    _clearRedoHistory();
+    _history.insert(0, value);
+    super.state = value;
+  }
+
+  void undo() {
+    if (_canUndo) {
+      super.state = _history[++_undoIndex];
+    }
+  }
+
+  void redo() {
+    if (_canRedo) {
+      super.state = _history[--_undoIndex];
+    }
+  }
+
+  void reset() {
+    if (_history.isNotEmpty) {
+      final initialState = _history.last;
+      _history.clear();
+      super.state = initialState;
+      _history.insert(0, initialState);
+      _undoIndex = 0;
+    }
+  }
+
+  void _clearRedoHistory() {
+    _history = _history.sublist(_undoIndex, _history.length);
+    _undoIndex = 0;
   }
 }
-
-final historyProvider =
-    StateNotifierProvider<HistoryNotifier, List<List<ColorObj>>>(
-  (ref) {
-    return HistoryNotifier();
-  },
-);
