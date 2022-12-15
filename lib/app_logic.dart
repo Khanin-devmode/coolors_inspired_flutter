@@ -52,11 +52,30 @@ class ColorObjNotifier extends StateNotifier<List<ColorObj>> {
 
     state = colorObjList;
   }
+
+  void undo(int index) {}
 }
 
 final colorObjProvider =
     StateNotifierProvider<ColorObjNotifier, List<ColorObj>>(
   (ref) {
     return ColorObjNotifier();
+  },
+);
+
+// final historyProvider = Provider<List<List<ColorObj>>>((ref) => [[]]);
+
+class HistoryNotifier extends StateNotifier<List<List<ColorObj>>> {
+  HistoryNotifier() : super([[]]);
+
+  void addHistory(List<ColorObj> colorList) {
+    state = [...state, colorList];
+  }
+}
+
+final historyProvider =
+    StateNotifierProvider<HistoryNotifier, List<List<ColorObj>>>(
+  (ref) {
+    return HistoryNotifier();
   },
 );
