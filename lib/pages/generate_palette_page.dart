@@ -45,33 +45,51 @@ class GeneratePalettePage extends ConsumerWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
+                  Expanded(
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        IconButton(
-                          icon: Icon(Icons.arrow_back),
-                          onPressed: () =>
-                              ref.read(colorObjProvider.notifier).undo(),
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.arrow_forward),
-                          onPressed: () =>
-                              ref.read(colorObjProvider.notifier).redo(),
+                        Container(
+                          child: Row(
+                            children: [
+                              IconButton(
+                                icon: Icon(Icons.arrow_back),
+                                onPressed: () =>
+                                    ref.read(colorObjProvider.notifier).undo(),
+                              ),
+                              IconButton(
+                                icon: Icon(Icons.arrow_forward),
+                                onPressed: () =>
+                                    ref.read(colorObjProvider.notifier).redo(),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
                   ),
-                  GestureDetector(
+                  Expanded(
+                    child: GestureDetector(
                       onTap: (() =>
                           ref.read(colorObjProvider.notifier).generateColor()),
                       child: Container(
-                          alignment: Alignment.center,
-                          width: 100,
-                          height: 50,
-                          color: Colors.grey,
-                          child: Text('Generate'))),
+                        alignment: Alignment.center,
+                        width: 100,
+                        height: 50,
+                        child: Text('Generate'),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      alignment: Alignment.centerRight,
+                      child: IconButton(
+                        icon: Icon(Icons.more_vert),
+                        onPressed: () => {},
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),
