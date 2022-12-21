@@ -86,32 +86,7 @@ class GeneratePalettePage extends ConsumerWidget {
                       alignment: Alignment.centerRight,
                       child: IconButton(
                         icon: Icon(Icons.more_vert),
-                        onPressed: () => {
-                          showModalBottomSheet(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return Container(
-                                  height: 200,
-                                  color: Colors.amber,
-                                  child: Center(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: <Widget>[
-                                        const Text('Modal BottomSheet'),
-                                        ElevatedButton(
-                                          child:
-                                              const Text('Close BottomSheet'),
-                                          onPressed: () =>
-                                              Navigator.pop(context),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              })
-                        },
+                        onPressed: () => showBottomMenu(context),
                       ),
                     ),
                   )
@@ -120,6 +95,30 @@ class GeneratePalettePage extends ConsumerWidget {
             ),
           )),
     );
+  }
+
+  Future<dynamic> showBottomMenu(BuildContext context) {
+    return showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            height: 200,
+            color: Colors.amber,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  const Text('Modal BottomSheet'),
+                  ElevatedButton(
+                    child: const Text('Close BottomSheet'),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
   }
 }
 
