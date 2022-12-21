@@ -16,6 +16,8 @@ class MyApp extends StatelessWidget {
       title: 'Coolors Inspired',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        bottomSheetTheme:
+            BottomSheetThemeData(backgroundColor: Colors.transparent),
       ),
       home: GeneratePalettePage(),
     );

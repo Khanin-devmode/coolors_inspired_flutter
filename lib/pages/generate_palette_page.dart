@@ -102,8 +102,10 @@ class GeneratePalettePage extends ConsumerWidget {
         context: context,
         builder: (BuildContext context) {
           return Container(
+            decoration: BoxDecoration(
+                color: Colors.amber,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(12))),
             height: 200,
-            color: Colors.amber,
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
