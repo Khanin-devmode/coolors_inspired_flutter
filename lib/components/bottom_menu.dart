@@ -12,24 +12,41 @@ Future<dynamic> showBottomMenu(BuildContext context) {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
+              children: const <Widget>[
                 // const Text('Modal BottomSheet'),
                 // ElevatedButton(
                 //   child: const Text('Close BottomSheet'),
                 //   onPressed: () => Navigator.pop(context),
                 // ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [Icon(Icons.ios_share), Text('Export')],
+                MenuItem(
+                  iconData: Icons.ios_share,
+                  label: 'Export',
                 ),
                 Divider(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [Icon(Icons.delete), Text('Export')],
-                ),
+                MenuItem(iconData: Icons.delete, label: 'delete'),
+                Divider(),
               ],
             ),
           ),
         );
       });
+}
+
+class MenuItem extends StatelessWidget {
+  const MenuItem({Key? key, required this.iconData, required this.label})
+      : super(key: key);
+
+  final IconData iconData;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [Icon(iconData), Text(label)],
+      ),
+    );
+  }
 }
