@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:coolors_inspired_flutter/models.dart';
 import 'package:coolors_inspired_flutter/app_logic.dart';
+import '../components/bottom_menu.dart';
 
 class GeneratePalettePage extends ConsumerWidget {
   const GeneratePalettePage({super.key});
@@ -101,32 +102,6 @@ class GeneratePalettePage extends ConsumerWidget {
             ),
           )),
     );
-  }
-
-  Future<dynamic> showBottomMenu(BuildContext context) {
-    return showModalBottomSheet(
-        context: context,
-        builder: (BuildContext context) {
-          return Container(
-            decoration: BoxDecoration(
-                color: Colors.amber,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(12))),
-            height: 200,
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  const Text('Modal BottomSheet'),
-                  ElevatedButton(
-                    child: const Text('Close BottomSheet'),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                ],
-              ),
-            ),
-          );
-        });
   }
 }
 
