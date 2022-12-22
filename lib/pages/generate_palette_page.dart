@@ -82,12 +82,18 @@ class GeneratePalettePage extends ConsumerWidget {
                     ),
                   ),
                   Expanded(
-                    child: Container(
-                      alignment: Alignment.centerRight,
-                      child: IconButton(
-                        icon: Icon(Icons.more_vert),
-                        onPressed: () => showBottomMenu(context),
-                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.more_vert),
+                          onPressed: () => showBottomMenu(context),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.menu),
+                          onPressed: () => showBottomMenu(context),
+                        ),
+                      ],
                     ),
                   )
                 ],
