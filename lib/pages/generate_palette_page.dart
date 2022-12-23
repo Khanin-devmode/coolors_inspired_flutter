@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:coolors_inspired_flutter/models.dart';
 import 'package:coolors_inspired_flutter/app_logic.dart';
 import '../components/bottom_menu.dart';
+import 'package:tinycolor2/tinycolor2.dart';
 
 class GeneratePalettePage extends ConsumerWidget {
   const GeneratePalettePage({super.key});
@@ -120,14 +121,16 @@ class ColorRow extends StatelessWidget {
       color: colorObj.color,
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(12.0),
           child: Text(
             colorObj.colorCode,
-            style: kColorLabelStyle,
+            style: colorObj.color.isLight
+                ? kColorDarkLabelStyle
+                : kColorLightLabelStyle,
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(12.0),
           child: GestureDetector(
             onTap: () => toggleLock(),
             child: Container(
