@@ -1,3 +1,4 @@
+import 'package:coolors_inspired_flutter/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:coolors_inspired_flutter/models.dart';
@@ -120,7 +121,10 @@ class ColorRow extends StatelessWidget {
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(colorObj.colorCode),
+          child: Text(
+            colorObj.colorCode,
+            style: kColorLabelStyle,
+          ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
