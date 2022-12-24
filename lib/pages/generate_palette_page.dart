@@ -27,20 +27,30 @@ class GeneratePalettePage extends ConsumerWidget {
 
     return SafeArea(
       child: Scaffold(
-          body: ReorderableListView.builder(
-            onReorder: (oldIndex, newIndex) {
-              ref.read(colorObjProvider.notifier).reorder(oldIndex, newIndex);
-            },
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: colorObj.length,
-            itemBuilder: (BuildContext context, int index) {
-              return ColorRow(
-                  colorObj: colorObj[index],
+          // body: ReorderableListView.builder(
+          //   onReorder: (oldIndex, newIndex) {
+          //     ref.read(colorObjProvider.notifier).reorder(oldIndex, newIndex);
+          //   },
+          //   physics: NeverScrollableScrollPhysics(),
+          //   itemCount: colorObj.length,
+          //   itemBuilder: (BuildContext context, int index) {
+          //     return ColorRow(
+          //         colorObj: colorObj[index],
+          // toggleLock: () => ref
+          //     .read(colorObjProvider.notifier)
+          //     .toggleLock(colorObj[index]),
+          //         key: Key('$index'));
+          //   },
+          // ),
+          body: Column(
+            children: List.generate(
+              colorObj.length,
+              (i) => ColorRow(
+                  colorObj: colorObj[i],
                   toggleLock: () => ref
                       .read(colorObjProvider.notifier)
-                      .toggleLock(colorObj[index]),
-                  key: Key('$index'));
-            },
+                      .toggleLock(colorObj[i])),
+            ),
           ),
           bottomNavigationBar: Container(
             height: 60,
@@ -116,31 +126,33 @@ class ColorRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 150,
-      color: colorObj.color,
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Text(
-            colorObj.colorCode,
-            style: colorObj.color.isLight
-                ? kColorDarkLabelStyle
-                : kColorLightLabelStyle,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: GestureDetector(
-            onTap: () => toggleLock(),
-            child: Container(
-              child: colorObj.isLocked
-                  ? const Icon(Icons.lock_outline)
-                  : const Icon(Icons.lock_open),
+    return Expanded(
+      child: Container(
+        color: colorObj.color,
+        child:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Text(
+              colorObj.colorCode,
+              style: colorObj.color.isLight
+                  ? kColorDarkLabelStyle
+                  : kColorLightLabelStyle,
             ),
           ),
-        ),
-      ]),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: GestureDetector(
+              onTap: () => toggleLock(),
+              child: Container(
+                child: colorObj.isLocked
+                    ? const Icon(Icons.lock_outline)
+                    : const Icon(Icons.lock_open),
+              ),
+            ),
+          ),
+        ]),
+      ),
     );
   }
 }
