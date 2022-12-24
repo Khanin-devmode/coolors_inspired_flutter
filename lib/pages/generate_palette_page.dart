@@ -132,7 +132,7 @@ class ColorRow extends StatelessWidget {
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.all(18.0),
             child: Text(
               colorObj.colorCode,
               style: colorObj.color.isLight
@@ -145,9 +145,21 @@ class ColorRow extends StatelessWidget {
             child: GestureDetector(
               onTap: () => toggleLock(),
               child: Container(
+                width: 34,
+                alignment: Alignment.center,
                 child: colorObj.isLocked
-                    ? const Icon(Icons.lock_outline)
-                    : const Icon(Icons.lock_open),
+                    ? Icon(
+                        Icons.lock,
+                        color: colorObj.color.isLight
+                            ? kDarkLabelClr
+                            : kWhiteLabelClr,
+                        size: 34,
+                      )
+                    : const Icon(
+                        Icons.lock_open_rounded,
+                        color: Colors.white70,
+                        size: 28,
+                      ),
               ),
             ),
           ),
