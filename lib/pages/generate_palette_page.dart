@@ -1,3 +1,4 @@
+import 'package:coolors_inspired_flutter/components/color_menu.dart';
 import 'package:coolors_inspired_flutter/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -127,43 +128,46 @@ class ColorRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Container(
-        color: colorObj.color,
-        child:
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: Text(
-              colorObj.colorCode,
-              style: colorObj.color.isLight
-                  ? kColorDarkLabelStyle
-                  : kColorLightLabelStyle,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: GestureDetector(
-              onTap: () => toggleLock(),
-              child: Container(
-                width: 34,
-                alignment: Alignment.center,
-                child: colorObj.isLocked
-                    ? Icon(
-                        Icons.lock,
-                        color: colorObj.color.isLight
-                            ? kDarkLabelClr
-                            : kWhiteLabelClr,
-                        size: 34,
-                      )
-                    : const Icon(
-                        Icons.lock_open_rounded,
-                        color: Colors.white70,
-                        size: 28,
-                      ),
+      child: GestureDetector(
+        onTap: () => showColorMenu(context),
+        child: Container(
+          color: colorObj.color,
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: Text(
+                colorObj.colorCode,
+                style: colorObj.color.isLight
+                    ? kColorDarkLabelStyle
+                    : kColorLightLabelStyle,
               ),
             ),
-          ),
-        ]),
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: GestureDetector(
+                onTap: () => toggleLock(),
+                child: Container(
+                  width: 34,
+                  alignment: Alignment.center,
+                  child: colorObj.isLocked
+                      ? Icon(
+                          Icons.lock,
+                          color: colorObj.color.isLight
+                              ? kDarkLabelClr
+                              : kWhiteLabelClr,
+                          size: 34,
+                        )
+                      : const Icon(
+                          Icons.lock_open_rounded,
+                          color: Colors.white70,
+                          size: 28,
+                        ),
+                ),
+              ),
+            ),
+          ]),
+        ),
       ),
     );
   }
