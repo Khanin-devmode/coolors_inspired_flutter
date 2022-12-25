@@ -91,7 +91,10 @@ class GeneratePalettePage extends ConsumerWidget {
                         alignment: Alignment.center,
                         width: 100,
                         height: 50,
-                        child: Text('Generate'),
+                        child: Text(
+                          'Generate',
+                          style: kGenLabel,
+                        ),
                       ),
                     ),
                   ),
@@ -100,7 +103,7 @@ class GeneratePalettePage extends ConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         IconButton(
-                          icon: Icon(Icons.more_vert),
+                          icon: Icon(Icons.more_horiz),
                           onPressed: () => showBottomMenu(context),
                         ),
                         IconButton(
