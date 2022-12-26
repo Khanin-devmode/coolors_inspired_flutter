@@ -121,4 +121,12 @@ mixin HistoryMixin<T> on StateNotifier<T> {
     _history = _history.sublist(_undoIndex, _history.length);
     _undoIndex = 0;
   }
+
+  bool getCanRedo() {
+    return _canRedo;
+  }
+
+  bool getCanUndo() {
+    return _canUndo;
+  }
 }

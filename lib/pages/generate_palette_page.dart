@@ -69,13 +69,23 @@ class GeneratePalettePage extends ConsumerWidget {
                             children: [
                               IconButton(
                                 icon: Icon(Icons.arrow_back),
-                                onPressed: () =>
-                                    ref.read(colorObjProvider.notifier).undo(),
+                                onPressed: ref
+                                        .read(colorObjProvider.notifier)
+                                        .getCanUndo()
+                                    ? () => ref
+                                        .read(colorObjProvider.notifier)
+                                        .undo()
+                                    : null,
                               ),
                               IconButton(
                                 icon: Icon(Icons.arrow_forward),
-                                onPressed: () =>
-                                    ref.read(colorObjProvider.notifier).redo(),
+                                onPressed: ref
+                                        .read(colorObjProvider.notifier)
+                                        .getCanRedo()
+                                    ? () => ref
+                                        .read(colorObjProvider.notifier)
+                                        .redo()
+                                    : null,
                               ),
                             ],
                           ),
