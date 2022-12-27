@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Coolors Inspired',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        fontFamily: 'Poppins',
         bottomSheetTheme:
             BottomSheetThemeData(backgroundColor: Colors.transparent),
       ),
