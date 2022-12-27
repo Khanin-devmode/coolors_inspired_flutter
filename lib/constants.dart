@@ -7,4 +7,5 @@ const kColorDarkLabelStyle =
     TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: kDarkLabelClr);
 const kColorLightLabelStyle =
     TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: kWhiteLabelClr);
-const kGenLabel = TextStyle(fontSize: 16);
+const kGenLabel =
+    TextStyle(fontSize: 15, fontWeight: FontWeight.w500, letterSpacing: 0.5);
