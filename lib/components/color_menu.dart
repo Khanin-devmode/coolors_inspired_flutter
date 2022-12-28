@@ -1,3 +1,4 @@
+import 'package:coolors_inspired_flutter/constants.dart';
 import 'package:flutter/material.dart';
 
 Future<dynamic> showColorMenu(BuildContext context) {
@@ -36,7 +37,7 @@ Future<dynamic> showColorMenu(BuildContext context) {
               ),
               Divider(),
               MenuItem(
-                iconData: Icons.save,
+                iconData: Icons.favorite_border,
                 label: 'Save Color',
                 hasNavigation: false,
               ),
@@ -51,7 +52,12 @@ Future<dynamic> showColorMenu(BuildContext context) {
                 padding: const EdgeInsets.all(12.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [Text('Cancel')],
+                  children: [
+                    Text(
+                      'Cancel',
+                      style: kGenLabel,
+                    )
+                  ],
                 ),
               ),
               SizedBox(
