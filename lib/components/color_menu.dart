@@ -1,5 +1,6 @@
 import 'package:coolors_inspired_flutter/constants.dart';
 import 'package:flutter/material.dart';
+import 'menu_item.dart';
 
 Future<dynamic> showColorMenu(BuildContext context) {
   return showModalBottomSheet(
@@ -18,31 +19,31 @@ Future<dynamic> showColorMenu(BuildContext context) {
               //   child: const Text('Close BottomSheet'),
               //   onPressed: () => Navigator.pop(context),
               // ),
-              MenuItem(
+              AppMenuItem(
                 iconData: Icons.colorize,
                 label: 'Pick Colors',
                 hasNavigation: true,
               ),
               Divider(),
-              MenuItem(
+              AppMenuItem(
                 iconData: Icons.add,
                 label: 'Add Colors',
                 hasNavigation: false,
               ),
               Divider(),
-              MenuItem(
+              AppMenuItem(
                 iconData: Icons.remove,
                 label: 'Remove Color',
                 hasNavigation: false,
               ),
               Divider(),
-              MenuItem(
+              AppMenuItem(
                 iconData: Icons.favorite_border,
                 label: 'Save Color',
                 hasNavigation: false,
               ),
               Divider(),
-              MenuItem(
+              AppMenuItem(
                 iconData: Icons.copy,
                 label: 'Copy Color',
                 hasNavigation: false,
@@ -67,46 +68,4 @@ Future<dynamic> showColorMenu(BuildContext context) {
           ),
         );
       });
-}
-
-class MenuItem extends StatelessWidget {
-  const MenuItem(
-      {Key? key,
-      required this.iconData,
-      required this.label,
-      required this.hasNavigation})
-      : super(key: key);
-
-  final IconData iconData;
-  final String label;
-  final bool hasNavigation;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            child: Row(
-              children: [
-                Icon(iconData),
-                SizedBox(width: 16),
-                Text(label),
-              ],
-            ),
-          ),
-          Container(
-            child: hasNavigation
-                ? Icon(
-                    Icons.arrow_forward,
-                    color: Colors.grey,
-                  )
-                : null,
-          ),
-        ],
-      ),
-    );
-  }
 }
