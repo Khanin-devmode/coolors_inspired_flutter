@@ -1,5 +1,6 @@
 import 'package:coolors_inspired_flutter/components/color_menu.dart';
 import 'package:coolors_inspired_flutter/constants.dart';
+import 'package:coolors_inspired_flutter/pages/library_explore_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:coolors_inspired_flutter/models.dart';
@@ -117,9 +118,15 @@ class GeneratePalettePage extends ConsumerWidget {
                           onPressed: () => showBottomMenu(context),
                         ),
                         IconButton(
-                          icon: Icon(Icons.menu),
-                          onPressed: () => showBottomMenu(context),
-                        ),
+                            icon: Icon(Icons.menu),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const LibraryExplorePage()),
+                              );
+                            }),
                       ],
                     ),
                   )
