@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'app_menu_item.dart';
+import 'package:coolors_inspired_flutter/constants.dart';
 
 Future<dynamic> showBottomMenu(BuildContext context) {
   return showModalBottomSheet(
@@ -6,47 +8,70 @@ Future<dynamic> showBottomMenu(BuildContext context) {
       builder: (BuildContext context) {
         return Container(
           decoration: BoxDecoration(
-              color: Colors.amber,
+              color: Colors.white,
               borderRadius: BorderRadius.vertical(top: Radius.circular(12))),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: const <Widget>[
-                // const Text('Modal BottomSheet'),
-                // ElevatedButton(
-                //   child: const Text('Close BottomSheet'),
-                //   onPressed: () => Navigator.pop(context),
-                // ),
-                MenuItem(
-                  iconData: Icons.ios_share,
-                  label: 'Export',
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              // const Text('Modal BottomSheet'),
+              // ElevatedButton(
+              //   child: const Text('Close BottomSheet'),
+              //   onPressed: () => Navigator.pop(context),
+              // ),
+              AppMenuItem(
+                iconData: Icons.view_agenda,
+                label: 'View palette',
+                hasNavigation: true,
+              ),
+              Divider(),
+              AppMenuItem(
+                iconData: Icons.favorite,
+                label: 'Save palette',
+                hasNavigation: false,
+              ),
+              Divider(),
+              AppMenuItem(
+                iconData: Icons.share,
+                label: 'Export palette',
+                hasNavigation: false,
+              ),
+              Divider(),
+              AppMenuItem(
+                iconData: Icons.settings,
+                label: 'Refine palette',
+                hasNavigation: false,
+              ),
+              Divider(),
+              AppMenuItem(
+                iconData: Icons.copy,
+                label: 'Other tools',
+                hasNavigation: false,
+              ),
+              Divider(),
+              AppMenuItem(
+                iconData: Icons.settings,
+                label: 'Settings',
+                hasNavigation: false,
+              ),
+              Divider(),
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Cancel',
+                      style: kGenLabel,
+                    )
+                  ],
                 ),
-                Divider(),
-                MenuItem(iconData: Icons.delete, label: 'delete'),
-                Divider(),
-              ],
-            ),
+              ),
+              SizedBox(
+                height: 20,
+              )
+            ],
           ),
         );
       });
-}
-
-class MenuItem extends StatelessWidget {
-  const MenuItem({Key? key, required this.iconData, required this.label})
-      : super(key: key);
-
-  final IconData iconData;
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [Icon(iconData), Text(label)],
-      ),
-    );
-  }
 }

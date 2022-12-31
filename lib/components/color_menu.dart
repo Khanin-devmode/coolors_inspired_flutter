@@ -1,6 +1,6 @@
 import 'package:coolors_inspired_flutter/constants.dart';
 import 'package:flutter/material.dart';
-import 'menu_item.dart';
+import 'app_menu_item.dart';
 
 Future<dynamic> showColorMenu(BuildContext context) {
   return showModalBottomSheet(
