@@ -14,43 +14,38 @@ Future<dynamic> showBottomMenu(BuildContext context) {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              // const Text('Modal BottomSheet'),
-              // ElevatedButton(
-              //   child: const Text('Close BottomSheet'),
-              //   onPressed: () => Navigator.pop(context),
-              // ),
               AppMenuItem(
-                iconData: Icons.view_agenda,
+                iconData: Icons.visibility_outlined,
                 label: 'View palette',
                 hasNavigation: true,
               ),
               Divider(),
               AppMenuItem(
-                iconData: Icons.favorite,
+                iconData: Icons.favorite_outline,
                 label: 'Save palette',
                 hasNavigation: false,
               ),
               Divider(),
               AppMenuItem(
-                iconData: Icons.share,
+                iconData: Icons.share_outlined,
                 label: 'Export palette',
                 hasNavigation: false,
               ),
               Divider(),
               AppMenuItem(
-                iconData: Icons.settings,
+                iconData: Icons.tune_outlined,
                 label: 'Refine palette',
                 hasNavigation: false,
               ),
               Divider(),
               AppMenuItem(
-                iconData: Icons.copy,
+                iconData: Icons.design_services_outlined,
                 label: 'Other tools',
                 hasNavigation: false,
               ),
               Divider(),
               AppMenuItem(
-                iconData: Icons.settings,
+                iconData: Icons.settings_outlined,
                 label: 'Settings',
                 hasNavigation: false,
               ),
@@ -60,9 +55,12 @@ Future<dynamic> showBottomMenu(BuildContext context) {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'Cancel',
-                      style: kGenLabel,
+                    GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: Text(
+                        'Cancel',
+                        style: kGenLabel,
+                      ),
                     )
                   ],
                 ),

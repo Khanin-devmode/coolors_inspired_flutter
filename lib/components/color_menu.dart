@@ -54,9 +54,12 @@ Future<dynamic> showColorMenu(BuildContext context) {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'Cancel',
-                      style: kGenLabel,
+                    GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: Text(
+                        'Cancel',
+                        style: kGenLabel,
+                      ),
                     )
                   ],
                 ),
