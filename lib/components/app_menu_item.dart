@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppMenuItem extends StatelessWidget {
-  const AppMenuItem(
+  AppMenuItem(
       {Key? key,
       required this.iconData,
       required this.label,
@@ -11,32 +11,36 @@ class AppMenuItem extends StatelessWidget {
   final IconData iconData;
   final String label;
   final bool hasNavigation;
+  Function? menuFuncton;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            child: Row(
-              children: [
-                Icon(iconData),
-                SizedBox(width: 16),
-                Text(label),
-              ],
+      child: GestureDetector(
+        onTap: () => print('something'),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              child: Row(
+                children: [
+                  Icon(iconData),
+                  SizedBox(width: 16),
+                  Text(label),
+                ],
+              ),
             ),
-          ),
-          Container(
-            child: hasNavigation
-                ? Icon(
-                    Icons.arrow_forward,
-                    color: Colors.grey,
-                  )
-                : null,
-          ),
-        ],
+            Container(
+              child: hasNavigation
+                  ? Icon(
+                      Icons.arrow_forward,
+                      color: Colors.grey,
+                    )
+                  : null,
+            ),
+          ],
+        ),
       ),
     );
   }

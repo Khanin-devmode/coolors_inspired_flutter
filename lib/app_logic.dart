@@ -53,6 +53,14 @@ class ColorObjNotifier extends StateNotifier<List<ColorObj>>
 
     state = colorObjList;
   }
+
+  void addColor() {
+    RandomColor randomColor = RandomColor();
+    var newColor = randomColor.randomColor();
+    ColorObj newColorObj = new ColorObj(newColor, getHexCode(newColor), false);
+
+    state = [...state, newColorObj];
+  }
 }
 
 final colorObjProvider =
@@ -61,23 +69,6 @@ final colorObjProvider =
     return ColorObjNotifier();
   },
 );
-
-// final historyProvider = Provider<List<List<ColorObj>>>((ref) => [[]]);
-
-// class HistoryNotifier extends StateNotifier<List<List<ColorObj>>> {
-//   HistoryNotifier() : super([[]]);
-
-//   void addHistory(List<ColorObj> colorList) {
-//     state = [...state, colorList];
-//   }
-// }
-
-// final historyProvider =
-//     StateNotifierProvider<HistoryNotifier, List<List<ColorObj>>>(
-//   (ref) {
-//     return HistoryNotifier();
-//   },
-// );
 
 mixin HistoryMixin<T> on StateNotifier<T> {
   List<T> _history = [];
