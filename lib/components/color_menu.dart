@@ -17,25 +17,25 @@ Future<dynamic> showColorMenu(BuildContext context, WidgetRef ref) {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               AppMenuItem(
-                  iconData: Icons.colorize,
-                  label: 'Pick Colors',
-                  hasNavigation: true,
-                  menuFuncton: () => print('something')),
+                iconData: Icons.colorize,
+                label: 'Pick Colors',
+                hasNavigation: true,
+              ),
               Divider(),
               AppMenuItem(
                 iconData: Icons.add,
                 label: 'Add Colors',
                 hasNavigation: false,
-                menuFuncton: () {
-                  print('menu function evoke');
-                  ref.read(colorObjProvider.notifier).addColor();
-                },
+                menuFuncton: () =>
+                    ref.read(colorObjProvider.notifier).addColor(),
               ),
               Divider(),
               AppMenuItem(
                 iconData: Icons.remove,
                 label: 'Remove Color',
                 hasNavigation: false,
+                menuFuncton: () =>
+                    ref.read(colorObjProvider.notifier).removeColor(),
               ),
               Divider(),
               AppMenuItem(

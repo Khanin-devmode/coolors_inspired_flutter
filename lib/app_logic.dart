@@ -55,12 +55,15 @@ class ColorObjNotifier extends StateNotifier<List<ColorObj>>
   }
 
   void addColor() {
-    print('adding color');
     RandomColor randomColor = RandomColor();
     var newColor = randomColor.randomColor();
     ColorObj newColorObj = new ColorObj(newColor, getHexCode(newColor), false);
 
     state = [...state, newColorObj];
+  }
+
+  void removeColor() {
+    state = state.sublist(0, state.length - 1);
   }
 }
 
