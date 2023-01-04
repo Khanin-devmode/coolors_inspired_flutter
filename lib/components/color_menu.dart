@@ -1,8 +1,10 @@
+import 'package:coolors_inspired_flutter/app_logic.dart';
 import 'package:coolors_inspired_flutter/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'app_menu_item.dart';
 
-Future<dynamic> showColorMenu(BuildContext context) {
+Future<dynamic> showColorMenu(BuildContext context, WidgetRef ref) {
   return showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -14,21 +16,20 @@ Future<dynamic> showColorMenu(BuildContext context) {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              // const Text('Modal BottomSheet'),
-              // ElevatedButton(
-              //   child: const Text('Close BottomSheet'),
-              //   onPressed: () => Navigator.pop(context),
-              // ),
               AppMenuItem(
-                iconData: Icons.colorize,
-                label: 'Pick Colors',
-                hasNavigation: true,
-              ),
+                  iconData: Icons.colorize,
+                  label: 'Pick Colors',
+                  hasNavigation: true,
+                  menuFuncton: () => print('something')),
               Divider(),
               AppMenuItem(
                 iconData: Icons.add,
                 label: 'Add Colors',
                 hasNavigation: false,
+                menuFuncton: () {
+                  print('menu function evoke');
+                  ref.read(colorObjProvider.notifier).addColor();
+                },
               ),
               Divider(),
               AppMenuItem(

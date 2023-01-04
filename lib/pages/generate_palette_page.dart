@@ -138,7 +138,7 @@ class GeneratePalettePage extends ConsumerWidget {
   }
 }
 
-class ColorRow extends StatelessWidget {
+class ColorRow extends ConsumerWidget {
   const ColorRow({Key? key, required this.colorObj, required this.toggleLock})
       : super(key: key);
 
@@ -146,10 +146,10 @@ class ColorRow extends StatelessWidget {
   final Function toggleLock;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Expanded(
       child: GestureDetector(
-        onTap: () => showColorMenu(context),
+        onTap: () => showColorMenu(context, ref),
         child: Container(
           color: colorObj.color,
           child:

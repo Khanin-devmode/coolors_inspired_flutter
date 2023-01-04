@@ -5,7 +5,8 @@ class AppMenuItem extends StatelessWidget {
       {Key? key,
       required this.iconData,
       required this.label,
-      required this.hasNavigation})
+      required this.hasNavigation,
+      this.menuFuncton})
       : super(key: key);
 
   final IconData iconData;
@@ -18,7 +19,7 @@ class AppMenuItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       child: GestureDetector(
-        onTap: () => print('something'),
+        onTap: (() => menuFuncton!()),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
