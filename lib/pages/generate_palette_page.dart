@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:coolors_inspired_flutter/models.dart';
 import 'package:coolors_inspired_flutter/app_logic.dart';
-import '../components/bottom_menu.dart';
+import '../components/more_menu.dart';
 import 'package:tinycolor2/tinycolor2.dart';
 
 class GeneratePalettePage extends ConsumerWidget {
@@ -115,7 +115,7 @@ class GeneratePalettePage extends ConsumerWidget {
                       children: [
                         IconButton(
                           icon: Icon(Icons.more_horiz),
-                          onPressed: () => showBottomMenu(context),
+                          onPressed: () => showMoreMenu(context, ref),
                         ),
                         IconButton(
                             icon: Icon(Icons.menu),

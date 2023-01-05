@@ -19,7 +19,7 @@ class AppMenuItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       child: GestureDetector(
-        onTap: (() => menuFuncton!()),
+        onTap: menuFuncton != null ? () => menuFuncton!() : (() {}),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

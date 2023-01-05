@@ -1,8 +1,10 @@
-import 'package:flutter/material.dart';
-import 'app_menu_item.dart';
+import 'package:coolors_inspired_flutter/app_logic.dart';
 import 'package:coolors_inspired_flutter/constants.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'app_menu_item.dart';
 
-Future<dynamic> showBottomMenu(BuildContext context) {
+Future<dynamic> showExportMenu(BuildContext context, WidgetRef ref) {
   return showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -15,38 +17,32 @@ Future<dynamic> showBottomMenu(BuildContext context) {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               AppMenuItem(
-                iconData: Icons.visibility_outlined,
-                label: 'View palette',
-                hasNavigation: true,
-              ),
-              Divider(),
-              AppMenuItem(
-                iconData: Icons.favorite_outline,
-                label: 'Save palette',
+                iconData: Icons.link_outlined,
+                label: 'Copy URL',
                 hasNavigation: false,
               ),
               Divider(),
               AppMenuItem(
-                iconData: Icons.share_outlined,
-                label: 'Export palette',
+                iconData: Icons.description_outlined,
+                label: 'PDF',
                 hasNavigation: false,
               ),
               Divider(),
               AppMenuItem(
-                iconData: Icons.tune_outlined,
-                label: 'Refine palette',
+                iconData: Icons.image_outlined,
+                label: 'Image',
                 hasNavigation: false,
               ),
               Divider(),
               AppMenuItem(
-                iconData: Icons.design_services_outlined,
-                label: 'Other tools',
+                iconData: Icons.polyline_outlined,
+                label: 'SVG',
                 hasNavigation: false,
               ),
               Divider(),
               AppMenuItem(
-                iconData: Icons.settings_outlined,
-                label: 'Settings',
+                iconData: Icons.palette_outlined,
+                label: 'ASE',
                 hasNavigation: false,
               ),
               Divider(),
