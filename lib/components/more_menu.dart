@@ -1,4 +1,5 @@
 import 'package:coolors_inspired_flutter/components/export_menu.dart';
+import 'package:coolors_inspired_flutter/components/sign_in_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'app_menu_item.dart';
@@ -26,6 +27,12 @@ Future<dynamic> showMoreMenu(BuildContext context, WidgetRef ref) {
                 iconData: Icons.favorite_outline,
                 label: 'Save palette',
                 hasNavigation: false,
+                menuFuncton: isSignIn()
+                    ? () {}
+                    : () {
+                        Navigator.pop(context);
+                        showSignInMenu(context, ref);
+                      },
               ),
               Divider(),
               AppMenuItem(
@@ -77,4 +84,9 @@ Future<dynamic> showMoreMenu(BuildContext context, WidgetRef ref) {
           ),
         );
       });
+}
+
+//temp function
+bool isSignIn() {
+  return false;
 }
