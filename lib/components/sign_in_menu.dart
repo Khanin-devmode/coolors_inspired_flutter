@@ -9,7 +9,7 @@ Future<dynamic> showSignInMenu(BuildContext context, WidgetRef ref) {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          padding: EdgeInsets.only(top: 12, right: 12, bottom: 24, left: 12),
+          padding: EdgeInsets.only(top: 12, right: 12, bottom: 36, left: 12),
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.vertical(top: Radius.circular(12))),
@@ -17,9 +17,58 @@ Future<dynamic> showSignInMenu(BuildContext context, WidgetRef ref) {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Hello!'),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    width: 10,
+                    child: IconButton(
+                      onPressed: () => Navigator.pop(context),
+                      icon: Icon(Icons.close),
+                    ),
+                  ),
+                  Text(
+                    'Hello!',
+                    style: TextStyle(fontSize: 36, fontWeight: FontWeight.w900),
+                  ),
+                  SizedBox(
+                    width: 10,
+                    height: 10,
+                  )
+                ],
+              ),
               Text(
-                  'Continue to sign up for free. If you already hae an account, we will log you in')
+                'Continue to sign up for free. If you already have an account, we will log you in',
+                style: TextStyle(color: Colors.grey, fontSize: 16),
+              ),
+              TextButton(
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.blueGrey),
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.black),
+                ),
+                onPressed: () => {},
+                child: Row(
+                  children: [Icon(Icons.abc), Text('Continue wigh Google')],
+                ),
+              ),
+              TextButton(
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.blueGrey),
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.black),
+                ),
+                onPressed: () => {},
+                child: Row(
+                  children: [Icon(Icons.abc), Text('Continue wigh Google')],
+                ),
+              ),
+              Text(
+                'Continue to sign up for free. If you already have an account, we will log you in',
+                style: TextStyle(color: Colors.grey, fontSize: 16),
+              ),
             ],
           ),
         );
