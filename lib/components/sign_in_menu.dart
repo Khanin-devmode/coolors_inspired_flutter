@@ -9,8 +9,9 @@ Future<dynamic> showSignInMenu(BuildContext context, WidgetRef ref) {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          padding: EdgeInsets.only(top: 12, right: 12, bottom: 36, left: 12),
-          decoration: BoxDecoration(
+          padding:
+              const EdgeInsets.only(top: 12, right: 12, bottom: 36, left: 12),
+          decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.vertical(top: Radius.circular(12))),
           child: Column(
@@ -21,7 +22,6 @@ Future<dynamic> showSignInMenu(BuildContext context, WidgetRef ref) {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    width: 10,
                     child: IconButton(
                       onPressed: () => Navigator.pop(context),
                       icon: Icon(Icons.close),
@@ -32,15 +32,17 @@ Future<dynamic> showSignInMenu(BuildContext context, WidgetRef ref) {
                     style: TextStyle(fontSize: 36, fontWeight: FontWeight.w900),
                   ),
                   SizedBox(
-                    width: 10,
-                    height: 10,
+                    width: 42,
+                    height: 42,
                   )
                 ],
               ),
               Text(
-                'Continue to sign up for free. If you already have an account, we will log you in',
+                'Continue to sign up for free. If you already have an account, we will log you in.',
                 style: TextStyle(color: Colors.grey, fontSize: 16),
+                textAlign: TextAlign.center,
               ),
+              SizedBox(height: 32),
               TextButton(
                 style: ButtonStyle(
                   backgroundColor:
@@ -60,14 +62,30 @@ Future<dynamic> showSignInMenu(BuildContext context, WidgetRef ref) {
                   foregroundColor:
                       MaterialStateProperty.all<Color>(Colors.black),
                 ),
-                onPressed: () => {},
+                onPressed: () => Navigator.pop(context),
                 child: Row(
                   children: [Icon(Icons.abc), Text('Continue wigh Google')],
                 ),
               ),
-              Text(
-                'Continue to sign up for free. If you already have an account, we will log you in',
-                style: TextStyle(color: Colors.grey, fontSize: 16),
+              SizedBox(height: 32),
+              RichText(
+                text: TextSpan(
+                  style: TextStyle(fontSize: 16, color: Colors.grey),
+                  children: [
+                    TextSpan(text: 'By Continuing, you agree to our '),
+                    TextSpan(text: 'Term of Service.'),
+                  ],
+                ),
+              ),
+              RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  style: TextStyle(fontSize: 16, color: Colors.grey),
+                  children: [
+                    TextSpan(text: 'Read our '),
+                    TextSpan(text: 'Privacy Policy.'),
+                  ],
+                ),
               ),
             ],
           ),
