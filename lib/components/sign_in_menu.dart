@@ -2,6 +2,7 @@ import 'package:coolors_inspired_flutter/components/export_menu.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'app_menu_item.dart';
@@ -52,6 +53,11 @@ Future<dynamic> showSignInMenu(BuildContext context, WidgetRef ref) {
                       Color.fromARGB(255, 242, 242, 242)),
                   foregroundColor:
                       MaterialStateProperty.all<Color>(Colors.black),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                  ),
                 ),
                 onPressed: () => {},
                 child: Padding(
@@ -61,7 +67,7 @@ Future<dynamic> showSignInMenu(BuildContext context, WidgetRef ref) {
                     children: [
                       Container(
                         width: 32,
-                        child: Icon(Icons.abc),
+                        child: Icon(FontAwesomeIcons.google),
                       ),
                       Text(
                         'Continue with Google',
@@ -86,6 +92,11 @@ Future<dynamic> showSignInMenu(BuildContext context, WidgetRef ref) {
                       Color.fromARGB(255, 16, 107, 243)),
                   foregroundColor:
                       MaterialStateProperty.all<Color>(Colors.black),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                  ),
                 ),
                 onPressed: () => {},
                 child: Padding(
@@ -94,7 +105,7 @@ Future<dynamic> showSignInMenu(BuildContext context, WidgetRef ref) {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Continue wigh Google',
+                        'Continue with email address',
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w500,
