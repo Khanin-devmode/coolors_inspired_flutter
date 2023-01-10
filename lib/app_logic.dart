@@ -16,8 +16,8 @@ class ColorObjNotifier extends StateNotifier<List<ColorObj>>
 
   void generateColor() {
     RandomColor randomColor = RandomColor();
-
     List<ColorObj> newColorList = [];
+
     for (ColorObj obj in state) {
       if (!obj.isLocked) {
         var newColor = randomColor.randomColor();

@@ -1,6 +1,8 @@
 import 'package:coolors_inspired_flutter/app_logic.dart';
+import 'package:coolors_inspired_flutter/components/sign_in_menu.dart';
 import 'package:coolors_inspired_flutter/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'app_menu_item.dart';
 
@@ -42,12 +44,19 @@ Future<dynamic> showColorMenu(BuildContext context, WidgetRef ref) {
                 iconData: Icons.favorite_border,
                 label: 'Save Color',
                 hasNavigation: false,
+                menuFuncton: () {
+                  Navigator.pop(context);
+                  showSignInMenu(context, ref);
+                },
               ),
               Divider(),
               AppMenuItem(
                 iconData: Icons.copy,
                 label: 'Copy Color',
                 hasNavigation: false,
+                menuFuncton: () {
+                  // Clipboard.setData(ClipboardData(text: resultText));
+                },
               ),
               Divider(),
               Padding(
