@@ -149,7 +149,7 @@ class ColorRow extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Expanded(
       child: GestureDetector(
-        onTap: () => showColorMenu(context, ref),
+        onTap: () => showColorMenu(context, ref, colorObj),
         child: Container(
           color: colorObj.color,
           child:

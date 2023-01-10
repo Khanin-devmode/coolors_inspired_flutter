@@ -1,12 +1,14 @@
 import 'package:coolors_inspired_flutter/app_logic.dart';
 import 'package:coolors_inspired_flutter/components/sign_in_menu.dart';
 import 'package:coolors_inspired_flutter/constants.dart';
+import 'package:coolors_inspired_flutter/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'app_menu_item.dart';
 
-Future<dynamic> showColorMenu(BuildContext context, WidgetRef ref) {
+Future<dynamic> showColorMenu(
+    BuildContext context, WidgetRef ref, ColorObj selectedColor) {
   return showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -55,7 +57,10 @@ Future<dynamic> showColorMenu(BuildContext context, WidgetRef ref) {
                 label: 'Copy Color',
                 hasNavigation: false,
                 menuFuncton: () {
-                  // Clipboard.setData(ClipboardData(text: resultText));
+                  Clipboard.setData(
+                      ClipboardData(text: selectedColor.colorCode));
+                  showSnackBar(context, '${selectedColor.colorCode} copied');
+                  Navigator.pop(context);
                 },
               ),
               Divider(),
@@ -81,4 +86,25 @@ Future<dynamic> showColorMenu(BuildContext context, WidgetRef ref) {
           ),
         );
       });
+}
+
+void showSnackBar(BuildContext context, String message) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      duration: const Duration(milliseconds: 1000),
+      content: Container(
+        height: 20,
+        alignment: Alignment.center,
+        child: Text(
+          message,
+        ),
+      ),
+      width: 280.0, // Width of the SnackBar.
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      backgroundColor: kSnackBarBg,
+    ),
+  );
 }
