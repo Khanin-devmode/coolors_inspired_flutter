@@ -3,6 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'models.dart';
 import 'package:random_color/random_color.dart';
 
+//app state for ui.
+final isPickingColorProvider = StateProvider<bool>((ref) => true);
+
+//app state for colors list.
 class ColorObjNotifier extends StateNotifier<List<ColorObj>>
     with HistoryMixin<List<ColorObj>> {
   ColorObjNotifier()
@@ -66,9 +70,12 @@ class ColorObjNotifier extends StateNotifier<List<ColorObj>>
     state = state.sublist(0, state.length - 1);
   }
 
-  void pickColor(int selectedIndex, ColorObj newColor) {
+  void pickColor(int selectedIndex, Color newColor) {
+    var newColorObj =
+        ColorObj(newColor, getHexCode(newColor), state[selectedIndex].isLocked);
+
     state = List<ColorObj>.generate(state.length,
-        (index) => selectedIndex != index ? state[index] : newColor);
+        (index) => selectedIndex != index ? state[index] : newColorObj);
   }
 }
 

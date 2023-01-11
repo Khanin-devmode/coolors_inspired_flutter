@@ -26,6 +26,7 @@ class GeneratePalettePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     List<ColorObj> colorObj = ref.watch(colorObjProvider);
+    bool isPickingColor = ref.watch(isPickingColorProvider);
 
     return SafeArea(
       child: Scaffold(
@@ -48,10 +49,11 @@ class GeneratePalettePage extends ConsumerWidget {
             children: List.generate(
               colorObj.length,
               (i) => ColorRow(
-                  colorObj: colorObj[i],
-                  toggleLock: () => ref
-                      .read(colorObjProvider.notifier)
-                      .toggleLock(colorObj[i])),
+                colorObj: colorObj[i],
+                toggleLock: () =>
+                    ref.read(colorObjProvider.notifier).toggleLock(colorObj[i]),
+                isPickingColor: isPickingColor,
+              ),
             ),
           ),
           bottomNavigationBar: Container(
@@ -139,11 +141,16 @@ class GeneratePalettePage extends ConsumerWidget {
 }
 
 class ColorRow extends ConsumerWidget {
-  const ColorRow({Key? key, required this.colorObj, required this.toggleLock})
+  const ColorRow(
+      {Key? key,
+      required this.colorObj,
+      required this.toggleLock,
+      required this.isPickingColor})
       : super(key: key);
 
   final ColorObj colorObj;
   final Function toggleLock;
+  final bool isPickingColor;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -154,38 +161,42 @@ class ColorRow extends ConsumerWidget {
           color: colorObj.color,
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: Text(
-                colorObj.colorCode,
-                style: colorObj.color.isLight
-                    ? kColorDarkLabelStyle
-                    : kColorLightLabelStyle,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: GestureDetector(
-                onTap: () => toggleLock(),
-                child: Container(
-                  width: 34,
-                  alignment: Alignment.center,
-                  child: colorObj.isLocked
-                      ? Icon(
-                          Icons.lock,
-                          color: colorObj.color.isLight
-                              ? kDarkLabelClr
-                              : kWhiteLabelClr,
-                          size: 34,
-                        )
-                      : const Icon(
-                          Icons.lock_open_rounded,
-                          color: Colors.white70,
-                          size: 28,
-                        ),
-                ),
-              ),
-            ),
+            !isPickingColor
+                ? Padding(
+                    padding: EdgeInsets.all(18.0),
+                    child: Text(
+                      colorObj.colorCode,
+                      style: colorObj.color.isLight
+                          ? kColorDarkLabelStyle
+                          : kColorLightLabelStyle,
+                    ),
+                  )
+                : Container(),
+            !isPickingColor
+                ? Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: GestureDetector(
+                      onTap: () => toggleLock(),
+                      child: Container(
+                        width: 34,
+                        alignment: Alignment.center,
+                        child: colorObj.isLocked
+                            ? Icon(
+                                Icons.lock,
+                                color: colorObj.color.isLight
+                                    ? kDarkLabelClr
+                                    : kWhiteLabelClr,
+                                size: 34,
+                              )
+                            : const Icon(
+                                Icons.lock_open_rounded,
+                                color: Colors.white70,
+                                size: 28,
+                              ),
+                      ),
+                    ),
+                  )
+                : Container(),
           ]),
         ),
       ),

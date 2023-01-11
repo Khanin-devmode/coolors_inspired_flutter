@@ -18,6 +18,7 @@ dependencies:
   tinycolor2: ^3.0.1
   url_launcher: ^6.1.7
   font_awesome_flutter: ^10.3.0
+  flutter_colorpicker: ^1.0.3
 
 dev_dependencies:
   flutter_test:
