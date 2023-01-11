@@ -65,6 +65,11 @@ class ColorObjNotifier extends StateNotifier<List<ColorObj>>
   void removeColor() {
     state = state.sublist(0, state.length - 1);
   }
+
+  void pickColor(int selectedIndex, ColorObj newColor) {
+    state = List<ColorObj>.generate(state.length,
+        (index) => selectedIndex != index ? state[index] : newColor);
+  }
 }
 
 final colorObjProvider =

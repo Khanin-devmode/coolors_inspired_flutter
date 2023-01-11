@@ -23,7 +23,7 @@ Future<dynamic> showColorMenu(
               AppMenuItem(
                 iconData: Icons.colorize,
                 label: 'Pick Colors',
-                hasNavigation: true,
+                hasNavigation: false,
               ),
               Divider(),
               AppMenuItem(
