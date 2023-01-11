@@ -46,15 +46,25 @@ class GeneratePalettePage extends ConsumerWidget {
           //   },
           // ),
           body: Column(
-            children: List.generate(
-              colorObj.length,
-              (i) => ColorRow(
-                colorObj: colorObj[i],
-                toggleLock: () =>
-                    ref.read(colorObjProvider.notifier).toggleLock(colorObj[i]),
-                isPickingColor: isPickingColor,
+            children: [
+              Expanded(
+                child: Column(
+                  children: List.generate(
+                    colorObj.length,
+                    (i) => ColorRow(
+                      colorObj: colorObj[i],
+                      toggleLock: () => ref
+                          .read(colorObjProvider.notifier)
+                          .toggleLock(colorObj[i]),
+                      isPickingColor: isPickingColor,
+                    ),
+                  ),
+                ),
               ),
-            ),
+              Container(
+                height: 200,
+              )
+            ],
           ),
           bottomNavigationBar: Container(
             height: 60,
