@@ -61,9 +61,52 @@ class GeneratePalettePage extends ConsumerWidget {
                   ),
                 ),
               ),
-              Container(
-                height: 200,
-              )
+              if (isPickingColor)
+                DefaultTabController(
+                  initialIndex: 1,
+                  length: 3, //
+                  child: Column(
+                    children: [
+                      TabBar(
+                        tabs: <Widget>[
+                          Tab(
+                            text: 'Library',
+                            // icon: Icon(Icons.cloud_outlined),
+                          ),
+                          Tab(
+                            text: 'Explore',
+                            // icon: Icon(Icons.beach_access_sharp),
+                          ),
+                          Tab(
+                            text: 'Test',
+                            // icon: Icon(Icons.beach_access_sharp),
+                          ),
+                        ],
+                      ),
+                      Container(
+                        height: 200,
+                        child: TabBarView(
+                          children: <Widget>[
+                            Center(
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text('Go back!'),
+                              ),
+                            ),
+                            Center(
+                              child: Text("It's rainy here"),
+                            ),
+                            Center(
+                              child: Text("It's It's third page here"),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                )
             ],
           ),
           bottomNavigationBar: Container(

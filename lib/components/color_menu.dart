@@ -24,6 +24,11 @@ Future<dynamic> showColorMenu(
                 iconData: Icons.colorize,
                 label: 'Pick Colors',
                 hasNavigation: false,
+                menuFuncton: () {
+                  ref
+                      .read(isPickingColorProvider.notifier)
+                      .update((state) => !state);
+                },
               ),
               Divider(),
               AppMenuItem(
