@@ -104,6 +104,19 @@ class GeneratePalettePage extends ConsumerWidget {
                           ],
                         ),
                       ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          TextButton(
+                            onPressed: ((null)),
+                            child: Text('Cancel'),
+                          ),
+                          TextButton(
+                            onPressed: ((null)),
+                            child: Text('Apply'),
+                          )
+                        ],
+                      )
                     ],
                   ),
                 )

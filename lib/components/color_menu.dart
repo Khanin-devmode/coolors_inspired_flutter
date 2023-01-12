@@ -25,6 +25,7 @@ Future<dynamic> showColorMenu(
                 label: 'Pick Colors',
                 hasNavigation: false,
                 menuFuncton: () {
+                  Navigator.pop(context);
                   ref
                       .read(isPickingColorProvider.notifier)
                       .update((state) => !state);
