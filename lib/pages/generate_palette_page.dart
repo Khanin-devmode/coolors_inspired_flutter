@@ -2,9 +2,11 @@ import 'package:coolors_inspired_flutter/components/color_menu.dart';
 import 'package:coolors_inspired_flutter/constants.dart';
 import 'package:coolors_inspired_flutter/pages/library_explore_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:coolors_inspired_flutter/models.dart';
 import 'package:coolors_inspired_flutter/app_logic.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../components/more_menu.dart';
 import 'package:tinycolor2/tinycolor2.dart';
 
@@ -25,7 +27,7 @@ class GeneratePalettePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List<ColorObj> colorObj = ref.watch(colorObjProvider);
+    List<ColorObj> colorList = ref.watch(colorObjProvider);
     bool isPickingColor = ref.watch(isPickingColorProvider);
     int activeIndex = ref.watch(activeColorIndexProvider);
 
@@ -51,13 +53,13 @@ class GeneratePalettePage extends ConsumerWidget {
             Expanded(
               child: Column(
                 children: List.generate(
-                  colorObj.length,
+                  colorList.length,
                   (i) => ColorRow(
                     objIndex: i,
-                    colorObj: colorObj[i],
+                    colorObj: colorList[i],
                     toggleLock: () => ref
                         .read(colorObjProvider.notifier)
-                        .toggleLock(colorObj[i]),
+                        .toggleLock(colorList[i]),
                     isPickingColor: isPickingColor,
                     activeIndex: activeIndex,
                   ),
@@ -87,13 +89,18 @@ class GeneratePalettePage extends ConsumerWidget {
                       ],
                     ),
                     Container(
-                      height: 200,
+                      height: 400,
                       child: TabBarView(
                         children: <Widget>[
                           Center(
                             child: ElevatedButton(
                               onPressed: () {},
-                              child: const Text('Go back!'),
+                              child: ColorPicker(
+                                pickerColor: colorList[activeIndex].color,
+                                onColorChanged: ((value) => ref
+                                    .read(colorObjProvider.notifier)
+                                    .pickColor(activeIndex, value)),
+                              ),
                             ),
                           ),
                           Center(
@@ -283,7 +290,7 @@ class ColorRow extends ConsumerWidget {
             if (isPickingColor && activeIndex == objIndex)
               Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: Icon(Icons.abc),
+                child: Icon(Icons.circle),
               )
           ]),
         ),
