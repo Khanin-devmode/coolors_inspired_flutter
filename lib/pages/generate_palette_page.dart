@@ -27,181 +27,190 @@ class GeneratePalettePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     List<ColorObj> colorObj = ref.watch(colorObjProvider);
     bool isPickingColor = ref.watch(isPickingColorProvider);
+    int activeIndex = ref.watch(activeColorIndexProvider);
 
     return SafeArea(
       child: Scaffold(
-          // body: ReorderableListView.builder(
-          //   onReorder: (oldIndex, newIndex) {
-          //     ref.read(colorObjProvider.notifier).reorder(oldIndex, newIndex);
-          //   },
-          //   physics: NeverScrollableScrollPhysics(),
-          //   itemCount: colorObj.length,
-          //   itemBuilder: (BuildContext context, int index) {
-          //     return ColorRow(
-          //         colorObj: colorObj[index],
-          // toggleLock: () => ref
-          //     .read(colorObjProvider.notifier)
-          //     .toggleLock(colorObj[index]),
-          //         key: Key('$index'));
-          //   },
-          // ),
-          body: Column(
-            children: [
-              Expanded(
-                child: Column(
-                  children: List.generate(
-                    colorObj.length,
-                    (i) => ColorRow(
-                      colorObj: colorObj[i],
-                      toggleLock: () => ref
-                          .read(colorObjProvider.notifier)
-                          .toggleLock(colorObj[i]),
-                      isPickingColor: isPickingColor,
-                    ),
+        // body: ReorderableListView.builder(
+        //   onReorder: (oldIndex, newIndex) {
+        //     ref.read(colorObjProvider.notifier).reorder(oldIndex, newIndex);
+        //   },
+        //   physics: NeverScrollableScrollPhysics(),
+        //   itemCount: colorObj.length,
+        //   itemBuilder: (BuildContext context, int index) {
+        //     return ColorRow(
+        //         colorObj: colorObj[index],
+        // toggleLock: () => ref
+        //     .read(colorObjProvider.notifier)
+        //     .toggleLock(colorObj[index]),
+        //         key: Key('$index'));
+        //   },
+        // ),
+        body: Column(
+          children: [
+            Expanded(
+              child: Column(
+                children: List.generate(
+                  colorObj.length,
+                  (i) => ColorRow(
+                    objIndex: i,
+                    colorObj: colorObj[i],
+                    toggleLock: () => ref
+                        .read(colorObjProvider.notifier)
+                        .toggleLock(colorObj[i]),
+                    isPickingColor: isPickingColor,
+                    activeIndex: activeIndex,
                   ),
                 ),
               ),
-              if (isPickingColor)
-                DefaultTabController(
-                  initialIndex: 1,
-                  length: 3, //
-                  child: Column(
-                    children: [
-                      TabBar(
-                        tabs: <Widget>[
-                          Tab(
-                            text: 'Library',
-                            // icon: Icon(Icons.cloud_outlined),
+            ),
+            if (isPickingColor)
+              DefaultTabController(
+                initialIndex: 1,
+                length: 3, //
+                child: Column(
+                  children: [
+                    TabBar(
+                      tabs: <Widget>[
+                        Tab(
+                          text: 'Library',
+                          // icon: Icon(Icons.cloud_outlined),
+                        ),
+                        Tab(
+                          text: 'Explore',
+                          // icon: Icon(Icons.beach_access_sharp),
+                        ),
+                        Tab(
+                          text: 'Test',
+                          // icon: Icon(Icons.beach_access_sharp),
+                        ),
+                      ],
+                    ),
+                    Container(
+                      height: 200,
+                      child: TabBarView(
+                        children: <Widget>[
+                          Center(
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              child: const Text('Go back!'),
+                            ),
                           ),
-                          Tab(
-                            text: 'Explore',
-                            // icon: Icon(Icons.beach_access_sharp),
+                          Center(
+                            child: Text("It's rainy here"),
                           ),
-                          Tab(
-                            text: 'Test',
-                            // icon: Icon(Icons.beach_access_sharp),
+                          Center(
+                            child: Text("It's It's third page here"),
                           ),
                         ],
                       ),
-                      Container(
-                        height: 200,
-                        child: TabBarView(
-                          children: <Widget>[
-                            Center(
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: const Text('Go back!'),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        TextButton(
+                          onPressed: (() => ref
+                              .read(isPickingColorProvider.notifier)
+                              .update((state) => !state)),
+                          child: Text('Cancel'),
+                        ),
+                        TextButton(
+                          onPressed: (() => ref
+                              .read(isPickingColorProvider.notifier)
+                              .update((state) => !state)),
+                          child: Text('Apply'),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              )
+          ],
+        ),
+        bottomNavigationBar: !isPickingColor
+            ? Container(
+                height: 60,
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              child: Row(
+                                children: [
+                                  IconButton(
+                                    icon: Icon(Icons.undo_rounded),
+                                    onPressed: ref
+                                            .read(colorObjProvider.notifier)
+                                            .getCanUndo()
+                                        ? () => ref
+                                            .read(colorObjProvider.notifier)
+                                            .undo()
+                                        : null,
+                                  ),
+                                  IconButton(
+                                    icon: Icon(Icons.redo_rounded),
+                                    onPressed: ref
+                                            .read(colorObjProvider.notifier)
+                                            .getCanRedo()
+                                        ? () => ref
+                                            .read(colorObjProvider.notifier)
+                                            .redo()
+                                        : null,
+                                  ),
+                                ],
                               ),
-                            ),
-                            Center(
-                              child: Text("It's rainy here"),
-                            ),
-                            Center(
-                              child: Text("It's It's third page here"),
                             ),
                           ],
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          TextButton(
-                            onPressed: ((null)),
-                            child: Text('Cancel'),
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: (() => ref
+                              .read(colorObjProvider.notifier)
+                              .generateColor()),
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: 100,
+                            height: 50,
+                            child: Text(
+                              'Generate',
+                              style: kGenLabel,
+                            ),
                           ),
-                          TextButton(
-                            onPressed: ((null)),
-                            child: Text('Apply'),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                )
-            ],
-          ),
-          bottomNavigationBar: Container(
-            height: 60,
-            alignment: Alignment.center,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          child: Row(
-                            children: [
-                              IconButton(
-                                icon: Icon(Icons.undo_rounded),
-                                onPressed: ref
-                                        .read(colorObjProvider.notifier)
-                                        .getCanUndo()
-                                    ? () => ref
-                                        .read(colorObjProvider.notifier)
-                                        .undo()
-                                    : null,
-                              ),
-                              IconButton(
-                                icon: Icon(Icons.redo_rounded),
-                                onPressed: ref
-                                        .read(colorObjProvider.notifier)
-                                        .getCanRedo()
-                                    ? () => ref
-                                        .read(colorObjProvider.notifier)
-                                        .redo()
-                                    : null,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: (() =>
-                          ref.read(colorObjProvider.notifier).generateColor()),
-                      child: Container(
-                        alignment: Alignment.center,
-                        width: 100,
-                        height: 50,
-                        child: Text(
-                          'Generate',
-                          style: kGenLabel,
                         ),
                       ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        IconButton(
-                          icon: Icon(Icons.more_horiz),
-                          onPressed: () => showMoreMenu(context, ref),
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.more_horiz),
+                              onPressed: () => showMoreMenu(context, ref),
+                            ),
+                            IconButton(
+                                icon: Icon(Icons.menu),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const LibraryExplorePage()),
+                                  );
+                                }),
+                          ],
                         ),
-                        IconButton(
-                            icon: Icon(Icons.menu),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const LibraryExplorePage()),
-                              );
-                            }),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
-          )),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            : null,
+      ),
     );
   }
 }
@@ -211,18 +220,26 @@ class ColorRow extends ConsumerWidget {
       {Key? key,
       required this.colorObj,
       required this.toggleLock,
-      required this.isPickingColor})
+      required this.isPickingColor,
+      required this.activeIndex,
+      required this.objIndex})
       : super(key: key);
 
   final ColorObj colorObj;
   final Function toggleLock;
   final bool isPickingColor;
+  final int activeIndex;
+  final int objIndex;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Expanded(
       child: GestureDetector(
-        onTap: () => showColorMenu(context, ref, colorObj),
+        onTap: !isPickingColor
+            ? () => showColorMenu(context, ref, colorObj)
+            : () => ref
+                .read(activeColorIndexProvider.notifier)
+                .update((state) => objIndex),
         child: Container(
           color: colorObj.color,
           child:
@@ -263,6 +280,11 @@ class ColorRow extends ConsumerWidget {
                     ),
                   )
                 : Container(),
+            if (isPickingColor && activeIndex == objIndex)
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Icon(Icons.abc),
+              )
           ]),
         ),
       ),
