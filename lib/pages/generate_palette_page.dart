@@ -30,6 +30,7 @@ class GeneratePalettePage extends ConsumerWidget {
     List<ColorObj> colorList = ref.watch(colorObjProvider);
     bool isPickingColor = ref.watch(isPickingColorProvider);
     int activeIndex = ref.watch(activeColorIndexProvider);
+    List<ColorObj> previousColorList = ref.watch(colorBeforePickingProvider);
 
     return SafeArea(
       child: Scaffold(
@@ -68,7 +69,7 @@ class GeneratePalettePage extends ConsumerWidget {
             ),
             if (isPickingColor)
               DefaultTabController(
-                initialIndex: 1,
+                initialIndex: 0,
                 length: 3, //
                 child: Column(
                   children: [
@@ -116,9 +117,14 @@ class GeneratePalettePage extends ConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         TextButton(
-                          onPressed: (() => ref
-                              .read(isPickingColorProvider.notifier)
-                              .update((state) => !state)),
+                          onPressed: (() {
+                            ref
+                                .read(isPickingColorProvider.notifier)
+                                .update((state) => !state);
+                            ref
+                                .read(colorObjProvider.notifier)
+                                .update(previousColorList);
+                          }),
                           child: Text('Cancel'),
                         ),
                         TextButton(

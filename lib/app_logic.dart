@@ -6,6 +6,7 @@ import 'package:random_color/random_color.dart';
 //app state for ui.
 final isPickingColorProvider = StateProvider<bool>((ref) => false);
 final activeColorIndexProvider = StateProvider<int>((ref) => 0);
+final colorBeforePickingProvider = StateProvider<List<ColorObj>>((ref) => []);
 
 //app state for colors list.
 class ColorObjNotifier extends StateNotifier<List<ColorObj>>
@@ -77,6 +78,10 @@ class ColorObjNotifier extends StateNotifier<List<ColorObj>>
 
     state = List<ColorObj>.generate(state.length,
         (index) => selectedIndex != index ? state[index] : newColorObj);
+  }
+
+  void update(List<ColorObj> newColorList) {
+    state = newColorList;
   }
 }
 
