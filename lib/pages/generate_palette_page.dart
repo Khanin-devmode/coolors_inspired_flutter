@@ -2,13 +2,13 @@ import 'package:coolors_inspired_flutter/components/color_menu.dart';
 import 'package:coolors_inspired_flutter/constants.dart';
 import 'package:coolors_inspired_flutter/pages/library_explore_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:coolors_inspired_flutter/models.dart';
 import 'package:coolors_inspired_flutter/app_logic.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../components/more_menu.dart';
 import 'package:tinycolor2/tinycolor2.dart';
+import '../components/color_picker_tab.dart';
 
 class GeneratePalettePage extends ConsumerWidget {
   const GeneratePalettePage({super.key});
@@ -68,76 +68,10 @@ class GeneratePalettePage extends ConsumerWidget {
               ),
             ),
             if (isPickingColor)
-              DefaultTabController(
-                initialIndex: 0,
-                length: 3, //
-                child: Column(
-                  children: [
-                    TabBar(
-                      tabs: <Widget>[
-                        Tab(
-                          text: 'Library',
-                          // icon: Icon(Icons.cloud_outlined),
-                        ),
-                        Tab(
-                          text: 'Explore',
-                          // icon: Icon(Icons.beach_access_sharp),
-                        ),
-                        Tab(
-                          text: 'Test',
-                          // icon: Icon(Icons.beach_access_sharp),
-                        ),
-                      ],
-                    ),
-                    Container(
-                      height: 400,
-                      child: TabBarView(
-                        children: <Widget>[
-                          Center(
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              child: ColorPicker(
-                                pickerColor: colorList[activeIndex].color,
-                                onColorChanged: ((value) => ref
-                                    .read(colorObjProvider.notifier)
-                                    .pickColor(activeIndex, value)),
-                              ),
-                            ),
-                          ),
-                          Center(
-                            child: Text("It's rainy here"),
-                          ),
-                          Center(
-                            child: Text("It's It's third page here"),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        TextButton(
-                          onPressed: (() {
-                            ref
-                                .read(isPickingColorProvider.notifier)
-                                .update((state) => !state);
-                            ref
-                                .read(colorObjProvider.notifier)
-                                .update(previousColorList);
-                          }),
-                          child: Text('Cancel'),
-                        ),
-                        TextButton(
-                          onPressed: (() => ref
-                              .read(isPickingColorProvider.notifier)
-                              .update((state) => !state)),
-                          child: Text('Apply'),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              )
+              ColorPickerTab(
+                  colorList: colorList,
+                  activeIndex: activeIndex,
+                  previousColorList: previousColorList)
           ],
         ),
         bottomNavigationBar: !isPickingColor
