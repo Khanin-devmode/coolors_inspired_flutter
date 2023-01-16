@@ -21,22 +21,39 @@ class ColorPickerTab extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return DefaultTabController(
       initialIndex: 0,
-      length: 3, //
+      length: 7, //
       child: Column(
         children: [
           TabBar(
+            isScrollable: true,
             labelColor: kDarkLabelClr,
             tabs: <Widget>[
               Tab(
-                text: 'Library',
+                text: 'Picker',
                 // icon: Icon(Icons.cloud_outlined),
               ),
               Tab(
-                text: 'Explore',
+                text: 'HEX',
                 // icon: Icon(Icons.beach_access_sharp),
               ),
               Tab(
-                text: 'Test',
+                text: 'HSB',
+                // icon: Icon(Icons.beach_access_sharp),
+              ),
+              Tab(
+                text: 'HSL',
+                // icon: Icon(Icons.beach_access_sharp),
+              ),
+              Tab(
+                text: 'RGB',
+                // icon: Icon(Icons.beach_access_sharp),
+              ),
+              Tab(
+                text: 'CMYK',
+                // icon: Icon(Icons.beach_access_sharp),
+              ),
+              Tab(
+                text: 'SAVED',
                 // icon: Icon(Icons.beach_access_sharp),
               ),
             ],
@@ -57,14 +74,27 @@ class ColorPickerTab extends ConsumerWidget {
                   ),
                 ),
                 Center(
-                  child: Text("It's rainy here"),
+                  child: Text("2"),
                 ),
                 Center(
-                  child: Text("It's It's third page here"),
+                  child: Text("3"),
+                ),
+                Center(
+                  child: Text("4"),
+                ),
+                Center(
+                  child: Text("5"),
+                ),
+                Center(
+                  child: Text("6"),
+                ),
+                Center(
+                  child: Text("7"),
                 ),
               ],
             ),
           ),
+          Divider(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -75,13 +105,19 @@ class ColorPickerTab extends ConsumerWidget {
                       .update((state) => !state);
                   ref.read(colorObjProvider.notifier).update(previousColorList);
                 }),
-                child: Text('Cancel'),
+                child: Text(
+                  'Cancel',
+                  style: kGenLabel,
+                ),
               ),
               TextButton(
                 onPressed: (() => ref
                     .read(isPickingColorProvider.notifier)
                     .update((state) => !state)),
-                child: Text('Apply'),
+                child: Text(
+                  'Apply',
+                  style: kGenLabel,
+                ),
               )
             ],
           )
