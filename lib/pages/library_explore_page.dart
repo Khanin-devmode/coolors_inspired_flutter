@@ -13,19 +13,22 @@ class LibraryExplorePage extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Container(
-            width: 200,
-            child: const TabBar(
-              tabs: <Widget>[
-                Tab(
-                  text: 'Library',
-                  // icon: Icon(Icons.cloud_outlined),
-                ),
-                Tab(
-                  text: 'Explore',
-                  // icon: Icon(Icons.beach_access_sharp),
-                ),
-              ],
+          title: Center(
+            child: Container(
+              padding: EdgeInsets.only(right: 36),
+              width: 200,
+              child: const TabBar(
+                tabs: <Widget>[
+                  Tab(
+                    text: 'Library',
+                    // icon: Icon(Icons.cloud_outlined),
+                  ),
+                  Tab(
+                    text: 'Explore',
+                    // icon: Icon(Icons.beach_access_sharp),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

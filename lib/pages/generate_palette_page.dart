@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:coolors_inspired_flutter/models.dart';
 import 'package:coolors_inspired_flutter/app_logic.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../components/more_menu.dart';
 import 'package:tinycolor2/tinycolor2.dart';
 import '../components/color_picker_tab.dart';
@@ -229,8 +228,13 @@ class ColorRow extends ConsumerWidget {
                 : Container(),
             if (isPickingColor && activeIndex == objIndex)
               Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Icon(Icons.circle),
+                padding: const EdgeInsets.all(24.0),
+                child: Icon(
+                  Icons.circle,
+                  color:
+                      colorObj.color.isLight ? kDarkLabelClr : kWhiteLabelClr,
+                  size: 14,
+                ),
               )
           ]),
         ),
