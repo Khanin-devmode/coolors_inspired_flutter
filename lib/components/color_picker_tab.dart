@@ -59,17 +59,19 @@ class ColorPickerTab extends ConsumerWidget {
             ],
           ),
           Container(
-            padding: EdgeInsets.only(top: 15),
-            height: 340,
+            padding: EdgeInsets.only(top: 28),
+            height: 284,
             child: TabBarView(
+              physics: NeverScrollableScrollPhysics(),
               children: <Widget>[
                 Center(
+                  //Picker
                   child: ColorPicker(
                     displayThumbColor: true,
                     enableAlpha: false,
                     showLabel: false,
                     colorPickerWidth: 350,
-                    pickerAreaHeightPercent: 0.7,
+                    pickerAreaHeightPercent: 0.5,
                     pickerAreaBorderRadius:
                         BorderRadius.all(Radius.circular(12)),
                     paletteType: PaletteType.hsl,
@@ -80,17 +82,30 @@ class ColorPickerTab extends ConsumerWidget {
                   ),
                 ),
                 Center(
+                  //HEX
                   child: Text("2"),
                 ),
                 Center(
+                  //HSB
                   child: Text("3"),
                 ),
                 Center(
+                  //HSL
                   child: Text("4"),
                 ),
                 Center(
-                  child: Text("5"),
-                ),
+                    //RGB
+                    child: SlidePicker(
+                  showIndicator: false,
+                  displayThumbColor: true,
+                  sliderSize: Size(360, 40),
+                  colorModel: ColorModel.rgb,
+                  enableAlpha: false,
+                  pickerColor: colorList[activeIndex].color,
+                  onColorChanged: ((value) => ref
+                      .read(colorObjProvider.notifier)
+                      .pickColor(activeIndex, value)),
+                )),
                 Center(
                   child: Text("6"),
                 ),
