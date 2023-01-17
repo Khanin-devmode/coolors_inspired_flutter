@@ -59,18 +59,24 @@ class ColorPickerTab extends ConsumerWidget {
             ],
           ),
           Container(
-            height: 400,
+            padding: EdgeInsets.only(top: 15),
+            height: 340,
             child: TabBarView(
               children: <Widget>[
                 Center(
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: ColorPicker(
-                      pickerColor: colorList[activeIndex].color,
-                      onColorChanged: ((value) => ref
-                          .read(colorObjProvider.notifier)
-                          .pickColor(activeIndex, value)),
-                    ),
+                  child: ColorPicker(
+                    displayThumbColor: true,
+                    enableAlpha: false,
+                    showLabel: false,
+                    colorPickerWidth: 350,
+                    pickerAreaHeightPercent: 0.7,
+                    pickerAreaBorderRadius:
+                        BorderRadius.all(Radius.circular(12)),
+                    paletteType: PaletteType.hsl,
+                    pickerColor: colorList[activeIndex].color,
+                    onColorChanged: ((value) => ref
+                        .read(colorObjProvider.notifier)
+                        .pickColor(activeIndex, value)),
                   ),
                 ),
                 Center(
