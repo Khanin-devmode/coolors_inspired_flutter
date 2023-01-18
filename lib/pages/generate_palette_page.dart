@@ -134,20 +134,20 @@ class GeneratePalettePage extends ConsumerWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            IconButton(
-                              icon: Icon(Icons.more_horiz),
-                              onPressed: () => showMoreMenu(context, ref),
-                            ),
-                            IconButton(
-                                icon: Icon(Icons.menu),
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const LibraryExplorePage()),
-                                  );
-                                }),
+                            // IconButton(
+                            //   icon: Icon(Icons.more_horiz),
+                            //   onPressed: () => showMoreMenu(context, ref),
+                            // ),
+                            // IconButton(
+                            //     icon: Icon(Icons.menu),
+                            //     onPressed: () {
+                            //       Navigator.push(
+                            //         context,
+                            //         MaterialPageRoute(
+                            //             builder: (context) =>
+                            //                 const LibraryExplorePage()),
+                            //       );
+                            //     }),
                           ],
                         ),
                       ),
