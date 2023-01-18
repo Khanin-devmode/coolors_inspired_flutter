@@ -21,7 +21,7 @@ class ColorPickerTab extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return DefaultTabController(
       initialIndex: 0,
-      length: 7, //
+      length: 6, //
       child: Column(
         children: [
           TabBar(
@@ -37,10 +37,6 @@ class ColorPickerTab extends ConsumerWidget {
                 // icon: Icon(Icons.beach_access_sharp),
               ),
               Tab(
-                text: 'HSB',
-                // icon: Icon(Icons.beach_access_sharp),
-              ),
-              Tab(
                 text: 'HSL',
                 // icon: Icon(Icons.beach_access_sharp),
               ),
@@ -49,7 +45,7 @@ class ColorPickerTab extends ConsumerWidget {
                 // icon: Icon(Icons.beach_access_sharp),
               ),
               Tab(
-                text: 'CMYK',
+                text: 'MATERIAL',
                 // icon: Icon(Icons.beach_access_sharp),
               ),
               Tab(
@@ -86,30 +82,45 @@ class ColorPickerTab extends ConsumerWidget {
                   child: Text("2"),
                 ),
                 Center(
-                  //HSB
-                  child: Text("3"),
-                ),
-                Center(
                   //HSL
-                  child: Text("4"),
+                  child: SlidePicker(
+                    showIndicator: false,
+                    displayThumbColor: true,
+                    sliderSize: Size(360, 40),
+                    colorModel: ColorModel.hsl,
+                    enableAlpha: false,
+                    pickerColor: colorList[activeIndex].color,
+                    onColorChanged: ((value) => ref
+                        .read(colorObjProvider.notifier)
+                        .pickColor(activeIndex, value)),
+                  ),
                 ),
                 Center(
-                    //RGB
-                    child: SlidePicker(
-                  showIndicator: false,
-                  displayThumbColor: true,
-                  sliderSize: Size(360, 40),
-                  colorModel: ColorModel.rgb,
-                  enableAlpha: false,
-                  pickerColor: colorList[activeIndex].color,
-                  onColorChanged: ((value) => ref
-                      .read(colorObjProvider.notifier)
-                      .pickColor(activeIndex, value)),
-                )),
-                Center(
-                  child: Text("6"),
+                  //RGB
+                  child: SlidePicker(
+                    showIndicator: false,
+                    displayThumbColor: true,
+                    sliderSize: Size(360, 40),
+                    colorModel: ColorModel.rgb,
+                    enableAlpha: false,
+                    pickerColor: colorList[activeIndex].color,
+                    onColorChanged: ((value) => ref
+                        .read(colorObjProvider.notifier)
+                        .pickColor(activeIndex, value)),
+                  ),
                 ),
                 Center(
+                  //MATERIAL
+                  child: MaterialPicker(
+                    portraitOnly: false,
+                    pickerColor: colorList[activeIndex].color,
+                    onColorChanged: ((value) => ref
+                        .read(colorObjProvider.notifier)
+                        .pickColor(activeIndex, value)),
+                  ),
+                ),
+                Center(
+                  //SAVED
                   child: Text("7"),
                 ),
               ],
