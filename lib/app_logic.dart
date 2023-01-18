@@ -7,6 +7,8 @@ import 'package:random_color/random_color.dart';
 final isPickingColorProvider = StateProvider<bool>((ref) => false);
 final activeColorIndexProvider = StateProvider<int>((ref) => 0);
 final colorBeforePickingProvider = StateProvider<List<ColorObj>>((ref) => []);
+final hexTextControllerProvider =
+    StateProvider<TextEditingController>((ref) => TextEditingController());
 
 //app state for colors list.
 class ColorObjNotifier extends StateNotifier<List<ColorObj>>

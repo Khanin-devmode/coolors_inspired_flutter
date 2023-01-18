@@ -1,4 +1,7 @@
+import 'package:coolors_inspired_flutter/components/sign_in_menu.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:coolors_inspired_flutter/models.dart';
 import 'package:coolors_inspired_flutter/constants.dart';
@@ -6,7 +9,7 @@ import 'package:coolors_inspired_flutter/app_logic.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class ColorPickerTab extends ConsumerWidget {
-  const ColorPickerTab({
+  ColorPickerTab({
     Key? key,
     required this.colorList,
     required this.activeIndex,
@@ -19,6 +22,9 @@ class ColorPickerTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final TextEditingController hexTextController =
+        ref.watch(hexTextControllerProvider);
+
     return DefaultTabController(
       initialIndex: 0,
       length: 6, //
@@ -70,7 +76,8 @@ class ColorPickerTab extends ConsumerWidget {
                     pickerAreaHeightPercent: 0.5,
                     pickerAreaBorderRadius:
                         BorderRadius.all(Radius.circular(12)),
-                    paletteType: PaletteType.hsl,
+                    paletteType: PaletteType.hsv,
+                    hexInputController: hexTextController,
                     pickerColor: colorList[activeIndex].color,
                     onColorChanged: ((value) => ref
                         .read(colorObjProvider.notifier)
@@ -79,7 +86,27 @@ class ColorPickerTab extends ConsumerWidget {
                 ),
                 Center(
                   //HEX
-                  child: Text("2"),
+                  child: SizedBox(
+                    width: 280,
+                    height: 48,
+                    child: CupertinoTextField(
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 32),
+                      maxLength: 9,
+                      inputFormatters: [
+                        UpperCaseTextFormatter(),
+                        FilteringTextInputFormatter.allow(
+                            RegExp(kValidHexPattern))
+                      ],
+                      controller: hexTextController,
+                      onChanged: (value) {
+                        print(value.toUpperCase());
+                        ref.read(hexTextControllerProvider.notifier).update(
+                            (state) =>
+                                TextEditingController(text: value.toString()));
+                      },
+                    ),
+                  ),
                 ),
                 Center(
                   //HSL
@@ -121,7 +148,18 @@ class ColorPickerTab extends ConsumerWidget {
                 ),
                 Center(
                   //SAVED
-                  child: Text("7"),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Sign in to view your colors',
+                        style: kMutedLabel,
+                      ),
+                      TextButton(
+                          onPressed: () => showSignInMenu(context, ref),
+                          child: Text('Sign In'))
+                    ],
+                  ),
                 ),
               ],
             ),
