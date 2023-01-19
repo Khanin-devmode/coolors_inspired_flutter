@@ -1,5 +1,5 @@
 name: coolors_inspired_flutter
-description: A new Flutter project.
+description: A clone of coolors.co mobile application, built with flutter.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
@@ -19,6 +19,7 @@ dependencies:
   url_launcher: ^6.1.7
   font_awesome_flutter: ^10.3.0
   flutter_colorpicker: ^1.0.3
+  flutter_launcher_icons: ^0.11.0
 
 dev_dependencies:
   flutter_test:
@@ -33,3 +34,9 @@ flutter:
         - asset: fonts/Poppins-Regular.ttf
   uses-material-design: true
 
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/launcher/icon.png"
+  min_sdk_android: 21
+  remove_alpha_ios: true
