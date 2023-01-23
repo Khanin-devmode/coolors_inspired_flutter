@@ -80,7 +80,7 @@ class ColorPickerTab extends ConsumerWidget {
                     hexInputController: hexTextController,
                     pickerColor: colorList[activeIndex].color,
                     onColorChanged: ((value) => ref
-                        .read(colorObjProvider.notifier)
+                        .read(colorListProvider.notifier)
                         .pickColor(activeIndex, value)),
                   ),
                 ),
@@ -118,7 +118,7 @@ class ColorPickerTab extends ConsumerWidget {
                     enableAlpha: false,
                     pickerColor: colorList[activeIndex].color,
                     onColorChanged: ((value) => ref
-                        .read(colorObjProvider.notifier)
+                        .read(colorListProvider.notifier)
                         .pickColor(activeIndex, value)),
                   ),
                 ),
@@ -132,7 +132,7 @@ class ColorPickerTab extends ConsumerWidget {
                     enableAlpha: false,
                     pickerColor: colorList[activeIndex].color,
                     onColorChanged: ((value) => ref
-                        .read(colorObjProvider.notifier)
+                        .read(colorListProvider.notifier)
                         .pickColor(activeIndex, value)),
                   ),
                 ),
@@ -142,7 +142,7 @@ class ColorPickerTab extends ConsumerWidget {
                     portraitOnly: false,
                     pickerColor: colorList[activeIndex].color,
                     onColorChanged: ((value) => ref
-                        .read(colorObjProvider.notifier)
+                        .read(colorListProvider.notifier)
                         .pickColor(activeIndex, value)),
                   ),
                 ),
@@ -173,7 +173,9 @@ class ColorPickerTab extends ConsumerWidget {
                   ref
                       .read(isPickingColorProvider.notifier)
                       .update((state) => !state);
-                  ref.read(colorObjProvider.notifier).update(previousColorList);
+                  ref
+                      .read(colorListProvider.notifier)
+                      .update(previousColorList);
                 }),
                 child: Text(
                   'Cancel',

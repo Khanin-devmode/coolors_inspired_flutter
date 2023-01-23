@@ -17,16 +17,28 @@ final hexTextControllerProvider =
     StateProvider<TextEditingController>((ref) => TextEditingController());
 
 //app state for colors list.
-class ColorObjNotifier extends StateNotifier<List<ColorObj>>
+class ColorListNotifier extends StateNotifier<List<ColorObj>>
     with HistoryMixin<List<ColorObj>> {
-  ColorObjNotifier()
+  ColorListNotifier()
       : super([
-          ColorObj(Colors.red, getHexCode(Colors.red), false),
-          ColorObj(Colors.green, getHexCode(Colors.green), false),
-          ColorObj(Colors.blue, getHexCode(Colors.blue), false),
-          ColorObj(Colors.yellow, getHexCode(Colors.yellow), false),
-          ColorObj(Colors.purple, getHexCode(Colors.purple), false),
+          // ColorObj(Colors.red, getHexCode(Colors.red), false),
+          // ColorObj(Colors.green, getHexCode(Colors.green), false),
+          // ColorObj(Colors.blue, getHexCode(Colors.blue), false),
+          // ColorObj(Colors.yellow, getHexCode(Colors.yellow), false),
+          // ColorObj(Colors.purple, getHexCode(Colors.purple), false),
         ]);
+
+  void initRandomColor() {
+    RandomColor randomColor = RandomColor();
+    List<ColorObj> newColorList = [];
+
+    for (int i = 0; i < 5; i++) {
+      var newColor = randomColor.randomColor();
+      newColorList.add(ColorObj(newColor, getHexCode(newColor), false));
+    }
+
+    state = newColorList;
+  }
 
   void generateColor() {
     RandomColor randomColor = RandomColor();
@@ -93,10 +105,10 @@ class ColorObjNotifier extends StateNotifier<List<ColorObj>>
   }
 }
 
-final colorObjProvider =
-    StateNotifierProvider<ColorObjNotifier, List<ColorObj>>(
+final colorListProvider =
+    StateNotifierProvider<ColorListNotifier, List<ColorObj>>(
   (ref) {
-    return ColorObjNotifier();
+    return ColorListNotifier();
   },
 );
 

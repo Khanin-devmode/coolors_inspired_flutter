@@ -9,7 +9,7 @@ import 'app_menu_item.dart';
 
 Future<dynamic> showColorMenu(
     BuildContext context, WidgetRef ref, ColorObj selectedColor) {
-  List<ColorObj> colorList = ref.watch(colorObjProvider);
+  List<ColorObj> colorList = ref.watch(colorListProvider);
 
   return showModalBottomSheet(
       context: context,
@@ -42,7 +42,7 @@ Future<dynamic> showColorMenu(
                 label: 'Add Colors',
                 hasNavigation: false,
                 menuFuncton: () =>
-                    ref.read(colorObjProvider.notifier).addColor(),
+                    ref.read(colorListProvider.notifier).addColor(),
               ),
               Divider(),
               AppMenuItem(
@@ -50,7 +50,7 @@ Future<dynamic> showColorMenu(
                 label: 'Remove Color',
                 hasNavigation: false,
                 menuFuncton: () =>
-                    ref.read(colorObjProvider.notifier).removeColor(),
+                    ref.read(colorListProvider.notifier).removeColor(),
               ),
               Divider(),
               AppMenuItem(

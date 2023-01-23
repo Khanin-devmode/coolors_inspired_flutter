@@ -9,9 +9,14 @@ import '../components/more_menu.dart';
 import 'package:tinycolor2/tinycolor2.dart';
 import '../components/color_picker_tab.dart';
 
-class GeneratePalettePage extends ConsumerWidget {
-  const GeneratePalettePage({super.key});
+class GeneratePalettePage extends ConsumerStatefulWidget {
+  const GeneratePalettePage({Key? key}) : super(key: key);
 
+  @override
+  GeneratePalettePageState createState() => GeneratePalettePageState();
+}
+
+class GeneratePalettePageState extends ConsumerState<GeneratePalettePage> {
   // void initState() {
   //   super.initState();
   //   ShakeDetector detector = ShakeDetector.autoStart(
@@ -23,10 +28,17 @@ class GeneratePalettePage extends ConsumerWidget {
   //     // shakeCountResetTime: 1000,
   //     shakeThresholdGravity: 1.5,
   //   );
+  @override
+  void initState() {
+    super.initState();
+    Future(() {
+      ref.read(colorListProvider.notifier).initRandomColor();
+    });
+  }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    List<ColorObj> colorList = ref.watch(colorObjProvider);
+  Widget build(BuildContext context) {
+    List<ColorObj> colorList = ref.watch(colorListProvider);
     bool isPickingColor = ref.watch(isPickingColorProvider);
     int activeIndex = ref.watch(activeColorIndexProvider);
     List<ColorObj> previousColorList = ref.watch(colorBeforePickingProvider);
@@ -58,7 +70,7 @@ class GeneratePalettePage extends ConsumerWidget {
                     objIndex: i,
                     colorObj: colorList[i],
                     toggleLock: () => ref
-                        .read(colorObjProvider.notifier)
+                        .read(colorListProvider.notifier)
                         .toggleLock(colorList[i]),
                     isPickingColor: isPickingColor,
                     activeIndex: activeIndex,
@@ -91,20 +103,20 @@ class GeneratePalettePage extends ConsumerWidget {
                                   IconButton(
                                     icon: Icon(Icons.undo_rounded),
                                     onPressed: ref
-                                            .read(colorObjProvider.notifier)
+                                            .read(colorListProvider.notifier)
                                             .getCanUndo()
                                         ? () => ref
-                                            .read(colorObjProvider.notifier)
+                                            .read(colorListProvider.notifier)
                                             .undo()
                                         : null,
                                   ),
                                   IconButton(
                                     icon: Icon(Icons.redo_rounded),
                                     onPressed: ref
-                                            .read(colorObjProvider.notifier)
+                                            .read(colorListProvider.notifier)
                                             .getCanRedo()
                                         ? () => ref
-                                            .read(colorObjProvider.notifier)
+                                            .read(colorListProvider.notifier)
                                             .redo()
                                         : null,
                                   ),
@@ -117,7 +129,7 @@ class GeneratePalettePage extends ConsumerWidget {
                       Expanded(
                         child: GestureDetector(
                           onTap: (() => ref
-                              .read(colorObjProvider.notifier)
+                              .read(colorListProvider.notifier)
                               .generateColor()),
                           child: Container(
                             alignment: Alignment.center,
