@@ -8,6 +8,7 @@ import 'package:coolors_inspired_flutter/app_logic.dart';
 import '../components/more_menu.dart';
 import 'package:tinycolor2/tinycolor2.dart';
 import '../components/color_picker_tab.dart';
+import 'package:shake/shake.dart';
 
 class GeneratePalettePage extends ConsumerStatefulWidget {
   const GeneratePalettePage({Key? key}) : super(key: key);
@@ -34,6 +35,16 @@ class GeneratePalettePageState extends ConsumerState<GeneratePalettePage> {
     Future(() {
       ref.read(colorListProvider.notifier).initRandomColor();
     });
+
+    ShakeDetector detector = ShakeDetector.autoStart(
+      onPhoneShake: () {
+        ref.read(colorListProvider.notifier).generateColor();
+      },
+      minimumShakeCount: 1,
+      shakeSlopTimeMS: 500,
+      shakeCountResetTime: 500,
+      shakeThresholdGravity: 1.5,
+    );
   }
 
   @override
