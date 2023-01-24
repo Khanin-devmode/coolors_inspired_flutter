@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.coolors_inspired_flutter">
    <application
-        android:label="coolors_inspired_flutter"
+        android:label="Coolor Clone"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
