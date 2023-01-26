@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppMenuItem extends StatelessWidget {
-  AppMenuItem(
+  const AppMenuItem(
       {Key? key,
       required this.iconData,
       required this.label,
@@ -12,7 +12,7 @@ class AppMenuItem extends StatelessWidget {
   final IconData iconData;
   final String label;
   final bool hasNavigation;
-  Function? menuFuncton;
+  final Function? menuFuncton;
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +28,14 @@ class AppMenuItem extends StatelessWidget {
               child: Row(
                 children: [
                   Icon(iconData),
-                  SizedBox(width: 16),
+                  const SizedBox(width: 16),
                   Text(label),
                 ],
               ),
             ),
             Container(
               child: hasNavigation
-                  ? Icon(
+                  ? const Icon(
                       Icons.arrow_forward,
                       color: Colors.grey,
                     )

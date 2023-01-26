@@ -94,7 +94,9 @@ class ColorListNotifier extends StateNotifier<List<ColorObj>>
   // }
 
   void removeColor(ColorObj targetColor) {
-    state = state.where((color) => color != targetColor).toList();
+    if (state.length > 1) {
+      state = state.where((color) => color != targetColor).toList();
+    }
   }
 
   void pickColor(int selectedIndex, Color newColor) {
