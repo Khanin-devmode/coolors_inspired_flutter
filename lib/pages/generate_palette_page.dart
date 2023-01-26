@@ -18,17 +18,6 @@ class GeneratePalettePage extends ConsumerStatefulWidget {
 }
 
 class GeneratePalettePageState extends ConsumerState<GeneratePalettePage> {
-  // void initState() {
-  //   super.initState();
-  //   ShakeDetector detector = ShakeDetector.autoStart(
-  //     onPhoneShake: () {
-  //       _generateColor();
-  //     },
-  //     minimumShakeCount: 1,
-  //     // shakeSlopTimeMS: 500,
-  //     // shakeCountResetTime: 1000,
-  //     shakeThresholdGravity: 1.5,
-  //   );
   @override
   void initState() {
     super.initState();
@@ -56,6 +45,7 @@ class GeneratePalettePageState extends ConsumerState<GeneratePalettePage> {
 
     return SafeArea(
       child: Scaffold(
+        // ToDo: Make Palette Reorderable with Flex.
         // body: ReorderableListView.builder(
         //   onReorder: (oldIndex, newIndex) {
         //     ref.read(colorObjProvider.notifier).reorder(oldIndex, newIndex);
