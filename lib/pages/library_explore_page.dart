@@ -1,6 +1,3 @@
-import 'package:flutter/src/widgets/basic.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 
 class LibraryExplorePage extends StatelessWidget {
@@ -15,7 +12,7 @@ class LibraryExplorePage extends StatelessWidget {
         appBar: AppBar(
           title: Center(
             child: Container(
-              padding: EdgeInsets.only(right: 36),
+              padding: const EdgeInsets.only(right: 36),
               width: 200,
               child: const TabBar(
                 tabs: <Widget>[
@@ -50,7 +47,7 @@ class LibraryExplorePage extends StatelessWidget {
                 child: const Text('Go back!'),
               ),
             ),
-            Center(
+            const Center(
               child: Text("It's rainy here"),
             ),
           ],

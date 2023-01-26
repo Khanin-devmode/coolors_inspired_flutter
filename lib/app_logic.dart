@@ -83,13 +83,18 @@ class ColorListNotifier extends StateNotifier<List<ColorObj>>
   void addColor() {
     RandomColor randomColor = RandomColor();
     var newColor = randomColor.randomColor();
-    ColorObj newColorObj = new ColorObj(newColor, getHexCode(newColor), false);
+    ColorObj newColorObj = ColorObj(newColor, getHexCode(newColor), false);
 
     state = [...state, newColorObj];
   }
 
-  void removeColor() {
-    state = state.sublist(0, state.length - 1);
+  // void removeColor() {
+  //   state = state.sublist(0, state.length - 1);
+  //   print(state);
+  // }
+
+  void removeColor(ColorObj targetColor) {
+    state = state.where((color) => color != targetColor).toList();
   }
 
   void pickColor(int selectedIndex, Color newColor) {

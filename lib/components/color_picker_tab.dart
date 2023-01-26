@@ -1,4 +1,4 @@
-import 'package:coolors_inspired_flutter/components/sign_in_menu.dart';
+// import 'package:coolors_inspired_flutter/components/sign_in_menu.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,7 +9,7 @@ import 'package:coolors_inspired_flutter/app_logic.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class ColorPickerTab extends ConsumerWidget {
-  ColorPickerTab({
+  const ColorPickerTab({
     Key? key,
     required this.colorList,
     required this.activeIndex,
@@ -30,7 +30,7 @@ class ColorPickerTab extends ConsumerWidget {
       length: 5, //
       child: Column(
         children: [
-          TabBar(
+          const TabBar(
             isScrollable: true,
             labelColor: kDarkLabelClr,
             tabs: <Widget>[
@@ -61,10 +61,10 @@ class ColorPickerTab extends ConsumerWidget {
             ],
           ),
           Container(
-            padding: EdgeInsets.only(top: 28),
+            padding: const EdgeInsets.only(top: 28),
             height: 284,
             child: TabBarView(
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               children: <Widget>[
                 Center(
                   //Picker
@@ -75,7 +75,7 @@ class ColorPickerTab extends ConsumerWidget {
                     colorPickerWidth: 350,
                     pickerAreaHeightPercent: 0.5,
                     pickerAreaBorderRadius:
-                        BorderRadius.all(Radius.circular(12)),
+                        const BorderRadius.all(Radius.circular(12)),
                     paletteType: PaletteType.hsv,
                     hexInputController: hexTextController,
                     pickerColor: colorList[activeIndex].color,
@@ -91,7 +91,7 @@ class ColorPickerTab extends ConsumerWidget {
                     height: 48,
                     child: CupertinoTextField(
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 32),
+                      style: const TextStyle(fontSize: 32),
                       maxLength: 6,
                       inputFormatters: [
                         UpperCaseTextFormatter(),

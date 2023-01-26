@@ -10,14 +10,15 @@ import 'app_menu_item.dart';
 Future<dynamic> showColorMenu(
     BuildContext context, WidgetRef ref, ColorObj selectedColor) {
   List<ColorObj> colorList = ref.watch(colorListProvider);
+  int activeIndex = ref.watch(activeColorIndexProvider);
 
   return showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
         return SafeArea(
           child: Container(
-            padding: EdgeInsets.only(top: 6),
-            decoration: BoxDecoration(
+            padding: const EdgeInsets.only(top: 6),
+            decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.vertical(top: Radius.circular(12))),
             child: Column(
@@ -38,23 +39,29 @@ Future<dynamic> showColorMenu(
                         .update((state) => colorList);
                   },
                 ),
-                Divider(),
+                const Divider(),
                 AppMenuItem(
                   iconData: Icons.add,
                   label: 'Add Colors',
                   hasNavigation: false,
-                  menuFuncton: () =>
-                      ref.read(colorListProvider.notifier).addColor(),
+                  menuFuncton: () {
+                    ref.read(colorListProvider.notifier).addColor();
+                    Navigator.pop(context);
+                  },
                 ),
-                Divider(),
+                const Divider(),
                 AppMenuItem(
                   iconData: Icons.remove,
                   label: 'Remove Color',
                   hasNavigation: false,
-                  menuFuncton: () =>
-                      ref.read(colorListProvider.notifier).removeColor(),
+                  menuFuncton: () {
+                    ref
+                        .read(colorListProvider.notifier)
+                        .removeColor(colorList[activeIndex]);
+                    Navigator.pop(context);
+                  },
                 ),
-                Divider(),
+                const Divider(),
                 AppMenuItem(
                   iconData: Icons.favorite_border,
                   label: 'Save Color',
@@ -64,7 +71,7 @@ Future<dynamic> showColorMenu(
                     showSignInMenu(context, ref);
                   },
                 ),
-                Divider(),
+                const Divider(),
                 AppMenuItem(
                   iconData: Icons.copy,
                   label: 'Copy Color',
@@ -76,7 +83,7 @@ Future<dynamic> showColorMenu(
                     Navigator.pop(context);
                   },
                 ),
-                Divider(),
+                const Divider(),
                 Padding(
                   padding: const EdgeInsets.only(top: 12, bottom: 18),
                   child: Row(
@@ -84,7 +91,7 @@ Future<dynamic> showColorMenu(
                     children: [
                       GestureDetector(
                         onTap: () => Navigator.pop(context),
-                        child: Text(
+                        child: const Text(
                           'Cancel',
                           style: kGenLabel,
                         ),
