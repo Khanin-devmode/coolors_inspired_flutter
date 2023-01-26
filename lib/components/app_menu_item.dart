@@ -16,11 +16,11 @@ class AppMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-      child: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: menuFuncton != null ? () => menuFuncton!() : (() {}),
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: menuFuncton != null ? () => menuFuncton!() : (() {}),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

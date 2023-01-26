@@ -27,7 +27,7 @@ class ColorPickerTab extends ConsumerWidget {
 
     return DefaultTabController(
       initialIndex: 0,
-      length: 6, //
+      length: 5, //
       child: Column(
         children: [
           TabBar(
@@ -54,10 +54,10 @@ class ColorPickerTab extends ConsumerWidget {
                 text: 'MATERIAL',
                 // icon: Icon(Icons.beach_access_sharp),
               ),
-              Tab(
-                text: 'SAVED',
-                // icon: Icon(Icons.beach_access_sharp),
-              ),
+              // Tab(
+              //   text: 'SAVED',
+              //   // icon: Icon(Icons.beach_access_sharp),
+              // ),
             ],
           ),
           Container(
@@ -92,7 +92,7 @@ class ColorPickerTab extends ConsumerWidget {
                     child: CupertinoTextField(
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 32),
-                      maxLength: 9,
+                      maxLength: 6,
                       inputFormatters: [
                         UpperCaseTextFormatter(),
                         FilteringTextInputFormatter.allow(
@@ -100,10 +100,16 @@ class ColorPickerTab extends ConsumerWidget {
                       ],
                       controller: hexTextController,
                       onChanged: (value) {
-                        print(value.toUpperCase());
-                        ref.read(hexTextControllerProvider.notifier).update(
-                            (state) =>
-                                TextEditingController(text: value.toString()));
+                        // print(value.toUpperCase());
+                        // ref.read(hexTextControllerProvider.notifier).update(
+                        //     (state) =>
+                        //         TextEditingController(text: value.toString()));
+                        print('0xff' + value.toString());
+                        int hexCode = int.parse('0xff' + value.toString());
+                        Color newColor = Color(hexCode);
+                        ref
+                            .read(colorListProvider.notifier)
+                            .pickColor(activeIndex, newColor);
                       },
                     ),
                   ),
@@ -117,9 +123,14 @@ class ColorPickerTab extends ConsumerWidget {
                     colorModel: ColorModel.hsl,
                     enableAlpha: false,
                     pickerColor: colorList[activeIndex].color,
-                    onColorChanged: ((value) => ref
-                        .read(colorListProvider.notifier)
-                        .pickColor(activeIndex, value)),
+                    onColorChanged: ((value) {
+                      ref
+                          .read(colorListProvider.notifier)
+                          .pickColor(activeIndex, value);
+                      ref.read(hexTextControllerProvider.notifier).update(
+                          (state) =>
+                              TextEditingController(text: getHexCode(value)));
+                    }),
                   ),
                 ),
                 Center(
@@ -131,9 +142,14 @@ class ColorPickerTab extends ConsumerWidget {
                     colorModel: ColorModel.rgb,
                     enableAlpha: false,
                     pickerColor: colorList[activeIndex].color,
-                    onColorChanged: ((value) => ref
-                        .read(colorListProvider.notifier)
-                        .pickColor(activeIndex, value)),
+                    onColorChanged: ((value) {
+                      ref
+                          .read(colorListProvider.notifier)
+                          .pickColor(activeIndex, value);
+                      ref.read(hexTextControllerProvider.notifier).update(
+                          (state) =>
+                              TextEditingController(text: getHexCode(value)));
+                    }),
                   ),
                 ),
                 Center(
@@ -141,26 +157,31 @@ class ColorPickerTab extends ConsumerWidget {
                   child: MaterialPicker(
                     portraitOnly: false,
                     pickerColor: colorList[activeIndex].color,
-                    onColorChanged: ((value) => ref
-                        .read(colorListProvider.notifier)
-                        .pickColor(activeIndex, value)),
+                    onColorChanged: ((value) {
+                      ref
+                          .read(colorListProvider.notifier)
+                          .pickColor(activeIndex, value);
+                      ref.read(hexTextControllerProvider.notifier).update(
+                          (state) =>
+                              TextEditingController(text: getHexCode(value)));
+                    }),
                   ),
                 ),
-                Center(
-                  //SAVED
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Sign in to view your colors',
-                        style: kMutedLabel,
-                      ),
-                      TextButton(
-                          onPressed: () => showSignInMenu(context, ref),
-                          child: Text('Sign In'))
-                    ],
-                  ),
-                ),
+                // Center(
+                //   //SAVED
+                //   child: Column(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     children: [
+                //       Text(
+                //         'Sign in to view your colors',
+                //         style: kMutedLabel,
+                //       ),
+                //       TextButton(
+                //           onPressed: () => showSignInMenu(context, ref),
+                //           child: Text('Sign In'))
+                //     ],
+                //   ),
+                // ),
               ],
             ),
           ),

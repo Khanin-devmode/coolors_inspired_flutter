@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Coolors Inspired',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        useMaterial3: true,
         fontFamily: 'Poppins',
         bottomSheetTheme:
             BottomSheetThemeData(backgroundColor: Colors.transparent),
