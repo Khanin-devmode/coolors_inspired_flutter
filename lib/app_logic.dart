@@ -4,10 +4,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'models.dart';
 import 'package:random_color/random_color.dart';
 
-//authentication
-// 1
-final firebaseAuthProvider =
-    Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
+final authenticationProvider = Provider<Authentication>((ref) {
+  return Authentication();
+});
+
+final authStateProvider = StreamProvider<User?>((ref) {
+  return ref.read(authenticationProvider).authStateChage;
+});
 
 //app state for ui.
 final isPickingColorProvider = StateProvider<bool>((ref) => false);

@@ -1,11 +1,12 @@
 import 'package:coolors_inspired_flutter/components/color_menu.dart';
 import 'package:coolors_inspired_flutter/constants.dart';
-// import 'package:coolors_inspired_flutter/pages/library_explore_page.dart';
+import 'package:coolors_inspired_flutter/pages/library_explore_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:coolors_inspired_flutter/models.dart';
 import 'package:coolors_inspired_flutter/app_logic.dart';
-// import '../components/more_menu.dart';
+import 'package:go_router/go_router.dart';
+import '../components/more_menu.dart';
 import 'package:tinycolor2/tinycolor2.dart';
 import '../components/color_picker_tab.dart';
 import 'package:shake/shake.dart';
@@ -147,20 +148,21 @@ class GeneratePalettePageState extends ConsumerState<GeneratePalettePage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            // IconButton(
-                            //   icon: Icon(Icons.more_horiz),
-                            //   onPressed: () => showMoreMenu(context, ref),
-                            // ),
-                            // IconButton(
-                            //     icon: Icon(Icons.menu),
-                            //     onPressed: () {
-                            //       Navigator.push(
-                            //         context,
-                            //         MaterialPageRoute(
-                            //             builder: (context) =>
-                            //                 const LibraryExplorePage()),
-                            //       );
-                            //     }),
+                            IconButton(
+                              icon: Icon(Icons.more_horiz),
+                              onPressed: () => showMoreMenu(context, ref),
+                            ),
+                            IconButton(
+                                icon: Icon(Icons.menu),
+                                onPressed: () {
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //       builder: (context) =>
+                                  //           const LibraryExplorePage()),
+                                  // );
+                                  GoRouter.of(context).push('/library_explore');
+                                }),
                           ],
                         ),
                       ),
