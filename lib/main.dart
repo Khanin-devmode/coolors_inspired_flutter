@@ -1,10 +1,20 @@
 import 'package:coolors_inspired_flutter/pages/library_explore_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'pages/generate_palette_page.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(ProviderScope(child: const MyApp()));
 }
 
@@ -34,6 +44,12 @@ class MyApp extends StatelessWidget {
             path: '/library_explore',
             builder: (context, state) => const LibraryExplorePage(),
           ),
+          // GoRoute(
+          //   path: '/sign_in',
+          //   builder: (context, state) => SignInScreen(
+          //     providers: [],
+          //   ),
+          // ),
         ],
       ),
     );

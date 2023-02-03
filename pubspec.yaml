@@ -23,6 +23,7 @@ dependencies:
   firebase_auth: ^4.2.5
   google_sign_in: ^5.4.4
   go_router: ^6.0.3
+  firebase_ui_auth: ^1.1.9
 
 dev_dependencies:
   flutter_test:

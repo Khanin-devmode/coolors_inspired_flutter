@@ -1,3 +1,4 @@
+import 'package:coolors_inspired_flutter/app_logic.dart';
 import 'package:coolors_inspired_flutter/components/export_menu.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,8 @@ import 'app_menu_item.dart';
 import 'package:coolors_inspired_flutter/constants.dart';
 
 Future<dynamic> showSignInMenu(BuildContext context, WidgetRef ref) {
+  final _auth = ref.watch(authenticationProvider);
+
   return showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -59,7 +62,6 @@ Future<dynamic> showSignInMenu(BuildContext context, WidgetRef ref) {
                     ),
                   ),
                 ),
-                onPressed: () => {},
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 4),
                   child: Row(
@@ -82,6 +84,7 @@ Future<dynamic> showSignInMenu(BuildContext context, WidgetRef ref) {
                     ],
                   ),
                 ),
+                onPressed: () => _auth.signInWithGoogle(context),
               ),
               SizedBox(
                 height: 12,

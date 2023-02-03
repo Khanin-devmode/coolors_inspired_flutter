@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "407916430803",
+    "project_id": "coolors-clone",
+    "storage_bucket": "coolors-clone.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:407916430803:android:e7d88b7940dd366f4adb26",
+        "android_client_info": {
+          "package_name": "dev.khanin.coolors_inspired_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "407916430803-cnfc8fberpc4dq36v0rs07ae9vnuog29.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4VOEbVUhziZXTCA98L8d4OdrTpppRXb4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "407916430803-cnfc8fberpc4dq36v0rs07ae9vnuog29.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
