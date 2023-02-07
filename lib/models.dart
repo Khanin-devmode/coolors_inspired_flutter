@@ -16,6 +16,7 @@ String getHexCode(Color color) {
 
 class Authentication {
   FirebaseAuth _auth = FirebaseAuth.instance;
+
   Stream<User?> get authStateChage => _auth.authStateChanges();
 
   Future<void> signInWithGoogle(BuildContext context) async {

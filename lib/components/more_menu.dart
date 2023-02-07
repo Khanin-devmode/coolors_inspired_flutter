@@ -1,11 +1,16 @@
+import 'package:coolors_inspired_flutter/app_logic.dart';
 import 'package:coolors_inspired_flutter/components/export_menu.dart';
 import 'package:coolors_inspired_flutter/components/sign_in_menu.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'app_menu_item.dart';
 import 'package:coolors_inspired_flutter/constants.dart';
 
 Future<dynamic> showMoreMenu(BuildContext context, WidgetRef ref) {
+  final _auth = ref.watch(authenticationProvider);
+  final data = ref.watch(authStateProvider);
+
   return showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -62,6 +67,22 @@ Future<dynamic> showMoreMenu(BuildContext context, WidgetRef ref) {
                 hasNavigation: false,
               ),
               Divider(),
+              data.value != null
+                  ? Column(
+                      children: [
+                        AppMenuItem(
+                          iconData: Icons.exit_to_app,
+                          label: 'Sign out ${data.value!.email}',
+                          hasNavigation: false,
+                          menuFuncton: () {
+                            _auth.signOut();
+                            Navigator.pop(context);
+                          },
+                        ),
+                        Divider(),
+                      ],
+                    )
+                  : Container(),
               Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Row(
