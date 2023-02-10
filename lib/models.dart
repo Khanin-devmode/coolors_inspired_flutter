@@ -19,7 +19,7 @@ class Authentication {
 
   Stream<User?> get authStateChage => _auth.authStateChanges();
 
-  Future<void> signInWithGoogle(BuildContext context) async {
+  Future<void> signInWithGoogle(BuildContext context, Function callBack) async {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
@@ -35,6 +35,8 @@ class Authentication {
 
     try {
       await _auth.signInWithCredential(credential);
+
+      callBack();
     } on FirebaseAuthException catch (e) {
       await showDialog(
         context: context,

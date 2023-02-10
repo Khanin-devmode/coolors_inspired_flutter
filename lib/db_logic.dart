@@ -1,6 +1,7 @@
 import 'dart:html';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class Database {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -9,8 +10,8 @@ class Database {
 
   // Add a user with uid
   // A method that will add a new Movie m to our Movies collection and return true if its successful.
-  Future<bool> addUser(String userId) async {
-    _users = _firestore.collection('movies');
+  Future<bool> addNewUser(String userId) async {
+    _users = _firestore.collection('users');
     try {
       await _users.add({'uid': userId, 'savedColors': []});
       return true;
@@ -19,3 +20,7 @@ class Database {
     }
   }
 }
+
+final databaseProvider = Provider<Database>((ref) {
+  return Database();
+});

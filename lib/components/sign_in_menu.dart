@@ -84,7 +84,11 @@ Future<dynamic> showSignInMenu(BuildContext context, WidgetRef ref) {
                     ],
                   ),
                 ),
-                onPressed: () => _auth.signInWithGoogle(context),
+                onPressed: () {
+                  _auth.signInWithGoogle(context, () {
+                    Navigator.pop(context);
+                  });
+                },
               ),
               SizedBox(
                 height: 12,
