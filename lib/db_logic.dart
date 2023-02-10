@@ -19,14 +19,15 @@ class Database {
   //   }
   // }
 
-  Future<bool> saveColor(String colorHex, String uid) async {
+  Future saveColor(
+      String colorHex, String uid, Function successCallBack) async {
     _savedColors = _firestore.collection('savedColors');
     try {
       await _savedColors.add({'uid': uid, 'colorHex': colorHex});
-
-      return true;
+      successCallBack();
+      // return true;
     } catch (e) {
-      return Future.error(e);
+      // return Future.error(e);
     }
   }
 }

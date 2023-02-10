@@ -76,10 +76,9 @@ Future<dynamic> showColorMenu(
                         }
                       : () {
                           db.saveColor(
-                              colorList[activeIndex].colorCode, user!.uid);
-                          // if (result == true) {
-                          //   Navigator.pop(context);
-                          // }
+                              colorList[activeIndex].colorCode, user.uid, () {
+                            Navigator.pop(context);
+                          });
                         },
                 ),
                 const Divider(),
