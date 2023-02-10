@@ -9,7 +9,7 @@ import 'package:coolors_inspired_flutter/constants.dart';
 
 Future<dynamic> showMoreMenu(BuildContext context, WidgetRef ref) {
   final _auth = ref.watch(authenticationProvider);
-  final data = ref.watch(authStateProvider);
+  final _user = ref.watch(authStateProvider).value;
 
   return showModalBottomSheet(
       context: context,
@@ -67,12 +67,12 @@ Future<dynamic> showMoreMenu(BuildContext context, WidgetRef ref) {
                 hasNavigation: false,
               ),
               Divider(),
-              data.value != null
+              _user != null
                   ? Column(
                       children: [
                         AppMenuItem(
                           iconData: Icons.exit_to_app,
-                          label: 'Sign out ${data.value!.email}',
+                          label: 'Sign out ${_user.email}',
                           hasNavigation: false,
                           menuFuncton: () {
                             _auth.signOut();

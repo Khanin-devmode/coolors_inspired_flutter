@@ -1,6 +1,7 @@
 import 'package:coolors_inspired_flutter/app_logic.dart';
 import 'package:coolors_inspired_flutter/components/sign_in_menu.dart';
 import 'package:coolors_inspired_flutter/constants.dart';
+import 'package:coolors_inspired_flutter/db_logic.dart';
 import 'package:coolors_inspired_flutter/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,6 +12,8 @@ Future<dynamic> showColorMenu(
     BuildContext context, WidgetRef ref, ColorObj selectedColor) {
   List<ColorObj> colorList = ref.watch(colorListProvider);
   int activeIndex = ref.watch(activeColorIndexProvider);
+  final user = ref.watch(authStateProvider).value;
+  final db = ref.watch(databaseProvider);
 
   return showModalBottomSheet(
       context: context,
@@ -66,10 +69,18 @@ Future<dynamic> showColorMenu(
                   iconData: Icons.favorite_border,
                   label: 'Save Color',
                   hasNavigation: false,
-                  menuFuncton: () {
-                    Navigator.pop(context);
-                    showSignInMenu(context, ref);
-                  },
+                  menuFuncton: user == null
+                      ? () {
+                          Navigator.pop(context);
+                          showSignInMenu(context, ref);
+                        }
+                      : () {
+                          db.saveColor(
+                              colorList[activeIndex].colorCode, user!.uid);
+                          // if (result == true) {
+                          //   Navigator.pop(context);
+                          // }
+                        },
                 ),
                 const Divider(),
                 AppMenuItem(
