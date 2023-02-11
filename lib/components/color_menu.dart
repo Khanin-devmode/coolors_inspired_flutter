@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'app_menu_item.dart';
+import 'package:coolors_inspired_flutter/auth_logic.dart';
 
 Future<dynamic> showColorMenu(
     BuildContext context, WidgetRef ref, ColorObj selectedColor) {
