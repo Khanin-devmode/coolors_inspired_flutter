@@ -1,4 +1,6 @@
 // import 'package:coolors_inspired_flutter/components/sign_in_menu.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:coolors_inspired_flutter/db_logic.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -24,6 +26,9 @@ class ColorPickerTab extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TextEditingController hexTextController =
         ref.watch(hexTextControllerProvider);
+
+    final Stream<QuerySnapshot> savedColors =
+        ref.watch(savedColorStreamProvider.stream);
 
     return DefaultTabController(
       initialIndex: 0,
