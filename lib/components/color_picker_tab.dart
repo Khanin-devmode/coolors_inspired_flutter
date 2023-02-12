@@ -1,5 +1,7 @@
 // import 'package:coolors_inspired_flutter/components/sign_in_menu.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:coolors_inspired_flutter/auth_logic.dart';
+import 'package:coolors_inspired_flutter/components/sign_in_menu.dart';
 import 'package:coolors_inspired_flutter/db_logic.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,12 +29,14 @@ class ColorPickerTab extends ConsumerWidget {
     final TextEditingController hexTextController =
         ref.watch(hexTextControllerProvider);
 
-    final Stream<QuerySnapshot> savedColors =
+    final Stream<QuerySnapshot> _savedColorsStream =
         ref.watch(savedColorStreamProvider.stream);
+
+    final _user = ref.watch(authStateProvider).value;
 
     return DefaultTabController(
       initialIndex: 0,
-      length: 5, //
+      length: 6, //
       child: Column(
         children: [
           const TabBar(
@@ -59,10 +63,10 @@ class ColorPickerTab extends ConsumerWidget {
                 text: 'MATERIAL',
                 // icon: Icon(Icons.beach_access_sharp),
               ),
-              // Tab(
-              //   text: 'SAVED',
-              //   // icon: Icon(Icons.beach_access_sharp),
-              // ),
+              Tab(
+                text: 'SAVED',
+                // icon: Icon(Icons.beach_access_sharp),
+              ),
             ],
           ),
           Container(
@@ -172,21 +176,48 @@ class ColorPickerTab extends ConsumerWidget {
                     }),
                   ),
                 ),
-                // Center(
-                //   //SAVED
-                //   child: Column(
-                //     mainAxisAlignment: MainAxisAlignment.center,
-                //     children: [
-                //       Text(
-                //         'Sign in to view your colors',
-                //         style: kMutedLabel,
-                //       ),
-                //       TextButton(
-                //           onPressed: () => showSignInMenu(context, ref),
-                //           child: Text('Sign In'))
-                //     ],
-                //   ),
-                // ),
+                Center(
+                    //SAVED
+                    child: _user == null
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Sign in to view your colors',
+                                style: kMutedLabel,
+                              ),
+                              TextButton(
+                                  onPressed: () => showSignInMenu(context, ref),
+                                  child: Text('Sign In'))
+                            ],
+                          )
+                        : StreamBuilder(
+                            stream: _savedColorsStream,
+                            builder: (BuildContext context,
+                                AsyncSnapshot<QuerySnapshot> snapshot) {
+                              if (snapshot.hasError) {
+                                return const Text('Something went wrong');
+                              }
+
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const Text("Loading");
+                              }
+
+                              return ListView(
+                                children: snapshot.data!.docs
+                                    .map((DocumentSnapshot document) {
+                                      Map<String, dynamic> data = document
+                                          .data()! as Map<String, dynamic>;
+                                      return ListTile(
+                                        title: Text(data['colorHex']),
+                                      );
+                                    })
+                                    .toList()
+                                    .cast(),
+                              );
+                            },
+                          )),
               ],
             ),
           ),
