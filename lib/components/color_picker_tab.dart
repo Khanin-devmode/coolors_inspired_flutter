@@ -29,10 +29,10 @@ class ColorPickerTab extends ConsumerWidget {
     final TextEditingController hexTextController =
         ref.watch(hexTextControllerProvider);
 
-    final Stream<QuerySnapshot> _savedColorsStream =
+    final Stream<List<String>> savedColorsStream =
         ref.watch(savedColorStreamProvider.stream);
 
-    final _user = ref.watch(authStateProvider).value;
+    final user = ref.watch(authStateProvider).value;
 
     return DefaultTabController(
       initialIndex: 0,
@@ -178,7 +178,7 @@ class ColorPickerTab extends ConsumerWidget {
                 ),
                 Center(
                     //SAVED
-                    child: _user == null
+                    child: user == null
                         ? Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -191,33 +191,36 @@ class ColorPickerTab extends ConsumerWidget {
                                   child: Text('Sign In'))
                             ],
                           )
-                        : StreamBuilder(
-                            stream: _savedColorsStream,
-                            builder: (BuildContext context,
-                                AsyncSnapshot<QuerySnapshot> snapshot) {
-                              if (snapshot.hasError) {
-                                return const Text('Something went wrong');
-                              }
+                        : Container()
+                    // : StreamBuilder(
+                    //     stream: savedColorsStream,
+                    //     builder: (BuildContext context,
+                    //         AsyncSnapshot<QuerySnapshot> snapshot) {
+                    //       print(snapshot.connectionState);
+                    //       if (snapshot.hasError) {
+                    //         return const Text('Something went wrong');
+                    //       }
 
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return const Text("Loading");
-                              }
+                    //       if (snapshot.connectionState ==
+                    //           ConnectionState.waiting) {
+                    //         return const Text("Loading");
+                    //       }
 
-                              return ListView(
-                                children: snapshot.data!.docs
-                                    .map((DocumentSnapshot document) {
-                                      Map<String, dynamic> data = document
-                                          .data()! as Map<String, dynamic>;
-                                      return ListTile(
-                                        title: Text(data['colorHex']),
-                                      );
-                                    })
-                                    .toList()
-                                    .cast(),
-                              );
-                            },
-                          )),
+                    //       return ListView(
+                    //         children: snapshot.data!.docs
+                    //             .map((DocumentSnapshot document) {
+                    //               Map<String, dynamic> data = document.data()!
+                    //                   as Map<String, dynamic>;
+                    //               return ListTile(
+                    //                 title: Text(data['colorHex']),
+                    //               );
+                    //             })
+                    //             .toList()
+                    //             .cast(),
+                    //       );
+                    //     },
+                    //   ),
+                    ),
               ],
             ),
           ),

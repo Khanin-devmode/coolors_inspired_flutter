@@ -6,7 +6,7 @@ class Database {
 
   late CollectionReference _users;
   late CollectionReference _savedColors;
-  late Stream<QuerySnapshot> _savedColorsStream;
+  late Stream<List<String>> _savedColorsStream;
 
   // Add a user with uid
   // A method that will add a new Movie m to our Movies collection and return true if its successful.
@@ -32,8 +32,28 @@ class Database {
     }
   }
 
-  Stream<QuerySnapshot> getQueryStream() {
-    return _firestore.collection('savedColors').snapshots();
+  Future<void> initStream() async {
+    print('initing stream');
+
+    // final Stream<QuerySnapshot> snapshots =
+    //     _firestore.collection('savedColors').snapshots();
+
+    // for (var snapshot in snapshots) {}
+
+    await for (var snapshot
+        in _firestore.collection('savedColors').snapshots()) {
+      print(snapshot);
+
+      for (DocumentSnapshot savedColor in snapshot.docs) {
+        print(savedColor.get('colorHex'));
+      }
+    }
+    ;
+    // snapshots.map((snapshot) {
+    //   snapshot.docs.map((e) {
+    //     print(e.data());
+    //   });
+    // });
   }
 }
 
@@ -42,18 +62,15 @@ final databaseProvider = Provider<Database>((ref) {
 });
 
 final savedColorStreamProvider = StreamProvider((ref) {
-  // final db = Database();
+  print('providing stream');
 
-  // db.initStream();
+  final db = Database();
 
-  // return db._savedColorsStream;
-  return Database().getQueryStream();
+  db.initStream();
+
+  return db._savedColorsStream;
 });
 
-// final savedColorsProvider = StreamProvider<List<String>>((ref) {
-//   await FirebaseFirestore.instance.collection('savedColors');
-
-// });
 
 // class ChatService {
 //   late Stream<List<ChatModel>> _stream;
