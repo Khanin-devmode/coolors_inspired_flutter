@@ -29,8 +29,7 @@ class ColorPickerTab extends ConsumerWidget {
     final TextEditingController hexTextController =
         ref.watch(hexTextControllerProvider);
 
-    final Stream<List<String>> savedColorsStream =
-        ref.watch(savedColorStreamProvider.stream);
+    final userSavedColors = ref.watch(savedColorStreamProvider);
 
     final user = ref.watch(authStateProvider).value;
 
@@ -191,36 +190,21 @@ class ColorPickerTab extends ConsumerWidget {
                                   child: Text('Sign In'))
                             ],
                           )
-                        : Container()
-                    // : StreamBuilder(
-                    //     stream: savedColorsStream,
-                    //     builder: (BuildContext context,
-                    //         AsyncSnapshot<QuerySnapshot> snapshot) {
-                    //       print(snapshot.connectionState);
-                    //       if (snapshot.hasError) {
-                    //         return const Text('Something went wrong');
-                    //       }
-
-                    //       if (snapshot.connectionState ==
-                    //           ConnectionState.waiting) {
-                    //         return const Text("Loading");
-                    //       }
-
-                    //       return ListView(
-                    //         children: snapshot.data!.docs
-                    //             .map((DocumentSnapshot document) {
-                    //               Map<String, dynamic> data = document.data()!
-                    //                   as Map<String, dynamic>;
-                    //               return ListTile(
-                    //                 title: Text(data['colorHex']),
-                    //               );
-                    //             })
-                    //             .toList()
-                    //             .cast(),
-                    //       );
-                    //     },
-                    //   ),
-                    ),
+                        : userSavedColors.when(
+                            data: (allColors) {
+                              return ListView.builder(
+                                // Show messages from bottom to top
+                                reverse: false,
+                                itemCount: allColors.length,
+                                itemBuilder: (context, index) {
+                                  final message = allColors[index];
+                                  return Text(message);
+                                },
+                              );
+                            },
+                            error: (error, stackTrace) =>
+                                Text(error.toString()),
+                            loading: () => const CircularProgressIndicator())),
               ],
             ),
           ),
