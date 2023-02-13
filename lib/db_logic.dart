@@ -37,21 +37,13 @@ final databaseProvider = Provider<Database>((ref) {
 });
 
 final savedColorStreamProvider = StreamProvider<List<String>>((ref) async* {
-  // final db = Database();
-
-  // db.initStream();
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
-  print('providing stream');
-
-  // Database().savedColorStream();
+  var allColorHex = const <String>[];
 
   await for (var snapshot in _firestore.collection('savedColors').snapshots()) {
-    var allColorHex = const <String>[];
+    allColorHex = [];
 
     for (DocumentSnapshot savedColor in snapshot.docs) {
-      // print(savedColor.data());
-      // print(savedColor.get('colorHex'));
       allColorHex = [...allColorHex, savedColor.get('colorHex')];
       print(allColorHex);
       yield allColorHex;
