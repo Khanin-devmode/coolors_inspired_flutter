@@ -11,6 +11,7 @@ import 'package:coolors_inspired_flutter/models.dart';
 import 'package:coolors_inspired_flutter/constants.dart';
 import 'package:coolors_inspired_flutter/app_logic.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:tinycolor2/tinycolor2.dart';
 
 class ColorPickerTab extends ConsumerWidget {
   const ColorPickerTab({
@@ -34,7 +35,7 @@ class ColorPickerTab extends ConsumerWidget {
     final user = ref.watch(authStateProvider).value;
 
     return DefaultTabController(
-      initialIndex: 0,
+      initialIndex: 5,
       length: 6, //
       child: Column(
         children: [
@@ -197,8 +198,8 @@ class ColorPickerTab extends ConsumerWidget {
                                 reverse: false,
                                 itemCount: allColors.length,
                                 itemBuilder: (context, index) {
-                                  final message = allColors[index];
-                                  return Text(message);
+                                  final colorHex = allColors[index];
+                                  return SavedColor(colorHex: colorHex);
                                 },
                               );
                             },
@@ -239,6 +240,36 @@ class ColorPickerTab extends ConsumerWidget {
           )
         ],
       ),
+    );
+  }
+}
+
+class SavedColor extends StatelessWidget {
+  SavedColor({
+    super.key,
+    required this.colorHex,
+  });
+
+  final String colorHex;
+
+  @override
+  Widget build(BuildContext context) {
+    final Color color = Color(int.parse('0xff' + colorHex));
+
+    return Padding(
+      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 12),
+      child: Container(
+          decoration: BoxDecoration(
+              color: color, borderRadius: BorderRadius.circular(8)),
+          height: 40,
+          child: Center(
+            child: Text(
+              colorHex,
+              style: TextStyle(
+                color: color.isLight ? kDarkLabelClr : kWhiteLabelClr,
+              ),
+            ),
+          )),
     );
   }
 }
