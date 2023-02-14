@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:coolors_inspired_flutter/auth_logic.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class Database {
@@ -40,7 +41,12 @@ final savedColorStreamProvider = StreamProvider<List<String>>((ref) async* {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
   var allColorHex = const <String>[];
 
-  await for (var snapshot in _firestore.collection('savedColors').snapshots()) {
+  final user = ref.watch(authStateProvider).value;
+
+  await for (var snapshot in _firestore
+      .collection('savedColors')
+      .where('uid', isEqualTo: user!.uid)
+      .snapshots()) {
     allColorHex = [];
 
     for (DocumentSnapshot savedColor in snapshot.docs) {
