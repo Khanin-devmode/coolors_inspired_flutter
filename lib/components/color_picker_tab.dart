@@ -34,6 +34,9 @@ class ColorPickerTab extends ConsumerWidget {
 
     final user = ref.watch(authStateProvider).value;
 
+    final ColorListNotifier colorlistNofifier =
+        ref.read(colorListProvider.notifier);
+
     return DefaultTabController(
       initialIndex: 5,
       length: 6, //
@@ -199,7 +202,11 @@ class ColorPickerTab extends ConsumerWidget {
                                 itemCount: allColors.length,
                                 itemBuilder: (context, index) {
                                   final colorHex = allColors[index];
-                                  return SavedColor(colorHex: colorHex);
+                                  return SavedColor(
+                                    colorHex: colorHex,
+                                    notifier: colorlistNofifier,
+                                    activeIndex: activeIndex,
+                                  );
                                 },
                               );
                             },
@@ -245,16 +252,20 @@ class ColorPickerTab extends ConsumerWidget {
 }
 
 class SavedColor extends StatelessWidget {
-  SavedColor({
-    super.key,
-    required this.colorHex,
-  });
+  SavedColor(
+      {super.key,
+      required this.colorHex,
+      required this.notifier,
+      required this.activeIndex});
 
   final String colorHex;
+  final ColorListNotifier notifier;
+  final int activeIndex;
 
   @override
   Widget build(BuildContext context) {
     final Color color = Color(int.parse('0xff' + colorHex));
+    Color textColor = color.isLight ? kDarkLabelClr : kWhiteLabelClr;
 
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16, bottom: 12),
@@ -262,12 +273,34 @@ class SavedColor extends StatelessWidget {
           decoration: BoxDecoration(
               color: color, borderRadius: BorderRadius.circular(8)),
           height: 40,
-          child: Center(
-            child: Text(
-              colorHex,
-              style: TextStyle(
-                color: color.isLight ? kDarkLabelClr : kWhiteLabelClr,
-              ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  child: Icon(
+                    Icons.more_horiz,
+                    color: textColor,
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    print('picking color');
+                    notifier.pickColor(activeIndex, color);
+                  },
+                  child: Text(
+                    colorHex,
+                    style: TextStyle(
+                      color: textColor,
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 12,
+                  width: 12,
+                ),
+              ],
             ),
           )),
     );
