@@ -8,6 +8,13 @@ class ColorObj {
   bool isLocked;
 }
 
+class SavedColorDoc {
+  SavedColorDoc(this.docId, this.color);
+
+  String docId;
+  Color color;
+}
+
 String getHexCode(Color color) {
   return color.hashCode.toRadixString(16).substring(2).toUpperCase();
 }

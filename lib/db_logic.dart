@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coolors_inspired_flutter/auth_logic.dart';
+import 'package:coolors_inspired_flutter/components/color_picker_tab.dart';
+import 'package:coolors_inspired_flutter/models.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class Database {
@@ -31,15 +34,27 @@ class Database {
       // return Future.error(e);
     }
   }
+
+  Future deleteSavedColor(String docId, Function successCallBack) async {
+    _savedColors = _firestore.collection('savedColors');
+    try {
+      await _savedColors.doc(docId).delete();
+      successCallBack();
+      // return true;
+    } catch (e) {
+      // return Future.error(e);
+    }
+  }
 }
 
 final databaseProvider = Provider<Database>((ref) {
   return Database();
 });
 
-final savedColorStreamProvider = StreamProvider<List<String>>((ref) async* {
+final savedColorStreamProvider =
+    StreamProvider<List<SavedColorDoc>>((ref) async* {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  var allColorHex = const <String>[];
+  var allColorDoc = const <SavedColorDoc>[];
 
   final user = ref.watch(authStateProvider).value;
 
@@ -47,12 +62,16 @@ final savedColorStreamProvider = StreamProvider<List<String>>((ref) async* {
       .collection('savedColors')
       .where('uid', isEqualTo: user!.uid)
       .snapshots()) {
-    allColorHex = [];
+    allColorDoc = [];
 
-    for (DocumentSnapshot savedColor in snapshot.docs) {
-      allColorHex = [...allColorHex, savedColor.get('colorHex')];
-      print(allColorHex);
-      yield allColorHex;
+    for (DocumentSnapshot colorDoc in snapshot.docs) {
+      Color color = Color(int.parse('0xff' + colorDoc.get('colorHex')));
+
+      var savedColor = SavedColorDoc(colorDoc.id, color);
+
+      allColorDoc = [...allColorDoc, savedColor];
+      // print(allColorHex);
+      yield allColorDoc;
     }
   }
 });

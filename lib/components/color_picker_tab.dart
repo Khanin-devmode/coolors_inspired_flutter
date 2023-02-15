@@ -37,6 +37,8 @@ class ColorPickerTab extends ConsumerWidget {
     final ColorListNotifier colorlistNofifier =
         ref.read(colorListProvider.notifier);
 
+    final db = ref.watch(databaseProvider);
+
     return DefaultTabController(
       initialIndex: 5,
       length: 6, //
@@ -201,12 +203,13 @@ class ColorPickerTab extends ConsumerWidget {
                                 reverse: false,
                                 itemCount: allColors.length,
                                 itemBuilder: (context, index) {
-                                  final colorHex = allColors[index];
+                                  SavedColorDoc color = allColors[index];
                                   return SavedColor(
-                                    colorHex: colorHex,
-                                    notifier: colorlistNofifier,
-                                    activeIndex: activeIndex,
-                                  );
+                                      color: color.color,
+                                      notifier: colorlistNofifier,
+                                      activeIndex: activeIndex,
+                                      docId: color.docId,
+                                      db: db);
                                 },
                               );
                             },
@@ -254,17 +257,20 @@ class ColorPickerTab extends ConsumerWidget {
 class SavedColor extends StatelessWidget {
   SavedColor(
       {super.key,
-      required this.colorHex,
+      required this.color,
       required this.notifier,
-      required this.activeIndex});
+      required this.activeIndex,
+      required this.docId,
+      required this.db});
 
-  final String colorHex;
+  final Color color;
   final ColorListNotifier notifier;
   final int activeIndex;
+  final String docId;
+  final Database db;
 
   @override
   Widget build(BuildContext context) {
-    final Color color = Color(int.parse('0xff' + colorHex));
     Color textColor = color.isLight ? kDarkLabelClr : kWhiteLabelClr;
 
     return Padding(
@@ -279,26 +285,38 @@ class SavedColor extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  child: Icon(
-                    Icons.more_horiz,
-                    color: textColor,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.close,
+                      color: textColor,
+                      size: 16,
+                    ),
+                    onPressed: () {
+                      print('deleting color');
+                      db.deleteSavedColor(docId, () {});
+                    },
                   ),
                 ),
                 GestureDetector(
+                  behavior: HitTestBehavior.opaque,
                   onTap: () {
-                    print('picking color');
                     notifier.pickColor(activeIndex, color);
                   },
-                  child: Text(
-                    colorHex,
-                    style: TextStyle(
-                      color: textColor,
+                  child: SizedBox(
+                    width: 200,
+                    child: Center(
+                      child: Text(
+                        color.hashCode.toString(),
+                        style: TextStyle(
+                          color: textColor,
+                        ),
+                      ),
                     ),
                   ),
                 ),
-                Container(
-                  height: 12,
-                  width: 12,
+                SizedBox(
+                  height: 20,
+                  width: 36,
                 ),
               ],
             ),
