@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'models.dart';
+import '../models.dart';
 import 'package:random_color/random_color.dart';
 
 //app state for ui.
@@ -13,14 +13,7 @@ final hexTextControllerProvider =
 //app state for colors list.
 class ColorListNotifier extends StateNotifier<List<ColorObj>>
     with HistoryMixin<List<ColorObj>> {
-  ColorListNotifier()
-      : super([
-          // ColorObj(Colors.red, getHexCode(Colors.red), false),
-          // ColorObj(Colors.green, getHexCode(Colors.green), false),
-          // ColorObj(Colors.blue, getHexCode(Colors.blue), false),
-          // ColorObj(Colors.yellow, getHexCode(Colors.yellow), false),
-          // ColorObj(Colors.purple, getHexCode(Colors.purple), false),
-        ]);
+  ColorListNotifier() : super([]);
 
   void initRandomColor() {
     RandomColor randomColor = RandomColor();
@@ -81,11 +74,6 @@ class ColorListNotifier extends StateNotifier<List<ColorObj>>
 
     state = [...state, newColorObj];
   }
-
-  // void removeColor() {
-  //   state = state.sublist(0, state.length - 1);
-  //   print(state);
-  // }
 
   void removeColor(ColorObj targetColor) {
     if (state.length > 1) {

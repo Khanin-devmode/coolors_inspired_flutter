@@ -1,13 +1,13 @@
-import 'package:coolors_inspired_flutter/app_logic.dart';
+import 'package:coolors_inspired_flutter/logics/app_logic.dart';
 import 'package:coolors_inspired_flutter/components/sign_in_menu.dart';
 import 'package:coolors_inspired_flutter/constants.dart';
-import 'package:coolors_inspired_flutter/db_logic.dart';
+import 'package:coolors_inspired_flutter/logics/db_logic.dart';
 import 'package:coolors_inspired_flutter/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'app_menu_item.dart';
-import 'package:coolors_inspired_flutter/auth_logic.dart';
+import 'package:coolors_inspired_flutter/logics/auth_logic.dart';
 
 Future<dynamic> showColorMenu(
     BuildContext context, WidgetRef ref, ColorObj selectedColor) {

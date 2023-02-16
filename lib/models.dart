@@ -8,8 +8,8 @@ class ColorObj {
   bool isLocked;
 }
 
-class SavedColorDoc {
-  SavedColorDoc(this.docId, this.color);
+class ColorDoc {
+  ColorDoc(this.docId, this.color);
 
   String docId;
   Color color;

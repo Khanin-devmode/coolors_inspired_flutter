@@ -4,7 +4,7 @@ import 'package:coolors_inspired_flutter/pages/library_explore_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:coolors_inspired_flutter/models.dart';
-import 'package:coolors_inspired_flutter/app_logic.dart';
+import 'package:coolors_inspired_flutter/logics/app_logic.dart';
 import 'package:go_router/go_router.dart';
 import '../components/more_menu.dart';
 import 'package:tinycolor2/tinycolor2.dart';

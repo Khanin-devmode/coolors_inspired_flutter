@@ -1,15 +1,15 @@
 // import 'package:coolors_inspired_flutter/components/sign_in_menu.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:coolors_inspired_flutter/auth_logic.dart';
+import 'package:coolors_inspired_flutter/logics/auth_logic.dart';
 import 'package:coolors_inspired_flutter/components/sign_in_menu.dart';
-import 'package:coolors_inspired_flutter/db_logic.dart';
+import 'package:coolors_inspired_flutter/logics/db_logic.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:coolors_inspired_flutter/models.dart';
 import 'package:coolors_inspired_flutter/constants.dart';
-import 'package:coolors_inspired_flutter/app_logic.dart';
+import 'package:coolors_inspired_flutter/logics/app_logic.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:tinycolor2/tinycolor2.dart';
 
@@ -203,8 +203,8 @@ class ColorPickerTab extends ConsumerWidget {
                                 reverse: false,
                                 itemCount: allColors.length,
                                 itemBuilder: (context, index) {
-                                  SavedColorDoc color = allColors[index];
-                                  return SavedColor(
+                                  ColorDoc color = allColors[index];
+                                  return SavedColorRow(
                                       color: color.color,
                                       notifier: colorlistNofifier,
                                       activeIndex: activeIndex,
@@ -254,8 +254,8 @@ class ColorPickerTab extends ConsumerWidget {
   }
 }
 
-class SavedColor extends StatelessWidget {
-  SavedColor(
+class SavedColorRow extends StatelessWidget {
+  SavedColorRow(
       {super.key,
       required this.color,
       required this.notifier,
@@ -292,7 +292,6 @@ class SavedColor extends StatelessWidget {
                       size: 16,
                     ),
                     onPressed: () {
-                      print('deleting color');
                       db.deleteSavedColor(docId, () {});
                     },
                   ),
