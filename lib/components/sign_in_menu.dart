@@ -1,17 +1,12 @@
-import 'package:coolors_inspired_flutter/logics/app_logic.dart';
-import 'package:coolors_inspired_flutter/components/export_menu.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
-import 'app_menu_item.dart';
-import 'package:coolors_inspired_flutter/constants.dart';
 import 'package:coolors_inspired_flutter/logics/auth_logic.dart';
 
 Future<dynamic> showSignInMenu(BuildContext context, WidgetRef ref) {
-  final _auth = ref.watch(authenticationProvider);
+  final auth = ref.watch(authenticationProvider);
 
   return showModalBottomSheet(
       context: context,
@@ -86,7 +81,7 @@ Future<dynamic> showSignInMenu(BuildContext context, WidgetRef ref) {
                   ),
                 ),
                 onPressed: () {
-                  _auth.signInWithGoogle(context, () {
+                  auth.signInWithGoogle(context, () {
                     Navigator.pop(context);
                   });
                 },

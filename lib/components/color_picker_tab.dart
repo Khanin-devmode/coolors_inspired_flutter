@@ -1,5 +1,3 @@
-// import 'package:coolors_inspired_flutter/components/sign_in_menu.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coolors_inspired_flutter/logics/auth_logic.dart';
 import 'package:coolors_inspired_flutter/components/sign_in_menu.dart';
 import 'package:coolors_inspired_flutter/logics/db_logic.dart';
@@ -305,7 +303,7 @@ class SavedColorRow extends StatelessWidget {
                     width: 200,
                     child: Center(
                       child: Text(
-                        color.hashCode.toString(),
+                        getHexCode(color),
                         style: TextStyle(
                           color: textColor,
                         ),
