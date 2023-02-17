@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class ColorObj {
@@ -13,6 +14,13 @@ class ColorDoc {
 
   String docId;
   Color color;
+}
+
+class ColorPalette {
+  ColorPalette(this.docId, this.colorPalette, this.tiemCreated);
+  String docId;
+  List<Color> colorPalette;
+  Timestamp tiemCreated;
 }
 
 String getHexCode(Color color) {
