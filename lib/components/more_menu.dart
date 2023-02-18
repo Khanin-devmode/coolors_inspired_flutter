@@ -1,7 +1,8 @@
 import 'package:coolors_inspired_flutter/logics/app_logic.dart';
 import 'package:coolors_inspired_flutter/components/export_menu.dart';
 import 'package:coolors_inspired_flutter/components/sign_in_menu.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:coolors_inspired_flutter/logics/db_logic.dart';
+import 'package:coolors_inspired_flutter/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'app_menu_item.dart';
@@ -11,6 +12,8 @@ import 'package:coolors_inspired_flutter/logics/auth_logic.dart';
 Future<dynamic> showMoreMenu(BuildContext context, WidgetRef ref) {
   final _auth = ref.watch(authenticationProvider);
   final _user = ref.watch(authStateProvider).value;
+  final db = ref.watch(databaseProvider);
+  List<ColorObj> colorList = ref.watch(colorListProvider);
 
   return showModalBottomSheet(
       context: context,
@@ -33,8 +36,14 @@ Future<dynamic> showMoreMenu(BuildContext context, WidgetRef ref) {
                 iconData: Icons.favorite_outline,
                 label: 'Save palette',
                 hasNavigation: false,
-                menuFuncton: isSignIn()
-                    ? () {}
+                menuFuncton: _user != null
+                    ? () {
+                        List<String> colorPalette =
+                            colorList.map((color) => color.colorCode).toList();
+                        db.savePalette(colorPalette, _user.uid, () {
+                          Navigator.pop(context);
+                        });
+                      }
                     : () {
                         Navigator.pop(context);
                         showSignInMenu(context, ref);
@@ -106,9 +115,4 @@ Future<dynamic> showMoreMenu(BuildContext context, WidgetRef ref) {
           ),
         );
       });
-}
-
-//temp function
-bool isSignIn() {
-  return false;
 }

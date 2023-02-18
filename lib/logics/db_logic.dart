@@ -27,8 +27,9 @@ class Database {
       List<String> colorPalette, String uid, Function successCallBack) async {
     _savedPalettes = _firestore.collection(kSavedPalettes);
     try {
-      await _savedColors.add({
-        'uid': uid,
+      print('saving palette');
+      await _savedPalettes.add({
+        'createdBy': uid,
         'colorPalette': colorPalette,
         'dateCreated': Timestamp.now()
       });
