@@ -17,10 +17,10 @@ class ColorDoc {
 }
 
 class ColorPaletteDoc {
-  ColorPaletteDoc(this.docId, this.colorPalette, this.tiemCreated);
+  ColorPaletteDoc(this.docId, this.colorPalette, this.timeCreated);
   String docId;
   List<Color> colorPalette;
-  Timestamp tiemCreated;
+  Timestamp timeCreated;
 }
 
 String getHexCode(Color color) {

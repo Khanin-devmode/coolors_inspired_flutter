@@ -57,12 +57,12 @@ final databaseProvider = Provider<Database>((ref) {
 });
 
 final savedColorStreamProvider = StreamProvider<List<ColorDoc>>((ref) async* {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
   var allColorDoc = const <ColorDoc>[];
 
   final user = ref.watch(authStateProvider).value;
 
-  await for (var snapshot in _firestore
+  await for (var snapshot in firestore
       .collection(kSavedColors)
       .where('uid', isEqualTo: user!.uid)
       .snapshots()) {
@@ -74,35 +74,44 @@ final savedColorStreamProvider = StreamProvider<List<ColorDoc>>((ref) async* {
       var savedColor = ColorDoc(colorDoc.id, color);
 
       allColorDoc = [...allColorDoc, savedColor];
-      // print(allColorHex);
       yield allColorDoc;
     }
   }
 });
 
 final savedPaletteStream = StreamProvider<List<ColorPaletteDoc>>((ref) async* {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
   var allColorPaletteDoc = const <ColorPaletteDoc>[];
 
   final user = ref.watch(authStateProvider).value;
 
-  await for (var snapshot in _firestore
+  print('getting palette stream');
+
+  await for (var snapshot in firestore
       .collection(kSavedPalettes)
-      .where('uid', isEqualTo: user!.uid)
+      .where('createdBy', isEqualTo: user!.uid)
       .snapshots()) {
     allColorPaletteDoc = [];
 
-    for (DocumentSnapshot colorPaletteDoc in snapshot.docs) {
-      List<String> colorList = colorPaletteDoc.get('colorPalette');
+    print('get snapshot success');
 
-      List<Color> colorPalette = List.generate(colorList.length,
-          (index) => Color(int.parse('0xff' + colorList[index])));
+    for (DocumentSnapshot colorPaletteDoc in snapshot.docs) {
+      print(colorPaletteDoc);
+      List<dynamic> colorList = colorPaletteDoc.get('colorPalette');
+      print(colorList);
+      List<Color> colorPalette = List.generate(
+        colorList.length,
+        (index) => Color(
+          int.parse('0xff' + colorList[index]),
+        ),
+      );
 
       ColorPaletteDoc savedColorPalette = ColorPaletteDoc(
           colorPaletteDoc.id, colorPalette, colorPaletteDoc.get('dateCreated'));
 
       allColorPaletteDoc = [...allColorPaletteDoc, savedColorPalette];
       // print(allColorHex);
+      print(allColorPaletteDoc);
       yield allColorPaletteDoc;
     }
   }

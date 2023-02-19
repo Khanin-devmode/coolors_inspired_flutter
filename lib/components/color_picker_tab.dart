@@ -180,40 +180,41 @@ class ColorPickerTab extends ConsumerWidget {
                   ),
                 ),
                 Center(
-                    //SAVED
-                    child: user == null
-                        ? Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Sign in to view your colors',
-                                style: kMutedLabel,
-                              ),
-                              TextButton(
-                                  onPressed: () => showSignInMenu(context, ref),
-                                  child: Text('Sign In'))
-                            ],
-                          )
-                        : userSavedColors.when(
-                            data: (allColors) {
-                              return ListView.builder(
-                                // Show messages from bottom to top
-                                reverse: false,
-                                itemCount: allColors.length,
-                                itemBuilder: (context, index) {
-                                  ColorDoc color = allColors[index];
-                                  return SavedColorRow(
-                                      color: color.color,
-                                      notifier: colorlistNofifier,
-                                      activeIndex: activeIndex,
-                                      docId: color.docId,
-                                      db: db);
-                                },
-                              );
-                            },
-                            error: (error, stackTrace) =>
-                                Text(error.toString()),
-                            loading: () => const CircularProgressIndicator())),
+                  //SAVED
+                  child: user == null
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Sign in to view your colors',
+                              style: kMutedLabel,
+                            ),
+                            TextButton(
+                                onPressed: () => showSignInMenu(context, ref),
+                                child: Text('Sign In'))
+                          ],
+                        )
+                      : userSavedColors.when(
+                          data: (allColors) {
+                            return ListView.builder(
+                              // Show messages from bottom to top
+                              reverse: false,
+                              itemCount: allColors.length,
+                              itemBuilder: (context, index) {
+                                ColorDoc color = allColors[index];
+                                return SavedColorRow(
+                                    color: color.color,
+                                    notifier: colorlistNofifier,
+                                    activeIndex: activeIndex,
+                                    docId: color.docId,
+                                    db: db);
+                              },
+                            );
+                          },
+                          error: (error, stackTrace) => Text(error.toString()),
+                          loading: () => const CircularProgressIndicator(),
+                        ),
+                ),
               ],
             ),
           ),
