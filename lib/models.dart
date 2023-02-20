@@ -17,9 +17,9 @@ class ColorDoc {
 }
 
 class ColorPaletteDoc {
-  ColorPaletteDoc(this.docId, this.colorPalette, this.timeCreated);
+  ColorPaletteDoc(this.docId, this.colors, this.timeCreated);
   String docId;
-  List<Color> colorPalette;
+  List<Color> colors;
   Timestamp timeCreated;
 }
 

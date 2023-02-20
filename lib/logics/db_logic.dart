@@ -102,7 +102,7 @@ final savedPaletteStream = StreamProvider<List<ColorPaletteDoc>>((ref) async* {
       );
 
       ColorPaletteDoc savedColorPalette = ColorPaletteDoc(
-          colorPaletteDoc.id, colorPalette, colorPaletteDoc.get('dateCreated'));
+          colorPaletteDoc.id, colorPalette, colorPaletteDoc.get('timeCreated'));
 
       allColorPaletteDoc = [...allColorPaletteDoc, savedColorPalette];
       // print(allColorHex);

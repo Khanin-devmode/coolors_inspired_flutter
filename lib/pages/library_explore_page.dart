@@ -52,32 +52,53 @@ class LibraryExplorePage extends ConsumerWidget {
                   // Show messages from bottom to top
                   reverse: false,
                   itemCount: allPalettes.length,
-                  itemBuilder: (context, index) {
-                    ColorPaletteDoc colorPalette = allPalettes[index];
-                    return Text(colorPalette.docId);
+                  itemBuilder: (context, y) {
+                    ColorPaletteDoc colorPalette = allPalettes[y];
+                    List<Color> colors = colorPalette.colors;
+                    return Padding(
+                      padding: const EdgeInsets.only(
+                          top: 12, bottom: 12, left: 16, right: 16),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text('Palette ${y + 1}'),
+                            ],
+                          ),
+                          Row(
+                            children: List.generate(
+                              colors.length,
+                              (x) => Expanded(
+                                flex: 1,
+                                child: Container(
+                                  width: 40,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                      color: colors[x],
+                                      borderRadius: x == 0
+                                          ? BorderRadius.only(
+                                              topLeft: Radius.circular(8),
+                                              bottomLeft: Radius.circular(8))
+                                          : x == colors.length - 1
+                                              ? BorderRadius.only(
+                                                  topRight: Radius.circular(8),
+                                                  bottomRight:
+                                                      Radius.circular(8))
+                                              : BorderRadius.all(Radius.zero)),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
                   },
                 );
               },
               error: (error, stackTrace) => Text(error.toString()),
               loading: () => const CircularProgressIndicator(),
             )),
-            Center(
-              child: savedColor.when(
-                data: (allColors) {
-                  return ListView.builder(
-                    // Show messages from bottom to top
-                    reverse: false,
-                    itemCount: allColors.length,
-                    itemBuilder: (context, index) {
-                      ColorDoc color = allColors[index];
-                      return Text(color.docId);
-                    },
-                  );
-                },
-                error: (error, stackTrace) => Text(error.toString()),
-                loading: () => const CircularProgressIndicator(),
-              ),
-            ),
+            Center(child: Text('Explore Page')),
           ],
         ),
       ),
