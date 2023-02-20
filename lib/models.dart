@@ -24,5 +24,9 @@ class ColorPaletteDoc {
 }
 
 String getHexCode(Color color) {
-  return color.hashCode.toRadixString(16).substring(2).toUpperCase();
+  return color.value.toRadixString(16).substring(2).toUpperCase();
+}
+
+Color hexToColor(String hex) {
+  return Color(int.parse('ff$hex', radix: 16));
 }

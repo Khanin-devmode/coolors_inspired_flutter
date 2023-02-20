@@ -18,5 +18,5 @@ const kTabLabel = TextStyle(fontSize: 16, color: kDarkLabelClr);
 const kMutedLabel = TextStyle(color: Colors.grey);
 
 //Constants for firebase collection
-const String kSavedColors = 'savedColors';
-const String kSavedPalettes = 'savedPalettes';
+const String kSavedColors = 'SavedColors';
+const String kSavedPalettes = 'SavedPalettes';

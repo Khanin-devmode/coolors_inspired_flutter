@@ -15,7 +15,11 @@ class Database {
       String colorHex, String uid, Function successCallBack) async {
     _savedColors = _firestore.collection(kSavedColors);
     try {
-      await _savedColors.add({'uid': uid, 'colorHex': colorHex});
+      await _savedColors.add({
+        'createdBy': uid,
+        'colorHex': colorHex,
+        'timeCreated': Timestamp.now()
+      });
       successCallBack();
       // return true;
     } catch (e) {
@@ -27,11 +31,10 @@ class Database {
       List<String> colorPalette, String uid, Function successCallBack) async {
     _savedPalettes = _firestore.collection(kSavedPalettes);
     try {
-      print('saving palette');
       await _savedPalettes.add({
         'createdBy': uid,
         'colorPalette': colorPalette,
-        'dateCreated': Timestamp.now()
+        'timeCreated': Timestamp.now()
       });
       successCallBack();
       // return true;
@@ -64,12 +67,12 @@ final savedColorStreamProvider = StreamProvider<List<ColorDoc>>((ref) async* {
 
   await for (var snapshot in firestore
       .collection(kSavedColors)
-      .where('uid', isEqualTo: user!.uid)
+      .where('createdBy', isEqualTo: user!.uid)
       .snapshots()) {
     allColorDoc = [];
 
     for (DocumentSnapshot colorDoc in snapshot.docs) {
-      Color color = Color(int.parse('0xff' + colorDoc.get('colorHex')));
+      Color color = hexToColor(colorDoc.get('colorHex'));
 
       var savedColor = ColorDoc(colorDoc.id, color);
 
@@ -85,25 +88,17 @@ final savedPaletteStream = StreamProvider<List<ColorPaletteDoc>>((ref) async* {
 
   final user = ref.watch(authStateProvider).value;
 
-  print('getting palette stream');
-
   await for (var snapshot in firestore
       .collection(kSavedPalettes)
       .where('createdBy', isEqualTo: user!.uid)
       .snapshots()) {
     allColorPaletteDoc = [];
 
-    print('get snapshot success');
-
     for (DocumentSnapshot colorPaletteDoc in snapshot.docs) {
-      print(colorPaletteDoc);
       List<dynamic> colorList = colorPaletteDoc.get('colorPalette');
-      print(colorList);
       List<Color> colorPalette = List.generate(
         colorList.length,
-        (index) => Color(
-          int.parse('0xff' + colorList[index]),
-        ),
+        (index) => hexToColor(colorList[index]),
       );
 
       ColorPaletteDoc savedColorPalette = ColorPaletteDoc(
@@ -111,7 +106,6 @@ final savedPaletteStream = StreamProvider<List<ColorPaletteDoc>>((ref) async* {
 
       allColorPaletteDoc = [...allColorPaletteDoc, savedColorPalette];
       // print(allColorHex);
-      print(allColorPaletteDoc);
       yield allColorPaletteDoc;
     }
   }

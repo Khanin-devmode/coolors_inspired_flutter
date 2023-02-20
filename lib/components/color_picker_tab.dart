@@ -38,7 +38,7 @@ class ColorPickerTab extends ConsumerWidget {
     final db = ref.watch(databaseProvider);
 
     return DefaultTabController(
-      initialIndex: 5,
+      initialIndex: 0,
       length: 6, //
       child: Column(
         children: [
