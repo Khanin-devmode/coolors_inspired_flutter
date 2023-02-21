@@ -1,5 +1,7 @@
 import 'package:coolors_inspired_flutter/components/color_menu.dart';
+import 'package:coolors_inspired_flutter/components/sign_in_menu.dart';
 import 'package:coolors_inspired_flutter/constants.dart';
+import 'package:coolors_inspired_flutter/logics/auth_logic.dart';
 import 'package:coolors_inspired_flutter/pages/library_explore_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -43,6 +45,8 @@ class GeneratePalettePageState extends ConsumerState<GeneratePalettePage> {
     bool isPickingColor = ref.watch(isPickingColorProvider);
     int activeIndex = ref.watch(activeColorIndexProvider);
     List<ColorObj> previousColorList = ref.watch(colorBeforePickingProvider);
+
+    final user = ref.watch(authStateProvider).value;
 
     return SafeArea(
       child: Scaffold(
@@ -161,7 +165,12 @@ class GeneratePalettePageState extends ConsumerState<GeneratePalettePage> {
                                   //       builder: (context) =>
                                   //           const LibraryExplorePage()),
                                   // );
-                                  GoRouter.of(context).push('/library_explore');
+                                  if (user != null) {
+                                    GoRouter.of(context)
+                                        .push('/library_explore');
+                                  } else {
+                                    showSignInMenu(context, ref);
+                                  }
                                 }),
                           ],
                         ),

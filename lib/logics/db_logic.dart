@@ -53,6 +53,17 @@ class Database {
       // return Future.error(e);
     }
   }
+
+  Future deleteSavedPalette(String docId, Function successCallBack) async {
+    _savedPalettes = _firestore.collection(kSavedPalettes);
+    try {
+      await _savedPalettes.doc(docId).delete();
+      successCallBack();
+      // return true;
+    } catch (e) {
+      // return Future.error(e);
+    }
+  }
 }
 
 final databaseProvider = Provider<Database>((ref) {

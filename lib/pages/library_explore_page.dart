@@ -10,6 +10,7 @@ class LibraryExplorePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final savedPalettes = ref.watch(savedPaletteStream);
     final savedColor = ref.watch(savedColorStreamProvider);
+    final db = ref.watch(databaseProvider);
 
     return DefaultTabController(
       initialIndex: 0,
@@ -56,13 +57,20 @@ class LibraryExplorePage extends ConsumerWidget {
                     ColorPaletteDoc colorPalette = allPalettes[y];
                     List<Color> colors = colorPalette.colors;
                     return Padding(
-                      padding: const EdgeInsets.only(
-                          top: 12, bottom: 12, left: 16, right: 16),
+                      padding: const EdgeInsets.only(left: 16, right: 16),
                       child: Column(
                         children: [
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text('Palette ${y + 1}'),
+                              IconButton(
+                                  iconSize: 16,
+                                  onPressed: () {
+                                    db.deleteSavedPalette(
+                                        colorPalette.docId, () {});
+                                  },
+                                  icon: Icon(Icons.close))
                             ],
                           ),
                           Row(
