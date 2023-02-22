@@ -112,10 +112,38 @@ final savedPaletteStream = StreamProvider<List<ColorPaletteDoc>>((ref) async* {
         (index) => hexToColor(colorList[index]),
       );
 
-      ColorPaletteDoc savedColorPalette = ColorPaletteDoc(
-          colorPaletteDoc.id, colorPalette, colorPaletteDoc.get('timeCreated'));
-
+      ColorPaletteDoc savedColorPalette =
+          ColorPaletteDoc(colorPaletteDoc.id, colorPalette);
+      savedColorPalette.timeCreated = colorPaletteDoc.get('timeCreated');
       allColorPaletteDoc = [...allColorPaletteDoc, savedColorPalette];
+      // print(allColorHex);
+      yield allColorPaletteDoc;
+    }
+  }
+});
+
+final explorePaletteStream =
+    StreamProvider<List<ColorPaletteDoc>>((ref) async* {
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  var allColorPaletteDoc = const <ColorPaletteDoc>[];
+
+  final user = ref.watch(authStateProvider).value;
+
+  await for (var snapshot
+      in firestore.collection(kExplorePalattes).snapshots()) {
+    allColorPaletteDoc = [];
+
+    for (DocumentSnapshot colorPaletteDoc in snapshot.docs) {
+      List<dynamic> colorList = colorPaletteDoc.get('colorPalette');
+      List<Color> colorPalette = List.generate(
+        colorList.length,
+        (index) => hexToColor(colorList[index]),
+      );
+
+      ColorPaletteDoc exploreColorPalette =
+          ColorPaletteDoc(colorPaletteDoc.id, colorPalette);
+
+      allColorPaletteDoc = [...allColorPaletteDoc, exploreColorPalette];
       // print(allColorHex);
       yield allColorPaletteDoc;
     }

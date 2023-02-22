@@ -20,3 +20,4 @@ const kMutedLabel = TextStyle(color: Colors.grey);
 //Constants for firebase collection
 const String kSavedColors = 'SavedColors';
 const String kSavedPalettes = 'SavedPalettes';
+const String kExplorePalattes = 'ExplorePalettes';
