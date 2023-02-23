@@ -127,8 +127,6 @@ final explorePaletteStream =
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   var allColorPaletteDoc = const <ColorPaletteDoc>[];
 
-  final user = ref.watch(authStateProvider).value;
-
   await for (var snapshot
       in firestore.collection(kExplorePalattes).snapshots()) {
     allColorPaletteDoc = [];

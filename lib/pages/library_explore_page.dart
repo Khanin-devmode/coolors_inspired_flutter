@@ -9,6 +9,7 @@ class LibraryExplorePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final savedPalettes = ref.watch(savedPaletteStream);
+    final explorePalettes = ref.watch(explorePaletteStream);
     final savedColor = ref.watch(savedColorStreamProvider);
     final db = ref.watch(databaseProvider);
 
@@ -56,49 +57,11 @@ class LibraryExplorePage extends ConsumerWidget {
                   itemBuilder: (context, y) {
                     ColorPaletteDoc colorPalette = allPalettes[y];
                     List<Color> colors = colorPalette.colors;
-                    return Padding(
-                      padding: const EdgeInsets.only(left: 16, right: 16),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('Palette ${y + 1}'),
-                              IconButton(
-                                  iconSize: 16,
-                                  onPressed: () {
-                                    db.deleteSavedPalette(
-                                        colorPalette.docId, () {});
-                                  },
-                                  icon: Icon(Icons.close))
-                            ],
-                          ),
-                          Row(
-                            children: List.generate(
-                              colors.length,
-                              (x) => Expanded(
-                                flex: 1,
-                                child: Container(
-                                  width: 40,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                      color: colors[x],
-                                      borderRadius: x == 0
-                                          ? BorderRadius.only(
-                                              topLeft: Radius.circular(8),
-                                              bottomLeft: Radius.circular(8))
-                                          : x == colors.length - 1
-                                              ? BorderRadius.only(
-                                                  topRight: Radius.circular(8),
-                                                  bottomRight:
-                                                      Radius.circular(8))
-                                              : BorderRadius.all(Radius.zero)),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                    return PaletteDisplay(
+                      db: db,
+                      colorPalette: colorPalette,
+                      colors: colors,
+                      deleteable: true,
                     );
                   },
                 );
@@ -106,9 +69,96 @@ class LibraryExplorePage extends ConsumerWidget {
               error: (error, stackTrace) => Text(error.toString()),
               loading: () => const CircularProgressIndicator(),
             )),
-            Center(child: Text('Explore Page')),
+            Center(
+                child: explorePalettes.when(
+              data: (allPalettes) {
+                return ListView.builder(
+                  // Show messages from bottom to top
+                  reverse: false,
+                  itemCount: allPalettes.length,
+                  itemBuilder: (context, y) {
+                    ColorPaletteDoc colorPalette = allPalettes[y];
+                    List<Color> colors = colorPalette.colors;
+                    return PaletteDisplay(
+                      db: db,
+                      colorPalette: colorPalette,
+                      colors: colors,
+                      deleteable: false,
+                    );
+                  },
+                );
+              },
+              error: (error, stackTrace) => Text(error.toString()),
+              loading: () => const CircularProgressIndicator(),
+            )),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class PaletteDisplay extends StatelessWidget {
+  const PaletteDisplay({
+    super.key,
+    required this.db,
+    required this.colorPalette,
+    required this.colors,
+    required this.deleteable,
+  });
+
+  final Database db;
+  final ColorPaletteDoc colorPalette;
+  final List<Color> colors;
+  final bool deleteable;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 16, right: 16),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Palette Name'),
+              deleteable
+                  ? IconButton(
+                      iconSize: 16,
+                      onPressed: () {
+                        db.deleteSavedPalette(colorPalette.docId, () {});
+                      },
+                      icon: Icon(Icons.close))
+                  : Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(width: 24, height: 24),
+                    )
+            ],
+          ),
+          Row(
+            children: List.generate(
+              colors.length,
+              (x) => Expanded(
+                flex: 1,
+                child: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                      color: colors[x],
+                      borderRadius: x == 0
+                          ? BorderRadius.only(
+                              topLeft: Radius.circular(8),
+                              bottomLeft: Radius.circular(8))
+                          : x == colors.length - 1
+                              ? BorderRadius.only(
+                                  topRight: Radius.circular(8),
+                                  bottomRight: Radius.circular(8))
+                              : BorderRadius.all(Radius.zero)),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
