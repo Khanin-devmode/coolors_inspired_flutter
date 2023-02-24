@@ -3,8 +3,10 @@ import 'package:coolors_inspired_flutter/components/export_menu.dart';
 import 'package:coolors_inspired_flutter/components/sign_in_menu.dart';
 import 'package:coolors_inspired_flutter/logics/db_logic.dart';
 import 'package:coolors_inspired_flutter/models.dart';
+import 'package:coolors_inspired_flutter/pages/view_palette_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'app_menu_item.dart';
 import 'package:coolors_inspired_flutter/constants.dart';
 import 'package:coolors_inspired_flutter/logics/auth_logic.dart';
@@ -30,6 +32,7 @@ Future<dynamic> showMoreMenu(BuildContext context, WidgetRef ref) {
                 iconData: Icons.visibility_outlined,
                 label: 'View palette',
                 hasNavigation: false,
+                menuFuncton: () => context.push('/view_palette'),
               ),
               Divider(),
               AppMenuItem(
