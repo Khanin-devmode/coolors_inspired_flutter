@@ -42,7 +42,7 @@ class ViewPalettePageState extends ConsumerState<ViewPalettePage> {
                       labelClr: labelClr),
                   ColorInfo(
                     label: 'RGB',
-                    info: activeColor.colorCode,
+                    info: getRGBValue(activeColor.color),
                     labelClr: labelClr,
                   ),
                   ColorInfo(
@@ -52,7 +52,7 @@ class ViewPalettePageState extends ConsumerState<ViewPalettePage> {
                   ),
                   ColorInfo(
                     label: 'HSB',
-                    info: activeColor.colorCode,
+                    info: getHSVValue(activeColor.color),
                     labelClr: labelClr,
                   ),
                   ColorInfo(
@@ -96,9 +96,11 @@ class ViewPalettePageState extends ConsumerState<ViewPalettePage> {
                                 child: activeIndex == index
                                     ? Center(
                                         child: Icon(
-                                        Icons.circle,
-                                        size: 18,
-                                      ))
+                                          Icons.circle,
+                                          size: 18,
+                                          color: Colors.black87,
+                                        ),
+                                      )
                                     : null,
                               ),
                             ),
@@ -127,16 +129,36 @@ class ColorInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(16.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(label),
+          Text(
+            label,
+            style: TextStyle(
+                fontWeight: FontWeight.bold, color: labelClr, fontSize: 16),
+          ),
           Text(
             info,
-            style: TextStyle(color: labelClr),
+            style: TextStyle(color: labelClr, fontSize: 24),
           )
         ],
       ),
     );
   }
+}
+
+String getRGBValue(Color color) {
+  var r = color.red.toString();
+  var g = color.green.toString();
+  var b = color.blue.toString();
+
+  return '$r, $g, $b';
+}
+
+String getHSVValue(Color color) {
+  var h = color.toHSVColor().hue.toString();
+  var s = color.toHSVColor().saturation.toString();
+  var v = color.toHSVColor().value.toString();
+  return '$h, $s, $v';
 }
