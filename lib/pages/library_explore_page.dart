@@ -58,6 +58,7 @@ class LibraryExplorePage extends ConsumerWidget {
                     ColorPaletteDoc colorPalette = allPalettes[y];
                     List<Color> colors = colorPalette.colors;
                     return PaletteDisplay(
+                      index: y + 1,
                       db: db,
                       colorPalette: colorPalette,
                       colors: colors,
@@ -80,6 +81,7 @@ class LibraryExplorePage extends ConsumerWidget {
                     ColorPaletteDoc colorPalette = allPalettes[y];
                     List<Color> colors = colorPalette.colors;
                     return PaletteDisplay(
+                      index: y + 1,
                       db: db,
                       colorPalette: colorPalette,
                       colors: colors,
@@ -99,18 +101,19 @@ class LibraryExplorePage extends ConsumerWidget {
 }
 
 class PaletteDisplay extends StatelessWidget {
-  const PaletteDisplay({
-    super.key,
-    required this.db,
-    required this.colorPalette,
-    required this.colors,
-    required this.deleteable,
-  });
+  const PaletteDisplay(
+      {super.key,
+      required this.db,
+      required this.colorPalette,
+      required this.colors,
+      required this.deleteable,
+      required this.index});
 
   final Database db;
   final ColorPaletteDoc colorPalette;
   final List<Color> colors;
   final bool deleteable;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +124,7 @@ class PaletteDisplay extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Palette Name'),
+              Text('Palette $index'),
               deleteable
                   ? IconButton(
                       iconSize: 16,

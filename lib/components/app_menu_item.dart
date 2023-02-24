@@ -25,13 +25,27 @@ class AppMenuItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-              child: Row(
-                children: [
-                  Icon(iconData),
-                  const SizedBox(width: 16),
-                  Text(label),
-                ],
-              ),
+              child: menuFuncton != null
+                  ? Row(
+                      children: [
+                        Icon(iconData),
+                        const SizedBox(width: 16),
+                        Text(label),
+                      ],
+                    )
+                  : Row(
+                      children: [
+                        Icon(
+                          iconData,
+                          color: Colors.grey,
+                        ),
+                        const SizedBox(width: 16),
+                        Text(
+                          label,
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      ],
+                    ),
             ),
             Container(
               child: hasNavigation
