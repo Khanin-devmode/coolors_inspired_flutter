@@ -26,6 +26,7 @@ dependencies:
   go_router: ^6.0.3
   firebase_ui_auth: ^1.1.9
   cloud_firestore: ^4.3.1
+  color_converter: ^0.2.1
 
 dev_dependencies:
   flutter_test:

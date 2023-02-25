@@ -4,6 +4,7 @@ import 'package:coolors_inspired_flutter/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tinycolor2/tinycolor2.dart';
+import 'package:color_converter/color_converter.dart';
 
 class ViewPalettePage extends ConsumerStatefulWidget {
   const ViewPalettePage({super.key});
@@ -47,17 +48,22 @@ class ViewPalettePageState extends ConsumerState<ViewPalettePage> {
                   ),
                   ColorInfo(
                     label: 'CMYK',
-                    info: activeColor.colorCode,
+                    info: CMYK.fromHex('#${activeColor.colorCode}').toString(),
                     labelClr: labelClr,
                   ),
                   ColorInfo(
                     label: 'HSB',
-                    info: getHSVValue(activeColor.color),
+                    info: HSB.fromHex('#${activeColor.colorCode}').toString(),
                     labelClr: labelClr,
                   ),
                   ColorInfo(
                     label: 'HSL',
-                    info: activeColor.colorCode,
+                    info: HSL.fromHex('#${activeColor.colorCode}').toString(),
+                    labelClr: labelClr,
+                  ),
+                  ColorInfo(
+                    label: 'LAB',
+                    info: LAB.fromHex('#${activeColor.colorCode}').toString(),
                     labelClr: labelClr,
                   ),
                 ],
@@ -154,11 +160,4 @@ String getRGBValue(Color color) {
   var b = color.blue.toString();
 
   return '$r, $g, $b';
-}
-
-String getHSVValue(Color color) {
-  var h = color.toHSVColor().hue.toString();
-  var s = color.toHSVColor().saturation.toString();
-  var v = color.toHSVColor().value.toString();
-  return '$h, $s, $v';
 }

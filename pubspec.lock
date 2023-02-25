@@ -105,6 +105,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.17.0"
+  color_converter:
+    dependency: "direct main"
+    description:
+      name: color_converter
+      sha256: "53196c6f61719c68f5187c96c514621b7eb3c5a68e545275e954f542df6c67da"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.1"
   convert:
     dependency: transitive
     description:

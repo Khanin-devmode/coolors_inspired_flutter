@@ -35,8 +35,8 @@ class MyApp extends StatelessWidget {
       routerConfig: GoRouter(
         routes: [
           GoRoute(
-            // path: '/',
-            path: '/temp',
+            path: '/',
+            // path: '/temp',
             builder: (context, state) => const GeneratePalettePage(),
           ),
           GoRoute(
@@ -44,8 +44,8 @@ class MyApp extends StatelessWidget {
             builder: (context, state) => const LibraryExplorePage(),
           ),
           GoRoute(
-            // path: '/view_palette',
-            path: '/',
+            path: '/view_palette',
+            // path: '/',
             builder: (context, state) => const ViewPalettePage(),
           ),
         ],
