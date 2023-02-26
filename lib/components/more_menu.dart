@@ -15,6 +15,7 @@ Future<dynamic> showMoreMenu(BuildContext context, WidgetRef ref) {
   final _auth = ref.watch(authenticationProvider);
   final _user = ref.watch(authStateProvider).value;
   final db = ref.watch(databaseProvider);
+
   List<ColorObj> colorList = ref.watch(colorListProvider);
 
   return showModalBottomSheet(
@@ -32,7 +33,20 @@ Future<dynamic> showMoreMenu(BuildContext context, WidgetRef ref) {
                 iconData: Icons.visibility_outlined,
                 label: 'View palette',
                 hasNavigation: false,
-                menuFuncton: () => context.push('/view_palette'),
+                menuFuncton: () {
+                  ref
+                      .read(viewingPaletteProvider.notifier)
+                      .update((state) => colorList);
+                  Navigator.pop(context);
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      fullscreenDialog: true,
+                      builder: (context) {
+                        return ViewPalettePage();
+                      },
+                    ),
+                  );
+                },
               ),
               Divider(),
               AppMenuItem(

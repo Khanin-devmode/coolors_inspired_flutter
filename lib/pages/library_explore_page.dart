@@ -1,5 +1,7 @@
+import 'package:coolors_inspired_flutter/logics/app_logic.dart';
 import 'package:coolors_inspired_flutter/logics/db_logic.dart';
 import 'package:coolors_inspired_flutter/models.dart';
+import 'package:coolors_inspired_flutter/pages/view_palette_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -100,7 +102,7 @@ class LibraryExplorePage extends ConsumerWidget {
   }
 }
 
-class PaletteDisplay extends StatelessWidget {
+class PaletteDisplay extends ConsumerWidget {
   const PaletteDisplay(
       {super.key,
       required this.db,
@@ -116,7 +118,7 @@ class PaletteDisplay extends StatelessWidget {
   final int index;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16),
       child: Column(
@@ -138,25 +140,40 @@ class PaletteDisplay extends StatelessWidget {
                     )
             ],
           ),
-          Row(
-            children: List.generate(
-              colors.length,
-              (x) => Expanded(
-                flex: 1,
-                child: Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                      color: colors[x],
-                      borderRadius: x == 0
-                          ? BorderRadius.only(
-                              topLeft: Radius.circular(8),
-                              bottomLeft: Radius.circular(8))
-                          : x == colors.length - 1
-                              ? BorderRadius.only(
-                                  topRight: Radius.circular(8),
-                                  bottomRight: Radius.circular(8))
-                              : BorderRadius.all(Radius.zero)),
+          GestureDetector(
+            onTap: () {
+              ref.read(viewingPaletteProvider.notifier).update((state) => colors
+                  .map((value) => ColorObj(value, getHexCode(value), false))
+                  .toList());
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  fullscreenDialog: true,
+                  builder: (context) {
+                    return ViewPalettePage();
+                  },
+                ),
+              );
+            },
+            child: Row(
+              children: List.generate(
+                colors.length,
+                (x) => Expanded(
+                  flex: 1,
+                  child: Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                        color: colors[x],
+                        borderRadius: x == 0
+                            ? BorderRadius.only(
+                                topLeft: Radius.circular(8),
+                                bottomLeft: Radius.circular(8))
+                            : x == colors.length - 1
+                                ? BorderRadius.only(
+                                    topRight: Radius.circular(8),
+                                    bottomRight: Radius.circular(8))
+                                : BorderRadius.all(Radius.zero)),
+                  ),
                 ),
               ),
             ),

@@ -19,7 +19,7 @@ class ViewPalettePageState extends ConsumerState<ViewPalettePage> {
   @override
   Widget build(BuildContext context) {
     List<ColorObj> colorPalette = ref.read(
-        colorListProvider); //ref.read to read only once, to subscribe use ref.watch
+        viewingPaletteProvider); //ref.read to read only once, to subscribe use ref.watch
 
     ColorObj activeColor = colorPalette[activeIndex];
 

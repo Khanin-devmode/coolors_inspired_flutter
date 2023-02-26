@@ -10,6 +10,8 @@ final colorBeforePickingProvider = StateProvider<List<ColorObj>>((ref) => []);
 final hexTextControllerProvider =
     StateProvider<TextEditingController>((ref) => TextEditingController());
 
+final viewingPaletteProvider = StateProvider<List<ColorObj>>((ref) => []);
+
 //app state for colors list.
 class ColorListNotifier extends StateNotifier<List<ColorObj>>
     with HistoryMixin<List<ColorObj>> {
