@@ -1,3 +1,4 @@
+import 'package:coolors_inspired_flutter/components/snack_bar.dart';
 import 'package:coolors_inspired_flutter/logics/auth_logic.dart';
 import 'package:coolors_inspired_flutter/components/sign_in_menu.dart';
 import 'package:coolors_inspired_flutter/logics/db_logic.dart';
@@ -291,7 +292,9 @@ class SavedColorRow extends StatelessWidget {
                       size: 16,
                     ),
                     onPressed: () {
-                      db.deleteSavedColor(docId, () {});
+                      db.deleteSavedColor(docId, () {
+                        showSnackBar(context, 'Color deleted');
+                      });
                     },
                   ),
                 ),

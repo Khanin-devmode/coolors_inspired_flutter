@@ -77,6 +77,7 @@ Future<dynamic> showColorMenu(
                           db.saveColor(
                               colorList[activeIndex].colorCode, user.uid, () {
                             Navigator.pop(context);
+                            showSnackBar(context, 'Color saved');
                           });
                         },
                 ),

@@ -1,3 +1,4 @@
+import 'package:coolors_inspired_flutter/components/snack_bar.dart';
 import 'package:coolors_inspired_flutter/logics/app_logic.dart';
 import 'package:coolors_inspired_flutter/logics/db_logic.dart';
 import 'package:coolors_inspired_flutter/models.dart';
@@ -131,7 +132,9 @@ class PaletteDisplay extends ConsumerWidget {
                   ? IconButton(
                       iconSize: 16,
                       onPressed: () {
-                        db.deleteSavedPalette(colorPalette.docId, () {});
+                        db.deleteSavedPalette(colorPalette.docId, () {
+                          showSnackBar(context, 'Palette deleted');
+                        });
                       },
                       icon: Icon(Icons.close))
                   : Padding(
