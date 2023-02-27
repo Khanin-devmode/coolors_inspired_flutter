@@ -117,8 +117,7 @@ class ColorPickerTab extends ConsumerWidget {
                         // ref.read(hexTextControllerProvider.notifier).update(
                         //     (state) =>
                         //         TextEditingController(text: value.toString()));
-                        print('0xff' + value.toString());
-                        int hexCode = int.parse('0xff' + value.toString());
+                        int hexCode = int.parse('0xff${value.toString()}');
                         Color newColor = Color(hexCode);
                         ref
                             .read(colorListProvider.notifier)
@@ -132,7 +131,7 @@ class ColorPickerTab extends ConsumerWidget {
                   child: SlidePicker(
                     showIndicator: false,
                     displayThumbColor: true,
-                    sliderSize: Size(360, 40),
+                    sliderSize: const Size(360, 40),
                     colorModel: ColorModel.hsl,
                     enableAlpha: false,
                     pickerColor: colorList[activeIndex].color,
@@ -151,7 +150,7 @@ class ColorPickerTab extends ConsumerWidget {
                   child: SlidePicker(
                     showIndicator: false,
                     displayThumbColor: true,
-                    sliderSize: Size(360, 40),
+                    sliderSize: const Size(360, 40),
                     colorModel: ColorModel.rgb,
                     enableAlpha: false,
                     pickerColor: colorList[activeIndex].color,
@@ -186,13 +185,13 @@ class ColorPickerTab extends ConsumerWidget {
                       ? Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
+                            const Text(
                               'Sign in to view your colors',
                               style: kMutedLabel,
                             ),
                             TextButton(
                                 onPressed: () => showSignInMenu(context, ref),
-                                child: Text('Sign In'))
+                                child: const Text('Sign In'))
                           ],
                         )
                       : userSavedColors.when(
@@ -219,7 +218,7 @@ class ColorPickerTab extends ConsumerWidget {
               ],
             ),
           ),
-          Divider(),
+          const Divider(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -232,7 +231,7 @@ class ColorPickerTab extends ConsumerWidget {
                       .read(colorListProvider.notifier)
                       .update(previousColorList);
                 }),
-                child: Text(
+                child: const Text(
                   'Cancel',
                   style: kGenLabel,
                 ),
@@ -241,7 +240,7 @@ class ColorPickerTab extends ConsumerWidget {
                 onPressed: (() => ref
                     .read(isPickingColorProvider.notifier)
                     .update((state) => !state)),
-                child: Text(
+                child: const Text(
                   'Apply',
                   style: kGenLabel,
                 ),
@@ -255,7 +254,7 @@ class ColorPickerTab extends ConsumerWidget {
 }
 
 class SavedColorRow extends StatelessWidget {
-  SavedColorRow(
+  const SavedColorRow(
       {super.key,
       required this.color,
       required this.notifier,
@@ -284,19 +283,17 @@ class SavedColorRow extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.close,
-                      color: textColor,
-                      size: 16,
-                    ),
-                    onPressed: () {
-                      db.deleteSavedColor(docId, () {
-                        showSnackBar(context, 'Color deleted');
-                      });
-                    },
+                IconButton(
+                  icon: Icon(
+                    Icons.close,
+                    color: textColor,
+                    size: 16,
                   ),
+                  onPressed: () {
+                    db.deleteSavedColor(docId, () {
+                      showSnackBar(context, 'Color deleted');
+                    });
+                  },
                 ),
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
@@ -315,7 +312,7 @@ class SavedColorRow extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                   width: 36,
                 ),

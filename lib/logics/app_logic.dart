@@ -15,14 +15,7 @@ final viewingPaletteProvider = StateProvider<List<ColorObj>>((ref) => []);
 //app state for colors list.
 class ColorListNotifier extends StateNotifier<List<ColorObj>>
     with HistoryMixin<List<ColorObj>> {
-  ColorListNotifier()
-      : super([
-          ColorObj(Color(0xffFFBE0B), getHexCode(Color(0xffFFBE0B)), false),
-          ColorObj(Color(0xffFFB507), getHexCode(Color(0xffFFB507)), false),
-          ColorObj(Color(0xffFF006E), getHexCode(Color(0xffFF006E)), false),
-          ColorObj(Color(0xff8338EC), getHexCode(Color(0xff8338EC)), false),
-          ColorObj(Color(0xff3A86FF), getHexCode(Color(0xff3A86FF)), false),
-        ]);
+  ColorListNotifier() : super([]);
 
   void initRandomColor() {
     RandomColor randomColor = RandomColor();

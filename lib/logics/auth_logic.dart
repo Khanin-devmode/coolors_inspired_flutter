@@ -1,8 +1,5 @@
-import 'package:coolors_inspired_flutter/logics/db_logic.dart';
-import 'package:coolors_inspired_flutter/models.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +12,7 @@ final authStateProvider = StreamProvider<User?>((ref) {
 });
 
 class Authentication {
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Stream<User?> get authStateChage => _auth.authStateChanges();
 
@@ -38,20 +35,20 @@ class Authentication {
 
       callBack();
     } on FirebaseAuthException catch (e) {
-      await showDialog(
-        context: context,
-        builder: (ctx) => AlertDialog(
-          title: Text('Error Occured'),
-          content: Text(e.toString()),
-          actions: [
-            TextButton(
-                onPressed: () {
-                  Navigator.of(ctx).pop();
-                },
-                child: Text("OK"))
-          ],
-        ),
-      );
+      // await showDialog(
+      //   context: context,
+      //   builder: (ctx) => AlertDialog(
+      //     title: Text('Error Occured'),
+      //     content: Text(e.toString()),
+      //     actions: [
+      //       TextButton(
+      //           onPressed: () {
+      //             Navigator.of(ctx).pop();
+      //           },
+      //           child: Text("OK"))
+      //     ],
+      //   ),
+      // );
     }
   }
 

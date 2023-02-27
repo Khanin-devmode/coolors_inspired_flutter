@@ -24,32 +24,30 @@ Future<dynamic> showSignInMenu(BuildContext context, WidgetRef ref) {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    child: IconButton(
-                      onPressed: () => Navigator.pop(context),
-                      icon: Icon(Icons.close),
-                    ),
+                  IconButton(
+                    onPressed: () => Navigator.pop(context),
+                    icon: const Icon(Icons.close),
                   ),
-                  Text(
+                  const Text(
                     'Hello!',
                     style: TextStyle(fontSize: 36, fontWeight: FontWeight.w900),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 42,
                     height: 42,
                   )
                 ],
               ),
-              Text(
+              const Text(
                 'Continue to sign up for free. If you already have an account, we will log you in.',
                 style: TextStyle(color: Colors.grey, fontSize: 16),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 28),
+              const SizedBox(height: 28),
               TextButton(
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(
-                      Color.fromARGB(255, 242, 242, 242)),
+                      const Color.fromARGB(255, 242, 242, 242)),
                   foregroundColor:
                       MaterialStateProperty.all<Color>(Colors.black),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -65,9 +63,9 @@ Future<dynamic> showSignInMenu(BuildContext context, WidgetRef ref) {
                     children: [
                       Container(
                         width: 32,
-                        child: Icon(FontAwesomeIcons.google),
+                        child: const Icon(FontAwesomeIcons.google),
                       ),
-                      Text(
+                      const Text(
                         'Continue with Google',
                         style: TextStyle(
                             color: Colors.black,

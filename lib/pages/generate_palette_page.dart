@@ -2,7 +2,6 @@ import 'package:coolors_inspired_flutter/components/color_menu.dart';
 import 'package:coolors_inspired_flutter/components/sign_in_menu.dart';
 import 'package:coolors_inspired_flutter/constants.dart';
 import 'package:coolors_inspired_flutter/logics/auth_logic.dart';
-import 'package:coolors_inspired_flutter/pages/library_explore_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:coolors_inspired_flutter/models.dart';
@@ -117,7 +116,7 @@ class GeneratePalettePageState extends ConsumerState<GeneratePalettePage> {
                                         : null,
                                   ),
                                   IconButton(
-                                    icon: Icon(Icons.redo_rounded),
+                                    icon: const Icon(Icons.redo_rounded),
                                     onPressed: ref
                                             .read(colorListProvider.notifier)
                                             .getCanRedo()
@@ -141,7 +140,7 @@ class GeneratePalettePageState extends ConsumerState<GeneratePalettePage> {
                             alignment: Alignment.center,
                             width: 100,
                             height: 50,
-                            child: Text(
+                            child: const Text(
                               'Generate',
                               style: kGenLabel,
                             ),

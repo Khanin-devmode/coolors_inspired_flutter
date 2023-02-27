@@ -13,7 +13,6 @@ class LibraryExplorePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final savedPalettes = ref.watch(savedPaletteStream);
     final explorePalettes = ref.watch(explorePaletteStream);
-    final savedColor = ref.watch(savedColorStreamProvider);
     final db = ref.watch(databaseProvider);
 
     return DefaultTabController(
@@ -136,9 +135,9 @@ class PaletteDisplay extends ConsumerWidget {
                           showSnackBar(context, 'Palette deleted');
                         });
                       },
-                      icon: Icon(Icons.close))
-                  : Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      icon: const Icon(Icons.close))
+                  : const Padding(
+                      padding: EdgeInsets.all(8.0),
                       child: SizedBox(width: 24, height: 24),
                     )
             ],
@@ -168,14 +167,14 @@ class PaletteDisplay extends ConsumerWidget {
                     decoration: BoxDecoration(
                         color: colors[x],
                         borderRadius: x == 0
-                            ? BorderRadius.only(
+                            ? const BorderRadius.only(
                                 topLeft: Radius.circular(8),
                                 bottomLeft: Radius.circular(8))
                             : x == colors.length - 1
-                                ? BorderRadius.only(
+                                ? const BorderRadius.only(
                                     topRight: Radius.circular(8),
                                     bottomRight: Radius.circular(8))
-                                : BorderRadius.all(Radius.zero)),
+                                : const BorderRadius.all(Radius.zero)),
                   ),
                 ),
               ),
