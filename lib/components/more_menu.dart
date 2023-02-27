@@ -7,7 +7,6 @@ import 'package:coolors_inspired_flutter/models.dart';
 import 'package:coolors_inspired_flutter/pages/view_palette_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'app_menu_item.dart';
 import 'package:coolors_inspired_flutter/constants.dart';
 import 'package:coolors_inspired_flutter/logics/auth_logic.dart';
@@ -98,7 +97,7 @@ Future<dynamic> showMoreMenu(BuildContext context, WidgetRef ref) {
                           label: 'Sign out ${_user.email}',
                           hasNavigation: false,
                           menuFuncton: () {
-                            _auth.signOut();
+                            _auth.signOut(() {});
                             Navigator.pop(context);
                           },
                         ),

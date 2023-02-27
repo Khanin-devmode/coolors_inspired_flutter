@@ -33,9 +33,10 @@ Future<dynamic> showViewPaletteMenu(BuildContext context, WidgetRef ref) {
                   label: 'Open in Generator',
                   hasNavigation: false,
                   menuFuncton: () {
+                    print('loggin open in generator');
                     //set app logic state with viewing palette
-                    ref.read(colorListProvider.notifier).update(viewingColors);
                     context.go('/');
+                    ref.read(colorListProvider.notifier).update(viewingColors);
                   },
                 ),
                 Padding(

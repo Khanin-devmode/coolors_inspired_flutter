@@ -1,3 +1,4 @@
+import 'package:coolors_inspired_flutter/logics/db_logic.dart';
 import 'package:coolors_inspired_flutter/models.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -55,7 +56,7 @@ class Authentication {
   }
 
   //  SignOut the current user
-  Future<void> signOut() async {
-    await _auth.signOut();
+  Future<void> signOut(Function callBack) async {
+    await _auth.signOut().then((value) => callBack());
   }
 }

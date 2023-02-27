@@ -79,7 +79,7 @@ final savedColorStreamProvider = StreamProvider<List<ColorDoc>>((ref) async* {
   while (user != null) {
     await for (var snapshot in firestore
         .collection(kSavedColors)
-        .where('createdBy', isEqualTo: user!.uid)
+        .where('createdBy', isEqualTo: user.uid)
         .snapshots()) {
       allColorDoc = [];
 
@@ -104,7 +104,7 @@ final savedPaletteStream = StreamProvider<List<ColorPaletteDoc>>((ref) async* {
   while (user != null) {
     await for (var snapshot in firestore
         .collection(kSavedPalettes)
-        .where('createdBy', isEqualTo: user!.uid)
+        .where('createdBy', isEqualTo: user.uid)
         .snapshots()) {
       allColorPaletteDoc = [];
 
