@@ -21,31 +21,26 @@ Future<dynamic> showExportMenu(BuildContext context, WidgetRef ref) {
                 label: 'Copy URL',
                 hasNavigation: false,
               ),
-              Divider(),
               AppMenuItem(
                 iconData: Icons.description_outlined,
                 label: 'PDF',
                 hasNavigation: false,
               ),
-              Divider(),
               AppMenuItem(
                 iconData: Icons.image_outlined,
                 label: 'Image',
                 hasNavigation: false,
               ),
-              Divider(),
               AppMenuItem(
                 iconData: Icons.polyline_outlined,
                 label: 'SVG',
                 hasNavigation: false,
               ),
-              Divider(),
               AppMenuItem(
                 iconData: Icons.palette_outlined,
                 label: 'ASE',
                 hasNavigation: false,
               ),
-              Divider(),
               Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Row(

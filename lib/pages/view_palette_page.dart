@@ -1,3 +1,4 @@
+import 'package:coolors_inspired_flutter/components/view_palette_menu.dart';
 import 'package:coolors_inspired_flutter/constants.dart';
 import 'package:coolors_inspired_flutter/logics/app_logic.dart';
 import 'package:coolors_inspired_flutter/models.dart';
@@ -31,6 +32,13 @@ class ViewPalettePageState extends ConsumerState<ViewPalettePage> {
         appBar: AppBar(
           centerTitle: true,
           title: Text('View Palette'),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  showViewPaletteMenu(context, ref, true, false);
+                },
+                icon: Icon(Icons.more_horiz))
+          ],
         ),
         body: Column(
           children: [

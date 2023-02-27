@@ -1,3 +1,4 @@
+import 'package:coolors_inspired_flutter/components/snack_bar.dart';
 import 'package:coolors_inspired_flutter/logics/app_logic.dart';
 import 'package:coolors_inspired_flutter/components/sign_in_menu.dart';
 import 'package:coolors_inspired_flutter/constants.dart';
@@ -43,7 +44,6 @@ Future<dynamic> showColorMenu(
                         .update((state) => colorList);
                   },
                 ),
-                const Divider(),
                 AppMenuItem(
                   iconData: Icons.add,
                   label: 'Add Colors',
@@ -53,7 +53,6 @@ Future<dynamic> showColorMenu(
                     Navigator.pop(context);
                   },
                 ),
-                const Divider(),
                 AppMenuItem(
                   iconData: Icons.remove,
                   label: 'Remove Color',
@@ -65,7 +64,6 @@ Future<dynamic> showColorMenu(
                     Navigator.pop(context);
                   },
                 ),
-                const Divider(),
                 AppMenuItem(
                   iconData: Icons.favorite_border,
                   label: 'Save Color',
@@ -82,7 +80,6 @@ Future<dynamic> showColorMenu(
                           });
                         },
                 ),
-                const Divider(),
                 AppMenuItem(
                   iconData: Icons.copy,
                   label: 'Copy Color',
@@ -94,7 +91,6 @@ Future<dynamic> showColorMenu(
                     Navigator.pop(context);
                   },
                 ),
-                const Divider(),
                 Padding(
                   padding: const EdgeInsets.only(top: 12, bottom: 18),
                   child: Row(
@@ -115,25 +111,4 @@ Future<dynamic> showColorMenu(
           ),
         );
       });
-}
-
-void showSnackBar(BuildContext context, String message) {
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      duration: const Duration(milliseconds: 1000),
-      content: Container(
-        height: 20,
-        alignment: Alignment.center,
-        child: Text(
-          message,
-        ),
-      ),
-      width: 280.0, // Width of the SnackBar.
-      behavior: SnackBarBehavior.floating,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      backgroundColor: kSnackBarBg,
-    ),
-  );
 }

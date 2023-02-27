@@ -16,48 +16,53 @@ class AppMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTap: menuFuncton != null ? () => menuFuncton!() : (() {}),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              child: menuFuncton != null
-                  ? Row(
-                      children: [
-                        Icon(iconData),
-                        const SizedBox(width: 16),
-                        Text(label),
-                      ],
-                    )
-                  : Row(
-                      children: [
-                        Icon(
-                          iconData,
+    return Column(
+      children: [
+        GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: menuFuncton != null ? () => menuFuncton!() : (() {}),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  child: menuFuncton != null
+                      ? Row(
+                          children: [
+                            Icon(iconData),
+                            const SizedBox(width: 16),
+                            Text(label),
+                          ],
+                        )
+                      : Row(
+                          children: [
+                            Icon(
+                              iconData,
+                              color: Colors.grey,
+                            ),
+                            const SizedBox(width: 16),
+                            Text(
+                              label,
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                          ],
+                        ),
+                ),
+                Container(
+                  child: hasNavigation
+                      ? const Icon(
+                          Icons.arrow_forward,
                           color: Colors.grey,
-                        ),
-                        const SizedBox(width: 16),
-                        Text(
-                          label,
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                      ],
-                    ),
+                        )
+                      : null,
+                ),
+              ],
             ),
-            Container(
-              child: hasNavigation
-                  ? const Icon(
-                      Icons.arrow_forward,
-                      color: Colors.grey,
-                    )
-                  : null,
-            ),
-          ],
+          ),
         ),
-      ),
+        const Divider(),
+      ],
     );
   }
 }

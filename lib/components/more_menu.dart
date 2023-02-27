@@ -1,3 +1,4 @@
+import 'package:coolors_inspired_flutter/components/snack_bar.dart';
 import 'package:coolors_inspired_flutter/logics/app_logic.dart';
 import 'package:coolors_inspired_flutter/components/export_menu.dart';
 import 'package:coolors_inspired_flutter/components/sign_in_menu.dart';
@@ -48,7 +49,6 @@ Future<dynamic> showMoreMenu(BuildContext context, WidgetRef ref) {
                   );
                 },
               ),
-              Divider(),
               AppMenuItem(
                 iconData: Icons.favorite_outline,
                 label: 'Save palette',
@@ -59,6 +59,7 @@ Future<dynamic> showMoreMenu(BuildContext context, WidgetRef ref) {
                             colorList.map((color) => color.colorCode).toList();
                         db.savePalette(colorPalette, _user.uid, () {
                           Navigator.pop(context);
+                          showSnackBar(context, 'Palette Saved.');
                         });
                       }
                     : () {
@@ -66,7 +67,6 @@ Future<dynamic> showMoreMenu(BuildContext context, WidgetRef ref) {
                         showSignInMenu(context, ref);
                       },
               ),
-              Divider(),
               AppMenuItem(
                   iconData: Icons.share_outlined,
                   label: 'Export palette',
@@ -75,25 +75,21 @@ Future<dynamic> showMoreMenu(BuildContext context, WidgetRef ref) {
                     Navigator.pop(context);
                     showExportMenu(context, ref);
                   }),
-              Divider(),
               AppMenuItem(
                 iconData: Icons.tune_outlined,
                 label: 'Refine palette',
                 hasNavigation: false,
               ),
-              Divider(),
               AppMenuItem(
                 iconData: Icons.design_services_outlined,
                 label: 'Other tools',
                 hasNavigation: false,
               ),
-              Divider(),
               AppMenuItem(
                 iconData: Icons.settings_outlined,
                 label: 'Settings',
                 hasNavigation: false,
               ),
-              Divider(),
               _user != null
                   ? Column(
                       children: [
@@ -106,7 +102,6 @@ Future<dynamic> showMoreMenu(BuildContext context, WidgetRef ref) {
                             Navigator.pop(context);
                           },
                         ),
-                        Divider(),
                       ],
                     )
                   : Container(),
