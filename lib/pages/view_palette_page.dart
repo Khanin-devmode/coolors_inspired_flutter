@@ -35,7 +35,7 @@ class ViewPalettePageState extends ConsumerState<ViewPalettePage> {
           actions: [
             IconButton(
                 onPressed: () {
-                  showViewPaletteMenu(context, ref, true, false);
+                  showViewPaletteMenu(context, ref);
                 },
                 icon: Icon(Icons.more_horiz))
           ],
