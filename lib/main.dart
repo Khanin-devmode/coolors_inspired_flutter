@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: 'Poppins',
         bottomSheetTheme:
-            BottomSheetThemeData(backgroundColor: Colors.transparent),
+            const BottomSheetThemeData(backgroundColor: Colors.transparent),
       ),
       routerConfig: GoRouter(
         routes: [

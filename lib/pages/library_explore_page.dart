@@ -151,7 +151,7 @@ class PaletteDisplay extends ConsumerWidget {
                 MaterialPageRoute(
                   fullscreenDialog: true,
                   builder: (context) {
-                    return ViewPalettePage();
+                    return const ViewPalettePage();
                   },
                 ),
               );

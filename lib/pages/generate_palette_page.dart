@@ -106,7 +106,7 @@ class GeneratePalettePageState extends ConsumerState<GeneratePalettePage> {
                               child: Row(
                                 children: [
                                   IconButton(
-                                    icon: Icon(Icons.undo_rounded),
+                                    icon: const Icon(Icons.undo_rounded),
                                     onPressed: ref
                                             .read(colorListProvider.notifier)
                                             .getCanUndo()
@@ -152,11 +152,11 @@ class GeneratePalettePageState extends ConsumerState<GeneratePalettePage> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             IconButton(
-                              icon: Icon(Icons.more_horiz),
+                              icon: const Icon(Icons.more_horiz),
                               onPressed: () => showMoreMenu(context, ref),
                             ),
                             IconButton(
-                                icon: Icon(Icons.menu),
+                                icon: const Icon(Icons.menu),
                                 onPressed: () {
                                   // Navigator.push(
                                   //   context,
@@ -220,7 +220,7 @@ class ColorRow extends ConsumerWidget {
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             !isPickingColor
                 ? Padding(
-                    padding: EdgeInsets.all(18.0),
+                    padding: const EdgeInsets.all(18.0),
                     child: Text(
                       colorObj.colorCode,
                       style: colorObj.color.isLight

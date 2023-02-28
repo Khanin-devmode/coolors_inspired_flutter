@@ -8,34 +8,34 @@ Future<dynamic> showExportMenu(BuildContext context, WidgetRef ref) {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.vertical(top: Radius.circular(12))),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              AppMenuItem(
+              const AppMenuItem(
                 iconData: Icons.link_outlined,
                 label: 'Copy URL',
                 hasNavigation: false,
               ),
-              AppMenuItem(
+              const AppMenuItem(
                 iconData: Icons.description_outlined,
                 label: 'PDF',
                 hasNavigation: false,
               ),
-              AppMenuItem(
+              const AppMenuItem(
                 iconData: Icons.image_outlined,
                 label: 'Image',
                 hasNavigation: false,
               ),
-              AppMenuItem(
+              const AppMenuItem(
                 iconData: Icons.polyline_outlined,
                 label: 'SVG',
                 hasNavigation: false,
               ),
-              AppMenuItem(
+              const AppMenuItem(
                 iconData: Icons.palette_outlined,
                 label: 'ASE',
                 hasNavigation: false,
@@ -47,7 +47,7 @@ Future<dynamic> showExportMenu(BuildContext context, WidgetRef ref) {
                   children: [
                     GestureDetector(
                       onTap: () => Navigator.pop(context),
-                      child: Text(
+                      child: const Text(
                         'Cancel',
                         style: kGenLabel,
                       ),
@@ -55,7 +55,7 @@ Future<dynamic> showExportMenu(BuildContext context, WidgetRef ref) {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               )
             ],

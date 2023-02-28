@@ -31,13 +31,13 @@ class ViewPalettePageState extends ConsumerState<ViewPalettePage> {
         backgroundColor: activeColor.color,
         appBar: AppBar(
           centerTitle: true,
-          title: Text('View Palette'),
+          title: const Text('View Palette'),
           actions: [
             IconButton(
                 onPressed: () {
                   showViewPaletteMenu(context, ref);
                 },
-                icon: Icon(Icons.more_horiz))
+                icon: const Icon(Icons.more_horiz))
           ],
         ),
         body: Column(
@@ -95,20 +95,21 @@ class ViewPalettePageState extends ConsumerState<ViewPalettePage> {
                                 decoration: BoxDecoration(
                                     color: colorPalette[index].color,
                                     borderRadius: index == 0
-                                        ? BorderRadius.only(
+                                        ? const BorderRadius.only(
                                             topLeft: Radius.circular(8),
                                             bottomLeft: Radius.circular(8),
                                           )
                                         : index == colorPalette.length - 1
-                                            ? BorderRadius.only(
+                                            ? const BorderRadius.only(
                                                 topRight: Radius.circular(8),
                                                 bottomRight: Radius.circular(8),
                                               )
-                                            : BorderRadius.all(Radius.zero)),
+                                            : const BorderRadius.all(
+                                                Radius.zero)),
 
                                 // color: colorPalette[index].color,
                                 child: activeIndex == index
-                                    ? Center(
+                                    ? const Center(
                                         child: Icon(
                                           Icons.circle,
                                           size: 18,

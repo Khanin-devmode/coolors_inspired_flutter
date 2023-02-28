@@ -44,7 +44,7 @@ class AppMenuItem extends StatelessWidget {
                             const SizedBox(width: 16),
                             Text(
                               label,
-                              style: TextStyle(color: Colors.grey),
+                              style: const TextStyle(color: Colors.grey),
                             ),
                           ],
                         ),

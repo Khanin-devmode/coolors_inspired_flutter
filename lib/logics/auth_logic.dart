@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,19 @@ class Authentication {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Stream<User?> get authStateChage => _auth.authStateChanges();
+
+  Future signInWithApple() async {
+    final appleProvider = AppleAuthProvider();
+    try {
+      if (kIsWeb) {
+        await FirebaseAuth.instance.signInWithPopup(appleProvider);
+      } else {
+        await FirebaseAuth.instance.signInWithProvider(appleProvider);
+      }
+    } on FirebaseAuthException catch (e) {
+      //error
+    }
+  }
 
   Future<void> signInWithGoogle(BuildContext context, Function callBack) async {
     // Trigger the authentication flow

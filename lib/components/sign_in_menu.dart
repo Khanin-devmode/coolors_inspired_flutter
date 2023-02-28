@@ -84,13 +84,13 @@ Future<dynamic> showSignInMenu(BuildContext context, WidgetRef ref) {
                   });
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 12,
               ),
               TextButton(
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(
-                      Color.fromARGB(255, 16, 107, 243)),
+                      const Color.fromARGB(255, 16, 107, 243)),
                   foregroundColor:
                       MaterialStateProperty.all<Color>(Colors.black),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -104,7 +104,7 @@ Future<dynamic> showSignInMenu(BuildContext context, WidgetRef ref) {
                   padding: const EdgeInsets.symmetric(vertical: 4.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                    children: const [
                       Text(
                         'Continue with email address',
                         style: TextStyle(
@@ -116,15 +116,46 @@ Future<dynamic> showSignInMenu(BuildContext context, WidgetRef ref) {
                   ),
                 ),
               ),
-              SizedBox(height: 28),
+              TextButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                      const Color.fromARGB(255, 16, 107, 243)),
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.black),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                  ),
+                ),
+                onPressed: () {
+                  auth.signInWithApple();
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text(
+                        'Sign in with Apple',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 28),
               RichText(
                 text: TextSpan(
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
+                  style: const TextStyle(fontSize: 16, color: Colors.grey),
                   children: [
-                    TextSpan(text: 'By Continuing, you agree to our '),
+                    const TextSpan(text: 'By Continuing, you agree to our '),
                     TextSpan(
                       text: 'Term of Service.',
-                      style: TextStyle(color: Colors.black),
+                      style: const TextStyle(color: Colors.black),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
                           _launchUrlString('https://flutter.dev');
@@ -136,12 +167,12 @@ Future<dynamic> showSignInMenu(BuildContext context, WidgetRef ref) {
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
+                  style: const TextStyle(fontSize: 16, color: Colors.grey),
                   children: [
-                    TextSpan(text: 'Read our '),
+                    const TextSpan(text: 'Read our '),
                     TextSpan(
                       text: 'Privacy Policy.',
-                      style: TextStyle(color: Colors.black),
+                      style: const TextStyle(color: Colors.black),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
                           _launchUrlString('https://flutter.dev');
@@ -157,8 +188,8 @@ Future<dynamic> showSignInMenu(BuildContext context, WidgetRef ref) {
 }
 
 Future<void> _launchUrlString(String urlString) async {
-  final Uri _url = Uri.parse(urlString);
-  if (!await launchUrl(_url)) {
+  final Uri url = Uri.parse(urlString);
+  if (!await launchUrl(url)) {
     throw 'Could not launch $urlString';
   }
 }

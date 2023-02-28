@@ -12,8 +12,8 @@ import 'package:coolors_inspired_flutter/constants.dart';
 import 'package:coolors_inspired_flutter/logics/auth_logic.dart';
 
 Future<dynamic> showMoreMenu(BuildContext context, WidgetRef ref) {
-  final _auth = ref.watch(authenticationProvider);
-  final _user = ref.watch(authStateProvider).value;
+  final auth = ref.watch(authenticationProvider);
+  final user = ref.watch(authStateProvider).value;
   final db = ref.watch(databaseProvider);
 
   List<ColorObj> colorList = ref.watch(colorListProvider);
@@ -22,7 +22,7 @@ Future<dynamic> showMoreMenu(BuildContext context, WidgetRef ref) {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.vertical(top: Radius.circular(12))),
           child: Column(
@@ -42,7 +42,7 @@ Future<dynamic> showMoreMenu(BuildContext context, WidgetRef ref) {
                     MaterialPageRoute(
                       fullscreenDialog: true,
                       builder: (context) {
-                        return ViewPalettePage();
+                        return const ViewPalettePage();
                       },
                     ),
                   );
@@ -52,11 +52,11 @@ Future<dynamic> showMoreMenu(BuildContext context, WidgetRef ref) {
                 iconData: Icons.favorite_outline,
                 label: 'Save palette',
                 hasNavigation: false,
-                menuFuncton: _user != null
+                menuFuncton: user != null
                     ? () {
                         List<String> colorPalette =
                             colorList.map((color) => color.colorCode).toList();
-                        db.savePalette(colorPalette, _user.uid, () {
+                        db.savePalette(colorPalette, user.uid, () {
                           Navigator.pop(context);
                           showSnackBar(context, 'Palette Saved.');
                         });
@@ -74,30 +74,30 @@ Future<dynamic> showMoreMenu(BuildContext context, WidgetRef ref) {
                     Navigator.pop(context);
                     showExportMenu(context, ref);
                   }),
-              AppMenuItem(
+              const AppMenuItem(
                 iconData: Icons.tune_outlined,
                 label: 'Refine palette',
                 hasNavigation: false,
               ),
-              AppMenuItem(
+              const AppMenuItem(
                 iconData: Icons.design_services_outlined,
                 label: 'Other tools',
                 hasNavigation: false,
               ),
-              AppMenuItem(
+              const AppMenuItem(
                 iconData: Icons.settings_outlined,
                 label: 'Settings',
                 hasNavigation: false,
               ),
-              _user != null
+              user != null
                   ? Column(
                       children: [
                         AppMenuItem(
                           iconData: Icons.exit_to_app,
-                          label: 'Sign out ${_user.email}',
+                          label: 'Sign out ${user.email}',
                           hasNavigation: false,
                           menuFuncton: () {
-                            _auth.signOut(() {});
+                            auth.signOut(() {});
                             Navigator.pop(context);
                           },
                         ),
@@ -111,7 +111,7 @@ Future<dynamic> showMoreMenu(BuildContext context, WidgetRef ref) {
                   children: [
                     GestureDetector(
                       onTap: () => Navigator.pop(context),
-                      child: Text(
+                      child: const Text(
                         'Cancel',
                         style: kGenLabel,
                       ),
@@ -119,7 +119,7 @@ Future<dynamic> showMoreMenu(BuildContext context, WidgetRef ref) {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               )
             ],
