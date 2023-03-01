@@ -102,31 +102,29 @@ class GeneratePalettePageState extends ConsumerState<GeneratePalettePage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Container(
-                              child: Row(
-                                children: [
-                                  IconButton(
-                                    icon: const Icon(Icons.undo_rounded),
-                                    onPressed: ref
-                                            .read(colorListProvider.notifier)
-                                            .getCanUndo()
-                                        ? () => ref
-                                            .read(colorListProvider.notifier)
-                                            .undo()
-                                        : null,
-                                  ),
-                                  IconButton(
-                                    icon: const Icon(Icons.redo_rounded),
-                                    onPressed: ref
-                                            .read(colorListProvider.notifier)
-                                            .getCanRedo()
-                                        ? () => ref
-                                            .read(colorListProvider.notifier)
-                                            .redo()
-                                        : null,
-                                  ),
-                                ],
-                              ),
+                            Row(
+                              children: [
+                                IconButton(
+                                  icon: const Icon(Icons.undo_rounded),
+                                  onPressed: ref
+                                          .read(colorListProvider.notifier)
+                                          .getCanUndo()
+                                      ? () => ref
+                                          .read(colorListProvider.notifier)
+                                          .undo()
+                                      : null,
+                                ),
+                                IconButton(
+                                  icon: const Icon(Icons.redo_rounded),
+                                  onPressed: ref
+                                          .read(colorListProvider.notifier)
+                                          .getCanRedo()
+                                      ? () => ref
+                                          .read(colorListProvider.notifier)
+                                          .redo()
+                                      : null,
+                                ),
+                              ],
                             ),
                           ],
                         ),

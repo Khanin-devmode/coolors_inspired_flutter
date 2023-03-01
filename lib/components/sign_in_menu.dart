@@ -61,9 +61,9 @@ Future<dynamic> showSignInMenu(BuildContext context, WidgetRef ref) {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
+                      const SizedBox(
                         width: 32,
-                        child: const Icon(FontAwesomeIcons.google),
+                        child: Icon(FontAwesomeIcons.google),
                       ),
                       const Text(
                         'Continue with Google',
