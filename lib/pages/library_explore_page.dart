@@ -20,22 +20,20 @@ class LibraryExplorePage extends ConsumerWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Center(
-            child: Container(
-              padding: const EdgeInsets.only(right: 36),
-              width: 200,
-              child: const TabBar(
-                tabs: <Widget>[
-                  Tab(
-                    text: 'Library',
-                    // icon: Icon(Icons.cloud_outlined),
-                  ),
-                  Tab(
-                    text: 'Explore',
-                    // icon: Icon(Icons.beach_access_sharp),
-                  ),
-                ],
-              ),
+          centerTitle: true,
+          title: const SizedBox(
+            width: 240,
+            child: TabBar(
+              tabs: <Widget>[
+                Tab(
+                  text: 'Library',
+                  // icon: Icon(Icons.cloud_outlined),
+                ),
+                Tab(
+                  text: 'Explore',
+                  // icon: Icon(Icons.beach_access_sharp),
+                ),
+              ],
             ),
           ),
         ),

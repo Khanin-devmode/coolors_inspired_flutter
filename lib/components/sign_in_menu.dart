@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -66,7 +67,7 @@ Future<dynamic> showSignInMenu(BuildContext context, WidgetRef ref) {
                         child: Icon(FontAwesomeIcons.google),
                       ),
                       const Text(
-                        'Continue with Google',
+                        'Sign in with Google',
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w500,
@@ -87,66 +88,79 @@ Future<dynamic> showSignInMenu(BuildContext context, WidgetRef ref) {
               const SizedBox(
                 height: 12,
               ),
-              TextButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                      const Color.fromARGB(255, 16, 107, 243)),
-                  foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.black),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                  ),
-                ),
-                onPressed: () => {},
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
-                        'Continue with email address',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              TextButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                      const Color.fromARGB(255, 16, 107, 243)),
-                  foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.black),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                  ),
-                ),
-                onPressed: () {
-                  auth.signInWithApple();
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
-                        'Sign in with Apple',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16),
-                      )
-                    ],
-                  ),
-                ),
-              ),
+              // TextButton(
+              //   style: ButtonStyle(
+              //     backgroundColor: MaterialStateProperty.all<Color>(
+              //         const Color.fromARGB(255, 16, 107, 243)),
+              //     foregroundColor:
+              //         MaterialStateProperty.all<Color>(Colors.black),
+              //     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              //       RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(12.0),
+              //       ),
+              //     ),
+              //   ),
+              //   onPressed: () => {},
+              //   child: Padding(
+              //     padding: const EdgeInsets.symmetric(vertical: 4.0),
+              //     child: Row(
+              //       mainAxisAlignment: MainAxisAlignment.center,
+              //       children: const [
+              //         Text(
+              //           'Continue with email address',
+              //           style: TextStyle(
+              //               color: Colors.white,
+              //               fontWeight: FontWeight.w500,
+              //               fontSize: 16),
+              //         )
+              //       ],
+              //     ),
+              //   ),
+              // ),
+              defaultTargetPlatform == TargetPlatform.iOS
+                  ? TextButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color.fromARGB(255, 242, 242, 242)),
+                        foregroundColor:
+                            MaterialStateProperty.all<Color>(Colors.black),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                        ),
+                      ),
+                      onPressed: () {
+                        auth.signInWithApple();
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const SizedBox(
+                              width: 32,
+                              child: Icon(
+                                FontAwesomeIcons.apple,
+                                size: 24,
+                              ),
+                            ),
+                            const Text(
+                              'Sign in with Apple',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16),
+                            ),
+                            Container(
+                              width: 32,
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  : const SizedBox(),
               const SizedBox(height: 28),
               RichText(
                 text: TextSpan(
