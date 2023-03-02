@@ -21,108 +21,108 @@ Future<dynamic> showMoreMenu(BuildContext context, WidgetRef ref) {
   return showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
-        return Container(
-          decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(12))),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              AppMenuItem(
-                iconData: Icons.visibility_outlined,
-                label: 'View palette',
-                hasNavigation: false,
-                menuFuncton: () {
-                  ref
-                      .read(viewingPaletteProvider.notifier)
-                      .update((state) => colorList);
-                  Navigator.pop(context);
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      fullscreenDialog: true,
-                      builder: (context) {
-                        return const ViewPalettePage();
-                      },
-                    ),
-                  );
-                },
-              ),
-              AppMenuItem(
-                iconData: Icons.favorite_outline,
-                label: 'Save palette',
-                hasNavigation: false,
-                menuFuncton: user != null
-                    ? () {
-                        List<String> colorPalette =
-                            colorList.map((color) => color.colorCode).toList();
-                        db.savePalette(colorPalette, user.uid, () {
-                          Navigator.pop(context);
-                          showSnackBar(context, 'Palette Saved.');
-                        });
-                      }
-                    : () {
-                        Navigator.pop(context);
-                        showSignInMenu(context, ref);
-                      },
-              ),
-              AppMenuItem(
-                  iconData: Icons.share_outlined,
-                  label: 'Export palette',
-                  hasNavigation: true,
+        return SafeArea(
+          child: Container(
+            decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(12))),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                AppMenuItem(
+                  iconData: Icons.visibility_outlined,
+                  label: 'View palette',
+                  hasNavigation: false,
                   menuFuncton: () {
+                    ref
+                        .read(viewingPaletteProvider.notifier)
+                        .update((state) => colorList);
                     Navigator.pop(context);
-                    showExportMenu(context, ref);
-                  }),
-              const AppMenuItem(
-                iconData: Icons.tune_outlined,
-                label: 'Refine palette',
-                hasNavigation: false,
-              ),
-              const AppMenuItem(
-                iconData: Icons.design_services_outlined,
-                label: 'Other tools',
-                hasNavigation: false,
-              ),
-              const AppMenuItem(
-                iconData: Icons.settings_outlined,
-                label: 'Settings',
-                hasNavigation: false,
-              ),
-              user != null
-                  ? Column(
-                      children: [
-                        AppMenuItem(
-                          iconData: Icons.exit_to_app,
-                          label: 'Sign out ${user.email}',
-                          hasNavigation: false,
-                          menuFuncton: () {
-                            auth.signOut(() {});
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ],
-                    )
-                  : Container(),
-              Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: () => Navigator.pop(context),
-                      child: const Text(
-                        'Cancel',
-                        style: kGenLabel,
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        fullscreenDialog: true,
+                        builder: (context) {
+                          return const ViewPalettePage();
+                        },
                       ),
-                    )
-                  ],
+                    );
+                  },
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              )
-            ],
+                AppMenuItem(
+                  iconData: Icons.favorite_outline,
+                  label: 'Save palette',
+                  hasNavigation: false,
+                  menuFuncton: user != null
+                      ? () {
+                          List<String> colorPalette = colorList
+                              .map((color) => color.colorCode)
+                              .toList();
+                          db.savePalette(colorPalette, user.uid, () {
+                            Navigator.pop(context);
+                            showSnackBar(context, 'Palette Saved.');
+                          });
+                        }
+                      : () {
+                          Navigator.pop(context);
+                          showSignInMenu(context, ref);
+                        },
+                ),
+                AppMenuItem(
+                    iconData: Icons.share_outlined,
+                    label: 'Export palette',
+                    hasNavigation: true,
+                    menuFuncton: () {
+                      Navigator.pop(context);
+                      showExportMenu(context, ref);
+                    }),
+                const AppMenuItem(
+                  iconData: Icons.tune_outlined,
+                  label: 'Refine palette',
+                  hasNavigation: false,
+                ),
+                const AppMenuItem(
+                  iconData: Icons.design_services_outlined,
+                  label: 'Other tools',
+                  hasNavigation: false,
+                ),
+                const AppMenuItem(
+                  iconData: Icons.settings_outlined,
+                  label: 'Settings',
+                  hasNavigation: false,
+                ),
+                user != null
+                    ? Column(
+                        children: [
+                          AppMenuItem(
+                            iconData: Icons.exit_to_app,
+                            label: 'Sign out ${user.email}',
+                            hasNavigation: false,
+                            menuFuncton: () {
+                              auth.signOut(() {});
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ],
+                      )
+                    : Container(),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 15, top: 5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () => Navigator.pop(context),
+                        child: const Text(
+                          'Cancel',
+                          style: kGenLabel,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       });
