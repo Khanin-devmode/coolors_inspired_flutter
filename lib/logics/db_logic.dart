@@ -83,13 +83,17 @@ final savedColorStreamProvider = StreamProvider<List<ColorDoc>>((ref) async* {
         .snapshots()) {
       allColorDoc = [];
 
-      for (DocumentSnapshot colorDoc in snapshot.docs) {
-        Color color = hexToColor(colorDoc.get('colorHex'));
+      if (snapshot.docs.isNotEmpty) {
+        for (DocumentSnapshot colorDoc in snapshot.docs) {
+          Color color = hexToColor(colorDoc.get('colorHex'));
 
-        var savedColor = ColorDoc(colorDoc.id, color);
+          var savedColor = ColorDoc(colorDoc.id, color);
 
-        allColorDoc = [...allColorDoc, savedColor];
-        yield allColorDoc;
+          allColorDoc = [...allColorDoc, savedColor];
+          yield allColorDoc;
+        }
+      } else {
+        yield [];
       }
     }
   }
@@ -108,19 +112,22 @@ final savedPaletteStream = StreamProvider<List<ColorPaletteDoc>>((ref) async* {
         .snapshots()) {
       allColorPaletteDoc = [];
 
-      for (DocumentSnapshot colorPaletteDoc in snapshot.docs) {
-        List<dynamic> colorList = colorPaletteDoc.get('colorPalette');
-        List<Color> colorPalette = List.generate(
-          colorList.length,
-          (index) => hexToColor(colorList[index]),
-        );
+      if (snapshot.docs.isNotEmpty) {
+        for (DocumentSnapshot colorPaletteDoc in snapshot.docs) {
+          List<dynamic> colorList = colorPaletteDoc.get('colorPalette');
+          List<Color> colorPalette = List.generate(
+            colorList.length,
+            (index) => hexToColor(colorList[index]),
+          );
 
-        ColorPaletteDoc savedColorPalette =
-            ColorPaletteDoc(colorPaletteDoc.id, colorPalette);
-        savedColorPalette.timeCreated = colorPaletteDoc.get('timeCreated');
-        allColorPaletteDoc = [...allColorPaletteDoc, savedColorPalette];
-        // print(allColorHex);
-        yield allColorPaletteDoc;
+          ColorPaletteDoc savedColorPalette =
+              ColorPaletteDoc(colorPaletteDoc.id, colorPalette);
+          savedColorPalette.timeCreated = colorPaletteDoc.get('timeCreated');
+          allColorPaletteDoc = [...allColorPaletteDoc, savedColorPalette];
+          yield allColorPaletteDoc;
+        }
+      } else {
+        yield [];
       }
     }
   }

@@ -196,20 +196,26 @@ class ColorPickerTab extends ConsumerWidget {
                         )
                       : userSavedColors.when(
                           data: (allColors) {
-                            return ListView.builder(
-                              // Show messages from bottom to top
-                              reverse: false,
-                              itemCount: allColors.length,
-                              itemBuilder: (context, index) {
-                                ColorDoc color = allColors[index];
-                                return SavedColorRow(
-                                    color: color.color,
-                                    notifier: colorlistNofifier,
-                                    activeIndex: activeIndex,
-                                    docId: color.docId,
-                                    db: db);
-                              },
-                            );
+                            if (allColors.isNotEmpty) {
+                              return ListView.builder(
+                                // Show messages from bottom to top
+                                reverse: false,
+                                itemCount: allColors.length,
+                                itemBuilder: (context, index) {
+                                  ColorDoc color = allColors[index];
+                                  return SavedColorRow(
+                                      color: color.color,
+                                      notifier: colorlistNofifier,
+                                      activeIndex: activeIndex,
+                                      docId: color.docId,
+                                      db: db);
+                                },
+                              );
+                            } else {
+                              return const Center(
+                                  child: Text(
+                                      "Your saved colors will be shown here."));
+                            }
                           },
                           error: (error, stackTrace) => Text(error.toString()),
                           loading: () => const CircularProgressIndicator(),

@@ -37,35 +37,33 @@ class LibraryExplorePage extends ConsumerWidget {
             ),
           ),
         ),
-        // body: Center(
-        //   child: ElevatedButton(
-        //     onPressed: () {
-        //       Navigator.pop(context);
-        //     },
-        //     child: const Text('Go back!'),
-        //   ),
-        // ),
         body: TabBarView(
           children: <Widget>[
             Center(
                 child: savedPalettes.when(
               data: (allPalettes) {
-                return ListView.builder(
-                  // Show messages from bottom to top
-                  reverse: false,
-                  itemCount: allPalettes.length,
-                  itemBuilder: (context, y) {
-                    ColorPaletteDoc colorPalette = allPalettes[y];
-                    List<Color> colors = colorPalette.colors;
-                    return PaletteDisplay(
-                      index: y + 1,
-                      db: db,
-                      colorPalette: colorPalette,
-                      colors: colors,
-                      deleteable: true,
-                    );
-                  },
-                );
+                if (allPalettes.isNotEmpty) {
+                  return ListView.builder(
+                    // Show messages from bottom to top
+                    reverse: false,
+                    itemCount: allPalettes.length,
+                    itemBuilder: (context, y) {
+                      ColorPaletteDoc colorPalette = allPalettes[y];
+                      List<Color> colors = colorPalette.colors;
+                      return PaletteDisplay(
+                        index: y + 1,
+                        db: db,
+                        colorPalette: colorPalette,
+                        colors: colors,
+                        deleteable: true,
+                      );
+                    },
+                  );
+                } else {
+                  return const Center(
+                    child: Text('All saved palette will show here.'),
+                  );
+                }
               },
               error: (error, stackTrace) => Text(error.toString()),
               loading: () => const CircularProgressIndicator(),

@@ -17,13 +17,17 @@ class Authentication {
 
   Stream<User?> get authStateChage => _auth.authStateChanges();
 
-  Future signInWithApple() async {
+  Future signInWithApple(Function successCallback) async {
     final appleProvider = AppleAuthProvider();
     try {
       if (kIsWeb) {
-        await FirebaseAuth.instance.signInWithPopup(appleProvider);
+        await FirebaseAuth.instance
+            .signInWithPopup(appleProvider)
+            .then((value) => successCallback());
       } else {
-        await FirebaseAuth.instance.signInWithProvider(appleProvider);
+        await FirebaseAuth.instance
+            .signInWithProvider(appleProvider)
+            .then((value) => successCallback());
       }
     } on FirebaseAuthException catch (e) {
       //error

@@ -132,7 +132,9 @@ Future<dynamic> showSignInMenu(BuildContext context, WidgetRef ref) {
                         ),
                       ),
                       onPressed: () {
-                        auth.signInWithApple();
+                        auth.signInWithApple(() {
+                          Navigator.pop(context);
+                        });
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 4),

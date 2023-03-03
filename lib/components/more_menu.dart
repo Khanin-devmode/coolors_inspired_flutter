@@ -96,7 +96,7 @@ Future<dynamic> showMoreMenu(BuildContext context, WidgetRef ref) {
                         children: [
                           AppMenuItem(
                             iconData: Icons.exit_to_app,
-                            label: 'Sign out ${user.email}',
+                            label: 'Sign out',
                             hasNavigation: false,
                             menuFuncton: () {
                               auth.signOut(() {});
