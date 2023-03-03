@@ -17,6 +17,10 @@ class Authentication {
 
   Stream<User?> get authStateChage => _auth.authStateChanges();
 
+  Future deleteUser(User? user, Function successCallback) async {
+    await user!.delete().then((value) => successCallback());
+  }
+
   Future signInWithApple(Function successCallback) async {
     final appleProvider = AppleAuthProvider();
     try {
