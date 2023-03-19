@@ -29,6 +29,8 @@ dependencies:
   color_converter: ^0.2.1
 
 dev_dependencies:
+  integration_test:
+    sdk: flutter
   flutter_test:
     sdk: flutter
 

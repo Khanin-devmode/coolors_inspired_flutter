@@ -73,6 +73,7 @@ class GeneratePalettePageState extends ConsumerState<GeneratePalettePage> {
                   colorList.length,
                   (i) => ColorRow(
                     objIndex: i,
+                    key: Key('COLOR_ROW_$i'),
                     colorObj: colorList[i],
                     toggleLock: () => ref
                         .read(colorListProvider.notifier)
