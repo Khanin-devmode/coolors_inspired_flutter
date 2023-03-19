@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coolors_inspired_flutter/constants.dart';
-import 'auth_logic.dart';
+import '../../auth/logic/auth_logic.dart';
 import 'package:coolors_inspired_flutter/models.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

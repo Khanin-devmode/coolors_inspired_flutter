@@ -1,17 +1,17 @@
 import 'package:coolors_inspired_flutter/components/snack_bar.dart';
-import 'package:coolors_inspired_flutter/components/user_menu.dart';
-import 'package:coolors_inspired_flutter/logics/app_logic.dart';
-import 'package:coolors_inspired_flutter/components/export_menu.dart';
+import 'package:coolors_inspired_flutter/features/generate_palette/presentation/user_menu.dart';
+import 'package:coolors_inspired_flutter/features/generate_palette/logic/app_logic.dart';
+import 'package:coolors_inspired_flutter/features/generate_palette/presentation/export_menu.dart';
 import 'package:coolors_inspired_flutter/components/sign_in_menu.dart';
-import 'package:coolors_inspired_flutter/logics/db_logic.dart';
+import 'package:coolors_inspired_flutter/features/library_and_explore/logic/db_logic.dart';
 import 'package:coolors_inspired_flutter/models.dart';
-import 'package:coolors_inspired_flutter/pages/view_palette_page.dart';
+import 'package:coolors_inspired_flutter/features/library_and_explore/presentation/view_palette_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'app_menu_item.dart';
+import '../../../components/app_menu_item.dart';
 import 'package:coolors_inspired_flutter/constants.dart';
-import 'package:coolors_inspired_flutter/logics/auth_logic.dart';
+import 'package:coolors_inspired_flutter/features/auth/logic/auth_logic.dart';
 
 Future<dynamic> showMoreMenu(BuildContext context, WidgetRef ref) {
   final user = ref.watch(authStateProvider).value;

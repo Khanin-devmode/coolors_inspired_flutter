@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../models.dart';
+import '../../../models.dart';
 import 'package:random_color/random_color.dart';
 
 //app state for ui.

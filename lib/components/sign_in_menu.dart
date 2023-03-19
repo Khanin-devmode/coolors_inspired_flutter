@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:coolors_inspired_flutter/logics/auth_logic.dart';
+import 'package:coolors_inspired_flutter/features/auth/logic/auth_logic.dart';
 
 Future<dynamic> showSignInMenu(BuildContext context, WidgetRef ref) {
   final auth = ref.watch(authenticationProvider);

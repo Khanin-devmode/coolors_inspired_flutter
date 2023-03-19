@@ -1,9 +1,9 @@
-import 'package:coolors_inspired_flutter/pages/library_explore_page.dart';
-import 'package:coolors_inspired_flutter/pages/view_palette_page.dart';
+import 'package:coolors_inspired_flutter/features/library_and_explore/presentation/library_explore_page.dart';
+import 'package:coolors_inspired_flutter/features/library_and_explore/presentation/view_palette_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'pages/generate_palette_page.dart';
+import 'features/generate_palette/presentation/generate_palette_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 

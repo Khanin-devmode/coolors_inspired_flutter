@@ -1,14 +1,14 @@
 import 'package:coolors_inspired_flutter/components/snack_bar.dart';
-import 'package:coolors_inspired_flutter/logics/auth_logic.dart';
+import 'package:coolors_inspired_flutter/features/auth/logic/auth_logic.dart';
 import 'package:coolors_inspired_flutter/components/sign_in_menu.dart';
-import 'package:coolors_inspired_flutter/logics/db_logic.dart';
+import 'package:coolors_inspired_flutter/features/library_and_explore/logic/db_logic.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:coolors_inspired_flutter/models.dart';
 import 'package:coolors_inspired_flutter/constants.dart';
-import 'package:coolors_inspired_flutter/logics/app_logic.dart';
+import 'package:coolors_inspired_flutter/features/generate_palette/logic/app_logic.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:tinycolor2/tinycolor2.dart';
 
