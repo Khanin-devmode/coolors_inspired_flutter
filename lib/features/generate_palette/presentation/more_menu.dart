@@ -2,7 +2,7 @@ import 'package:coolors_inspired_flutter/components/snack_bar.dart';
 import 'package:coolors_inspired_flutter/features/generate_palette/presentation/user_menu.dart';
 import 'package:coolors_inspired_flutter/features/generate_palette/logic/app_logic.dart';
 import 'package:coolors_inspired_flutter/features/generate_palette/presentation/export_menu.dart';
-import 'package:coolors_inspired_flutter/components/sign_in_menu.dart';
+import 'package:coolors_inspired_flutter/features/auth/presentation/sign_in_menu.dart';
 import 'package:coolors_inspired_flutter/features/library_and_explore/logic/db_logic.dart';
 import 'package:coolors_inspired_flutter/models.dart';
 import 'package:coolors_inspired_flutter/features/library_and_explore/presentation/view_palette_page.dart';

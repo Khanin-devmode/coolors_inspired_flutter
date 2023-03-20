@@ -1,11 +1,8 @@
-import 'package:coolors_inspired_flutter/features/generate_palette/logic/app_logic.dart';
 import 'package:coolors_inspired_flutter/constants.dart';
 import 'package:coolors_inspired_flutter/features/auth/logic/auth_logic.dart';
-import 'package:coolors_inspired_flutter/models.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import '../../../components/app_menu_item.dart';
 
 Future<dynamic> showUserMenu(BuildContext context, WidgetRef ref) {

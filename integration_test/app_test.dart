@@ -14,7 +14,7 @@ void main() {
       await tester.pumpAndSettle();
 
       //open menu
-      final colorRow = find.byKey(Key('COLOR_ROW_0'));
+      final colorRow = find.byKey(const Key('COLOR_ROW_0'));
       await tester.tap(colorRow);
       await tester.pumpAndSettle();
 

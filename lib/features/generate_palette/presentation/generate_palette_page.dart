@@ -1,5 +1,5 @@
 import 'package:coolors_inspired_flutter/features/generate_palette/presentation/color_menu.dart';
-import 'package:coolors_inspired_flutter/components/sign_in_menu.dart';
+import 'package:coolors_inspired_flutter/features/auth/presentation/sign_in_menu.dart';
 import 'package:coolors_inspired_flutter/constants.dart';
 import 'package:coolors_inspired_flutter/features/auth/logic/auth_logic.dart';
 import 'package:flutter/material.dart';
