@@ -1,3 +1,4 @@
+import 'package:coolors_inspired_flutter/features/generate_palette/presentation/generate_palette_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -8,8 +9,7 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('end-to-end test', () {
-    testWidgets('tap on the floating action button, verify counter',
-        (tester) async {
+    testWidgets('open menu, tap add color, check new color', (tester) async {
       app.main();
       await tester.pumpAndSettle();
 
@@ -34,7 +34,11 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      expect(find.byIcon(Icons.add), findsOneWidget);
+      final addButton = find.byIcon(Icons.add);
+      await tester.tap(addButton);
+      await tester.pumpAndSettle();
+
+      expect(find.byType(ColorRow), findsNWidgets(6));
 
       //select add color
       //expect 1 more color
