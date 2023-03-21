@@ -47,39 +47,37 @@ class GeneratePalettePageState extends ConsumerState<GeneratePalettePage> {
 
     final user = ref.watch(authStateProvider).value;
 
+    Size size = MediaQuery.of(context).size;
+    double height = size.height;
+
     return SafeArea(
       child: Scaffold(
-        // ToDo: Make Palette Reorderable with Flex.
-        // body: ReorderableListView.builder(
-        //   onReorder: (oldIndex, newIndex) {
-        //     ref.read(colorObjProvider.notifier).reorder(oldIndex, newIndex);
-        //   },
-        //   physics: NeverScrollableScrollPhysics(),
-        //   itemCount: colorObj.length,
-        //   itemBuilder: (BuildContext context, int index) {
-        //     return ColorRow(
-        //         colorObj: colorObj[index],
-        // toggleLock: () => ref
-        //     .read(colorObjProvider.notifier)
-        //     .toggleLock(colorObj[index]),
-        //         key: Key('$index'));
-        //   },
-        // ),
         body: Column(
           children: [
             Expanded(
-              child: Column(
+              child: ReorderableListView(
+                onReorder: (oldIndex, newIndex) {
+                  ref
+                      .read(colorListProvider.notifier)
+                      .reorder(oldIndex, newIndex);
+                },
+                physics: const NeverScrollableScrollPhysics(),
                 children: List.generate(
                   colorList.length,
-                  (i) => ColorRow(
-                    objIndex: i,
-                    key: Key('COLOR_ROW_$i'),
-                    colorObj: colorList[i],
-                    toggleLock: () => ref
-                        .read(colorListProvider.notifier)
-                        .toggleLock(colorList[i]),
-                    isPickingColor: isPickingColor,
-                    activeIndex: activeIndex,
+                  (i) => ReorderableDragStartListener(
+                    key: Key('DRAGGABLE_ROW_$i'),
+                    index: i,
+                    child: ColorRow(
+                      objIndex: i,
+                      key: Key('COLOR_ROW_$i'),
+                      colorObj: colorList[i],
+                      toggleLock: () => ref
+                          .read(colorListProvider.notifier)
+                          .toggleLock(colorList[i]),
+                      isPickingColor: isPickingColor,
+                      activeIndex: activeIndex,
+                      height: height / (colorList.length + 1),
+                    ),
                   ),
                 ),
               ),
@@ -190,7 +188,8 @@ class ColorRow extends ConsumerWidget {
       required this.toggleLock,
       required this.isPickingColor,
       required this.activeIndex,
-      required this.objIndex})
+      required this.objIndex,
+      required this.height})
       : super(key: key);
 
   final ColorObj colorObj;
@@ -198,73 +197,72 @@ class ColorRow extends ConsumerWidget {
   final bool isPickingColor;
   final int activeIndex;
   final int objIndex;
+  final double height;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Expanded(
-      child: GestureDetector(
-        onTap: !isPickingColor
-            ? () {
-                ref
-                    .read(activeColorIndexProvider.notifier)
-                    .update((state) => objIndex);
-                showColorMenu(context, ref, colorObj);
-              }
-            : () => ref
-                .read(activeColorIndexProvider.notifier)
-                .update((state) => objIndex),
-        child: Container(
-          color: colorObj.color,
-          child:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            !isPickingColor
-                ? Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: Text(
-                      colorObj.colorCode,
-                      style: colorObj.color.isLight
-                          ? kColorDarkLabelStyle
-                          : kColorLightLabelStyle,
+    return GestureDetector(
+      onTap: !isPickingColor
+          ? () {
+              ref
+                  .read(activeColorIndexProvider.notifier)
+                  .update((state) => objIndex);
+              showColorMenu(context, ref, colorObj);
+            }
+          : () => ref
+              .read(activeColorIndexProvider.notifier)
+              .update((state) => objIndex),
+      child: Container(
+        height: height,
+        color: colorObj.color,
+        child:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          !isPickingColor
+              ? Padding(
+                  padding: const EdgeInsets.all(18.0),
+                  child: Text(
+                    colorObj.colorCode,
+                    style: colorObj.color.isLight
+                        ? kColorDarkLabelStyle
+                        : kColorLightLabelStyle,
+                  ),
+                )
+              : Container(),
+          !isPickingColor
+              ? Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: GestureDetector(
+                    onTap: () => toggleLock(),
+                    child: Container(
+                      width: 34,
+                      alignment: Alignment.center,
+                      child: colorObj.isLocked
+                          ? Icon(
+                              Icons.lock,
+                              color: colorObj.color.isLight
+                                  ? kDarkLabelClr
+                                  : kWhiteLabelClr,
+                              size: 34,
+                            )
+                          : const Icon(
+                              Icons.lock_open_rounded,
+                              color: Colors.white70,
+                              size: 28,
+                            ),
                     ),
-                  )
-                : Container(),
-            !isPickingColor
-                ? Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: GestureDetector(
-                      onTap: () => toggleLock(),
-                      child: Container(
-                        width: 34,
-                        alignment: Alignment.center,
-                        child: colorObj.isLocked
-                            ? Icon(
-                                Icons.lock,
-                                color: colorObj.color.isLight
-                                    ? kDarkLabelClr
-                                    : kWhiteLabelClr,
-                                size: 34,
-                              )
-                            : const Icon(
-                                Icons.lock_open_rounded,
-                                color: Colors.white70,
-                                size: 28,
-                              ),
-                      ),
-                    ),
-                  )
-                : Container(),
-            if (isPickingColor && activeIndex == objIndex)
-              Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: Icon(
-                  Icons.circle,
-                  color:
-                      colorObj.color.isLight ? kDarkLabelClr : kWhiteLabelClr,
-                  size: 14,
-                ),
-              )
-          ]),
-        ),
+                  ),
+                )
+              : Container(),
+          if (isPickingColor && activeIndex == objIndex)
+            Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Icon(
+                Icons.circle,
+                color: colorObj.color.isLight ? kDarkLabelClr : kWhiteLabelClr,
+                size: 14,
+              ),
+            )
+        ]),
       ),
     );
   }

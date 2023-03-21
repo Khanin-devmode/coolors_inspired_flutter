@@ -62,11 +62,11 @@ class ColorListNotifier extends StateNotifier<List<ColorObj>>
       newIndex -= 1;
     }
 
-    var colorObjList = state;
-    final ColorObj item = colorObjList.removeAt(oldIndex);
-    colorObjList.insert(newIndex, item);
-
-    state = colorObjList;
+    ColorObj colorObj = state.removeAt(oldIndex);
+    //This is workaround to create new list, for immutability.
+    List<ColorObj> newList = state.sublist(0, state.length);
+    newList.insert(newIndex, colorObj);
+    state = newList;
   }
 
   void addColor() {
