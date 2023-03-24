@@ -48,7 +48,7 @@ class GeneratePalettePageState extends ConsumerState<GeneratePalettePage> {
     final user = ref.watch(authStateProvider).value;
 
     Size size = MediaQuery.of(context).size;
-    double height = size.height;
+    double availableHeight = size.height - 60;
 
     return SafeArea(
       child: Scaffold(
@@ -76,7 +76,8 @@ class GeneratePalettePageState extends ConsumerState<GeneratePalettePage> {
                           .toggleLock(colorList[i]),
                       isPickingColor: isPickingColor,
                       activeIndex: activeIndex,
-                      height: height / (colorList.length + 1),
+                      height: (availableHeight / (colorList.length))
+                          .roundToDouble(),
                     ),
                   ),
                 ),
