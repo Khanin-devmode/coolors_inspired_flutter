@@ -48,7 +48,10 @@ class GeneratePalettePageState extends ConsumerState<GeneratePalettePage> {
     final user = ref.watch(authStateProvider).value;
 
     Size size = MediaQuery.of(context).size;
-    double availableHeight = size.height - 60;
+    double top = MediaQuery.of(context).padding.top;
+    double bottom = MediaQuery.of(context).padding.bottom;
+    double availableHeight =
+        size.height - kBottomNavigationBarHeight - top - bottom;
 
     return SafeArea(
       child: Scaffold(
@@ -92,7 +95,7 @@ class GeneratePalettePageState extends ConsumerState<GeneratePalettePage> {
         ),
         bottomNavigationBar: !isPickingColor
             ? Container(
-                height: 60,
+                height: kBottomNavigationBarHeight,
                 alignment: Alignment.center,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
