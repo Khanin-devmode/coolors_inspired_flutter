@@ -3,7 +3,6 @@ A clone of coolors mobile application(android/ios) made with flutter.
 Education purpose only, not for commercial.
 
 ## Key Features
-
  - Tap to generate color palette.
  - Shake! to generate color palette.
  - Copy color hex code.
@@ -14,11 +13,11 @@ Education purpose only, not for commercial.
  - Save color and color palette in account.
  - Browse through color palette libraray, apply or save color palette from library.
 
-- [iOS app](https://apps.apple.com/us/app/coolors-clone/id1667069377)
-- [Android app](https://play.google.com/store/apps/details?id=dev.khanin.coolors_inspired_flutter)
+## Download app
+[iOS app](https://apps.apple.com/us/app/coolors-clone/id1667069377)
+[Android app](https://play.google.com/store/apps/details?id=dev.khanin.coolors_inspired_flutter)
 
 ## Key Technical implementation
-
 - Reorderable flexible list view.
 - Statemanagement with Riverpod.
 - Undo/Redo implemenation with mixin and Riverpod.
