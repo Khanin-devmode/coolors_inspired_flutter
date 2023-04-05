@@ -14,8 +14,8 @@ Education purpose only, not for commercial.
  - Browse through color palette libraray, apply or save color palette from library.
 
 ## Download app
-[iOS app](https://apps.apple.com/us/app/coolors-clone/id1667069377)
-[Android app](https://play.google.com/store/apps/details?id=dev.khanin.coolors_inspired_flutter)
+- [Coolors Clone iOS app](https://apps.apple.com/us/app/coolors-clone/id1667069377)
+- [Coolors Clone Android app](https://play.google.com/store/apps/details?id=dev.khanin.coolors_inspired_flutter)
 
 ## Key Technical implementation
 - Reorderable flexible list view.
