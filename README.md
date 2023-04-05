@@ -1,17 +1,31 @@
-# coolors_inspired_flutter
+# Coolors Clone
+A clone of coolors mobile application(android/ios) made with flutter. 
+Education purpose only, not for commercial.
 
-A new Flutter project.
+## Key Features
 
-## Getting Started
+ - Tap to generate color palette.
+ - Shake! to generate color palette.
+ - Copy color hex code.
+ - Drap and drop color to change order in color palette.
+ - Lock individual color to keep same color when generating.
+ - Undo/Redo color palette generator.
+ - Pick color with color plate, hex code, hsv, hsl, material color and saved colors.
+ - Save color and color palette in account.
+ - Browse through color palette libraray, apply or save color palette from library.
 
-This project is a starting point for a Flutter application.
+- [iOS app](https://apps.apple.com/us/app/coolors-clone/id1667069377)
+- [Android app](https://play.google.com/store/apps/details?id=dev.khanin.coolors_inspired_flutter)
 
-A few resources to get you started if this is your first Flutter project:
+## Key Technical implementation
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Reorderable flexible list view.
+- Statemanagement with Riverpod.
+- Undo/Redo implemenation with mixin and Riverpod.
+- Random color with [random_color](https://pub.dev/packages/random_color) package.
+- Shake listener with [shake](https://pub.dev/packages/shake) package.
+- Authentication with Firebase authentication. Google sing-in and Apple sign-in.
+- Firebase Firestore as real-time database.
+- Parse and display color between string and hex code.
+- Multi-level of Navigation with ModalBottomSheet.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# coolors_inspired_flutter
