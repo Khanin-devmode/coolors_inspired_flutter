@@ -1,3 +1,4 @@
+import 'package:coolors_inspired_flutter/features/generate_palette/logic/export_functions.dart';
 import 'package:coolors_inspired_flutter/features/generate_palette/presentation/color_menu.dart';
 import 'package:coolors_inspired_flutter/features/auth/presentation/sign_in_menu.dart';
 import 'package:coolors_inspired_flutter/constants.dart';
@@ -233,28 +234,37 @@ class ColorRow extends ConsumerWidget {
                 )
               : Container(),
           !isPickingColor
-              ? Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: GestureDetector(
-                    onTap: () => toggleLock(),
-                    child: Container(
-                      width: 34,
-                      alignment: Alignment.center,
-                      child: colorObj.isLocked
-                          ? Icon(
-                              Icons.lock,
-                              color: colorObj.color.isLight
-                                  ? kDarkLabelClr
-                                  : kWhiteLabelClr,
-                              size: 34,
-                            )
-                          : const Icon(
-                              Icons.lock_open_rounded,
-                              color: Colors.white70,
-                              size: 28,
-                            ),
+              ? Row(
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          copyColorCode(context, colorObj.colorCode);
+                        },
+                        icon: const Icon(Icons.copy, color: Colors.white70)),
+                    Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: GestureDetector(
+                        onTap: () => toggleLock(),
+                        child: Container(
+                          width: 34,
+                          alignment: Alignment.center,
+                          child: colorObj.isLocked
+                              ? Icon(
+                                  Icons.lock,
+                                  color: colorObj.color.isLight
+                                      ? kDarkLabelClr
+                                      : kWhiteLabelClr,
+                                  size: 34,
+                                )
+                              : const Icon(
+                                  Icons.lock_open_rounded,
+                                  color: Colors.white70,
+                                  size: 28,
+                                ),
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 )
               : Container(),
           if (isPickingColor && activeIndex == objIndex)

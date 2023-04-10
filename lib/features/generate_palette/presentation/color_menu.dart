@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../components/app_menu_item.dart';
 import 'package:coolors_inspired_flutter/features/auth/logic/auth_logic.dart';
+import '../logic/export_functions.dart';
 
 Future<dynamic> showColorMenu(
     BuildContext context, WidgetRef ref, ColorObj selectedColor) {
@@ -82,16 +83,13 @@ Future<dynamic> showColorMenu(
                         },
                 ),
                 AppMenuItem(
-                  iconData: Icons.copy,
-                  label: 'Copy Color',
-                  hasNavigation: false,
-                  menuFuncton: () {
-                    Clipboard.setData(
-                        ClipboardData(text: selectedColor.colorCode));
-                    showSnackBar(context, '${selectedColor.colorCode} copied');
-                    Navigator.pop(context);
-                  },
-                ),
+                    iconData: Icons.copy,
+                    label: 'Copy Color',
+                    hasNavigation: false,
+                    menuFuncton: () {
+                      copyColorCode(context, selectedColor.colorCode);
+                      Navigator.pop(context);
+                    }),
                 Padding(
                   padding: const EdgeInsets.only(top: 12, bottom: 18),
                   child: Row(
