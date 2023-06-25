@@ -33,7 +33,7 @@ class Authentication {
             .signInWithProvider(appleProvider)
             .then((value) => successCallback());
       }
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException {
       //error
     }
   }
@@ -56,7 +56,7 @@ class Authentication {
       await _auth.signInWithCredential(credential);
 
       callBack();
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException {
       // await showDialog(
       //   context: context,
       //   builder: (ctx) => AlertDialog(

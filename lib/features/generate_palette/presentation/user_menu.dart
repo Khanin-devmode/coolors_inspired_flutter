@@ -73,9 +73,9 @@ Future<void> showDeleteDialog(BuildContext context, WidgetRef ref) async {
     builder: (BuildContext context) {
       return AlertDialog(
         title: const Text('Confirm accout delete'),
-        content: SingleChildScrollView(
+        content: const SingleChildScrollView(
           child: ListBody(
-            children: const <Widget>[
+            children: <Widget>[
               Text('Would you like to confirm account deletion?'),
               Text('All you saved data will be lost.'),
             ],

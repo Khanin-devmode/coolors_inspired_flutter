@@ -84,7 +84,7 @@ class ColorPickerTab extends ConsumerWidget {
                   child: ColorPicker(
                     displayThumbColor: true,
                     enableAlpha: false,
-                    showLabel: false,
+                    labelTypes: const [],
                     colorPickerWidth: 350,
                     pickerAreaHeightPercent: 0.5,
                     pickerAreaBorderRadius:
